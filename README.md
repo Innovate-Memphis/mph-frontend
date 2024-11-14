@@ -1,8 +1,11 @@
 # Felt JS SDK React Starter
 
-This repo shows how you can use the Felt JS SDK to interact with embedded Felt maps.
+This repo shows how you can use the [Felt JS SDK](https://github.com/felt/js-sdk) with React to interact with embedded Felt maps.
 
-The preelease documentation is available [here](https://felt-1.gitbook.io/prerelease-api/sbIy6fOyyRJ35iaR2jim/js-api/main)
+- [Documentation](https://developers.felt.com/js-sdk)
+- [API Reference](https://developers.felt.com/js-sdk-api-reference)
+
+## Getting started
 
 To run the project, run `npm install` and then `npm run dev`.
 
