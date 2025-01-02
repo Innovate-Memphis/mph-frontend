@@ -15,7 +15,7 @@ import { ViewportInfo } from "./components/ViewportInfo";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
 
 export default function Page() {
-  const { felt, mapRef } = useFeltEmbed("w9BxV0EmdR2u5C4AyrTke9CB", {
+  const { felt, mapRef } = useFeltEmbed("GTMnB9CuaQg2x0ZexEOdO0A", {
     uiControls: {
       cooperativeGestures: false,
       fullScreenButton: false,
