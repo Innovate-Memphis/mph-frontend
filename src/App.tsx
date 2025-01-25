@@ -22,7 +22,7 @@ export default function Page() {
     uiControls: {
       cooperativeGestures: false,
       fullScreenButton: false,
-      showLegend: false,
+      showLegend: true,
     },
   });
 
