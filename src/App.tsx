@@ -29,6 +29,9 @@ export default function Page() {
   const [visibleBoundaries, setVisibleBoundaries] = useState("");
 
   function handleClick(boundaryValue: string) {
+    if (!felt) {
+      return;
+    }
     setVisibleBoundaries(boundaryValue);
     const mapLayers = boundaryLayers();
     const index = mapLayers.indexOf(boundaryValue);

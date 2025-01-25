@@ -4,7 +4,12 @@ import {
 } from "./ui/native-select";
 import { layers } from "../constants";
 
-export function BoundariesSelect({ currentBoundary, onBoundaryClick }) {
+interface BoundaryHandler {
+    currentBoundary: string;
+    onBoundaryClick(boundaryName: string): any;
+  }
+
+export function BoundariesSelect({ currentBoundary, onBoundaryClick }: BoundaryHandler) {
     return (
         <NativeSelectRoot>
             <NativeSelectField
