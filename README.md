@@ -18,3 +18,7 @@ To use Chakra UI, you'll probably need to consult these parts of the docs:
 - [Components](https://www.chakra-ui.com/docs/components/concepts/overview)
 - [Styling](https://www.chakra-ui.com/docs/styling/overview)
 - [Theming](https://www.chakra-ui.com/docs/theming/overview)
+
+## Kelsey's Notes
+
+Implemented dropdown using [Chakra-UI Select (Native) Component](https://www.chakra-ui.com/docs/components/native-select)

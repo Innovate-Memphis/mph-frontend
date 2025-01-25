@@ -12,6 +12,7 @@ import {
 import { FeltController } from "@feltmaps/js-sdk";
 import { LayersList } from "./components/LayersList";
 import { ViewportInfo } from "./components/ViewportInfo";
+import { BoundariesSelect } from "./components/BoundariesSelect";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
 
 export default function Page() {
@@ -36,6 +37,7 @@ export default function Page() {
           flexGrow={0}
           overflow="hidden"
         >
+          <BoundariesSelect />
           <FeltSidebar felt={felt} />
         </Stack>
         <Box
