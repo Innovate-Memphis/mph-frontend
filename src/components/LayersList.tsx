@@ -39,8 +39,11 @@ export function LayersList() {
         felt
           .getLayerGroups()
           .then((groups) => groups.filter(Boolean) as LayerGroup[]),
-      ]).then(([layers, layerGroups]) =>
-        assembleLayerTree(layers, layerGroups)
+      ]).then(([layers, layerGroups]) => {
+        console.log(layers)
+        console.log(layerGroups)
+        return assembleLayerTree(layers, layerGroups)
+      }
       );
     },
   });

@@ -14,6 +14,7 @@ import { LayersList } from "./components/LayersList";
 import { ViewportInfo } from "./components/ViewportInfo";
 import { BoundariesSelect } from "./components/BoundariesSelect";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
+import { useState } from "react";
 
 export default function Page() {
   const { felt, mapRef } = useFeltEmbed("p9CPdaItsRQm9COaGzgt17WB", {
@@ -23,6 +24,17 @@ export default function Page() {
       showLegend: false,
     },
   });
+
+  const [visibleBoundaries, setVisibleBoundaries] = useState('census');
+
+  function handleClick(boundaryValue: string) {
+    console.log("clicked: " + boundaryValue);
+    setVisibleBoundaries(boundaryValue);
+
+    // show/hide boundaries here
+    // felt.setLayerVisibility({ hide: [layer.id] });
+    // felt.setLayerVisibility({ show: [layer.id] });
+  }
 
   return (
     <Theme appearance="light">
@@ -37,7 +49,10 @@ export default function Page() {
           flexGrow={0}
           overflow="hidden"
         >
-          <BoundariesSelect />
+          <BoundariesSelect
+            currentBoundary={visibleBoundaries}
+            onBoundaryClick={handleClick}
+          />
           <FeltSidebar felt={felt} />
         </Stack>
         <Box

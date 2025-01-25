@@ -3,16 +3,15 @@ import {
     NativeSelectRoot,
 } from "./ui/native-select";
 
-export function BoundariesSelect() {
+export function BoundariesSelect({ currentBoundary, onBoundaryClick }) {
     return (
         <NativeSelectRoot>
-            <NativeSelectField>
-                {boundaries.map((boundary) => (
-                    <option value={boundary.value} key={boundary.value}>
-                        {boundary.label}
-                    </option>
-                ))}
-            </NativeSelectField>
+            <NativeSelectField
+                placeholder="Select boundaries"
+                items={boundaries}
+                value={currentBoundary}
+                onChange={(e) => onBoundaryClick(e.currentTarget.value)}
+            />
         </NativeSelectRoot>
     );
 }
