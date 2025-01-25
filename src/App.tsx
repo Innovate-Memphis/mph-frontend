@@ -16,7 +16,7 @@ import { BoundariesSelect } from "./components/BoundariesSelect";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
 
 export default function Page() {
-  const { felt, mapRef } = useFeltEmbed("GTMnB9CuaQg2x0ZexEOdO0A", {
+  const { felt, mapRef } = useFeltEmbed("p9CPdaItsRQm9COaGzgt17WB", {
     uiControls: {
       cooperativeGestures: false,
       fullScreenButton: false,
