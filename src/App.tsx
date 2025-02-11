@@ -12,9 +12,9 @@ import {
 import { FeltController } from "@feltmaps/js-sdk";
 import { LayersList } from "./components/LayersList";
 import { ViewportInfo } from "./components/ViewportInfo";
-import { BoundariesSelect } from "./components/BoundariesSelect";
+import { ThemeSelect } from "./components/ThemeSelect";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
-import { boundaryLayers } from "./constants";
+import { THEME_TO_LAYER_MAP } from "./constants";
 import { useState } from "react";
 
 export default function Page() {
@@ -26,20 +26,27 @@ export default function Page() {
     },
   });
 
-  const [visibleBoundaries, setVisibleBoundaries] = useState("");
+  const [currentTheme, setCurrentTheme] = useState("");
 
-  function handleClick(boundaryValue: string) {
+  function handleClick(theme: string) {
     if (!felt) {
       return;
     }
-    setVisibleBoundaries(boundaryValue);
-    const mapLayers = boundaryLayers();
-    const index = mapLayers.indexOf(boundaryValue);
-    const x = mapLayers.splice(index, 1);
+    setCurrentTheme(theme);
+    let allGroupLayers = new Map(THEME_TO_LAYER_MAP);
+    const groupVisible = allGroupLayers.get(theme);
 
-    felt.setLayerVisibility({
-      show: [boundaryValue],
-      hide: mapLayers,
+    if (groupVisible === undefined) {
+      console.warn("ERROR: Theme not found");
+      return;
+    }
+
+    allGroupLayers.delete(theme)
+    const layersToHide = Array.from(allGroupLayers.values())
+
+    felt.setLayerGroupVisibility({
+      show: [groupVisible],
+      hide: layersToHide,
     });
   }
 
@@ -56,9 +63,9 @@ export default function Page() {
           flexGrow={0}
           overflow="hidden"
         >
-          <BoundariesSelect
-            currentBoundary={visibleBoundaries}
-            onBoundaryClick={handleClick}
+          <ThemeSelect
+            currentTheme={currentTheme}
+            onThemeClick={handleClick}
           />
           <FeltSidebar felt={felt} />
         </Stack>
