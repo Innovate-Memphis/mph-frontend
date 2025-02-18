@@ -28,7 +28,7 @@ export default function Page() {
 
   const [currentTheme, setCurrentTheme] = useState("");
 
-  function handleClick(theme: string) {
+  async function handleClick(theme: string) {
     if (!felt) {
       return;
     }
@@ -47,6 +47,34 @@ export default function Page() {
     felt.setLayerGroupVisibility({
       show: [groupVisible],
       hide: layersToHide,
+    });
+
+    const layers = await felt.getLayers();
+    const elements = await felt.getLegendItems();
+
+    const legendItems = await felt.getLegendItems({
+      layerIds: ["mK7Y2v8oRvivzTyaYKskXA"],
+    });
+
+    debugger;
+
+    felt.setLayerGroupLegendVisibility({
+      show: [groupVisible],
+      hide: layersToHide,
+    })
+
+    felt.setLayerVisibility({
+      hide: ["mK7Y2v8oRvivzTyaYKskXA"]
+    })
+
+    felt.setLegendItemVisibility({
+      hide: [
+        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-R" },
+        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-E" },
+        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-C" },
+        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-F" },
+        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-I" }
+      ]
     });
   }
 
