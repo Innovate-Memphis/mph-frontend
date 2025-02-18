@@ -80,7 +80,7 @@ export default function Page() {
 
   return (
     <Theme appearance="light">
-      <Stack direction="row" height="100vh" overflow="hidden" gap={0}>
+      <Stack direction="column" height="100vh" overflow="hidden" gap={0}>
         <Stack
           gap={0}
           borderRight="1px solid"
@@ -95,7 +95,7 @@ export default function Page() {
             currentTheme={currentTheme}
             onThemeClick={handleClick}
           />
-          <FeltSidebar felt={felt} />
+          {/* <FeltSidebar felt={felt} /> */}
         </Stack>
         <Box
           bg="gray.100"
