@@ -28,54 +28,36 @@ export default function Page() {
 
   const [currentTheme, setCurrentTheme] = useState("");
 
-  async function handleClick(theme: string) {
-    if (!felt) {
-      return;
-    }
-    setCurrentTheme(theme);
-    let allGroupLayers = new Map(THEME_TO_LAYER_MAP);
-    const groupVisible = allGroupLayers.get(theme);
+  if (felt) {
 
-    if (groupVisible === undefined) {
+    let allGroupLayers = new Map(THEME_TO_LAYER_MAP);
+    const groupVisible = allGroupLayers.get(currentTheme);
+    const groupsToShow = new Array();
+    if (groupVisible) {
+      groupsToShow.push(groupVisible);
+    }
+
+    if (currentTheme && !groupsToShow.length) {
       console.warn("ERROR: Theme not found");
       return;
     }
 
-    allGroupLayers.delete(theme)
+    allGroupLayers.delete(currentTheme)
     const layersToHide = Array.from(allGroupLayers.values())
 
     felt.setLayerGroupVisibility({
-      show: [groupVisible],
+      show: groupsToShow,
       hide: layersToHide,
     });
-
-    const layers = await felt.getLayers();
-    const elements = await felt.getLegendItems();
-
-    const legendItems = await felt.getLegendItems({
-      layerIds: ["mK7Y2v8oRvivzTyaYKskXA"],
-    });
-
-    debugger;
 
     felt.setLayerGroupLegendVisibility({
-      show: [groupVisible],
+      show: groupsToShow,
       hide: layersToHide,
-    })
-
-    felt.setLayerVisibility({
-      hide: ["mK7Y2v8oRvivzTyaYKskXA"]
-    })
-
-    felt.setLegendItemVisibility({
-      hide: [
-        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-R" },
-        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-E" },
-        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-C" },
-        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-F" },
-        { layerId: "mK7Y2v8oRvivzTyaYKskXA", id: "98aed8da-ff28-46f8-afcd-3c9a60ab245c--0-I" }
-      ]
     });
+  }
+
+  async function handleClick(theme: string) {
+    setCurrentTheme(theme);
   }
 
   return (
