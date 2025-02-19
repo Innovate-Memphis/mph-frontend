@@ -1,6 +1,6 @@
-const EVICTIONS = "evictions"
-const VACANCY = "vacancy"
-const OWNERSHIP = "ownership"
+const EVICTIONS = "Evictions"
+const VACANCY = "Vacancy"
+const OWNERSHIP = "Ownership"
 
 const EVICTIONS_GROUP_LAYER_ID = "n5zmBsz8Rw2wis3xrwtNzB"
 const VACANCY_GROUP_LAYER_ID = "4dr5K3ZrTCKK9AWb18v8MEB"

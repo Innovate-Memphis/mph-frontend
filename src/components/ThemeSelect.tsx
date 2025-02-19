@@ -11,7 +11,7 @@ interface ThemeHandler {
 
 export function ThemeSelect({ currentTheme, onThemeClick }: ThemeHandler) {
     return (
-        <NativeSelectRoot>
+        <NativeSelectRoot size="xl">
             <NativeSelectField
                 placeholder="Select a theme"
                 items={THEMES}
