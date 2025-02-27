@@ -14,8 +14,8 @@ import { LayersList } from "./components/LayersList";
 import { ViewportInfo } from "./components/ViewportInfo";
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
-import { THEME_TO_LAYER_MAP } from "./constants";
-import { useState } from "react";
+import { THEME_TO_GROUP_LAYER_MAP, THEME_TO_PARCEL_LAYER_MAP } from "./constants";
+import { useState, useEffect } from "react";
 
 export default function Page() {
   const { felt, mapRef } = useFeltEmbed("p9CPdaItsRQm9COaGzgt17WB", {
@@ -28,33 +28,63 @@ export default function Page() {
 
   const [currentTheme, setCurrentTheme] = useState("");
 
-  if (felt) {
+  useEffect(() => {
+    const updateLayerVisibility = async () => {
+      if (felt) {
+        let allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
+        const groupVisible = allGroupLayers.get(currentTheme);
+        const groupsToShow = new Array();
+        if (groupVisible) {
+          groupsToShow.push(groupVisible);
+        }
 
-    let allGroupLayers = new Map(THEME_TO_LAYER_MAP);
-    const groupVisible = allGroupLayers.get(currentTheme);
-    const groupsToShow = new Array();
-    if (groupVisible) {
-      groupsToShow.push(groupVisible);
+        if (currentTheme && !groupsToShow.length) {
+          console.warn("ERROR: Group layer not found for theme");
+          return;
+        }
+
+        allGroupLayers.delete(currentTheme)
+        const groupsToHide = Array.from(allGroupLayers.values());
+
+        await felt.setLayerGroupVisibility({
+          show: groupsToShow,
+          hide: groupsToHide,
+        });
+
+        await felt.setLayerGroupLegendVisibility({
+          show: groupsToShow,
+          hide: groupsToHide,
+        });
+
+        let allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP);
+        const parcelsVisible = allParcelLayers.get(currentTheme);
+        const layersToShow = new Array();
+        if (parcelsVisible) {
+          layersToShow.push(parcelsVisible);
+        }
+
+        if (currentTheme && !layersToShow.length) {
+          console.warn("ERROR: Parcel layer not found for theme");
+          return;
+        }
+
+        allParcelLayers.delete(currentTheme)
+        const layersToHide = Array.from(allParcelLayers.values())
+
+        await felt.setLayerVisibility({
+          show: layersToShow,
+          hide: layersToHide,
+        });
+
+        await felt.setLayerLegendVisibility({
+          show: layersToShow,
+          hide: layersToHide,
+        });
+      }
     }
 
-    if (currentTheme && !groupsToShow.length) {
-      console.warn("ERROR: Theme not found");
-      return;
-    }
-
-    allGroupLayers.delete(currentTheme)
-    const layersToHide = Array.from(allGroupLayers.values())
-
-    felt.setLayerGroupVisibility({
-      show: groupsToShow,
-      hide: layersToHide,
-    });
-
-    felt.setLayerGroupLegendVisibility({
-      show: groupsToShow,
-      hide: layersToHide,
-    });
-  }
+    updateLayerVisibility().catch(console.error);
+  }, [felt, currentTheme]);
 
   async function handleClick(theme: string) {
     setCurrentTheme(theme);
