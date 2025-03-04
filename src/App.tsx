@@ -10,11 +10,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { FeltController } from "@feltmaps/js-sdk";
+import { FeltController, Filters } from "@feltmaps/js-sdk";
 import { LayersList } from "./components/LayersList";
 import { ViewportInfo } from "./components/ViewportInfo";
 import { ThemeSelect } from "./components/ThemeSelect";
-import { FilterSelect } from "./components/FilterSelect";
+import { FilterDrawer } from "./components/FilterDrawer";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
 import { FILTERS_TO_FELT_FILTER, THEME_TO_GROUP_LAYER_MAP, THEME_TO_PARCEL_LAYER_MAP } from "./constants";
 import { useState, useEffect } from "react";
@@ -29,7 +29,7 @@ export default function Page() {
   });
 
   const [currentTheme, setCurrentTheme] = useState("");
-  const [currentFilter, setCurrentFilter] = useState("");
+  const [currentFilters, setCurrentFilters] = useState([]);
 
   useEffect(() => {
     const updateLayerVisibility = async () => {
@@ -102,35 +102,62 @@ export default function Page() {
       if (felt) {
 
         let allLayerFilters = new Map(FILTERS_TO_FELT_FILTER);
-        const layerFilter = allLayerFilters.get(currentFilter) ?? null;
+
+        function filterReducer(accumulator: Array<Filters | string>, currentValue: string) {
+          const retrievedValue = allLayerFilters.get(currentValue);
+          if (retrievedValue === undefined) {
+            console.warn("Filter value not found");
+            return accumulator;
+          }
+          accumulator.push(retrievedValue);
+          accumulator.push("and")
+          return accumulator;
+        }
+
+        let layerFilters: null | Filters | Array<Filters | string> = null;
+        if (currentFilters.length === 1) {
+          const filterItem = allLayerFilters.get(currentFilters[0]);
+          if (filterItem === undefined) {
+            console.warn("Filter value not found");
+          } else {
+            layerFilters = filterItem;
+          }
+        } else if (currentFilters.length > 1) {
+          layerFilters = currentFilters.reduce(filterReducer, []);
+          layerFilters.pop(); // Remove final unneeded "and" from the reduce
+        }
 
         // TODO: CLEAN UP HARD_CODING
         await felt.setLayerFilters({
           layerId: "f0ejhfquQumj9AErURSWWcD", //evictions
-          filters: layerFilter
+          filters: layerFilters
         });
 
         await felt.setLayerFilters({
           layerId: "DnA76OKlSseShttdvQj6DA", //vacancy
-          filters: layerFilter
+          filters: layerFilters
         });
 
         await felt.setLayerFilters({
           layerId: "jKGugNqhTeCtLtxUlCghaD", //ownership
-          filters: layerFilter
+          filters: layerFilters
         });
       }
     }
 
     updateLayerFilter().catch(console.error);
-  }, [felt, currentFilter])
+  }, [felt, currentFilters])
 
   async function handleThemeClick(theme: string) {
     setCurrentTheme(theme);
   }
 
   async function handleFilterClick(filter: string) {
-    setCurrentFilter(filter);
+    if (!currentFilters.includes(filter)) {
+      setCurrentFilters([...currentFilters, filter]);
+    } else {
+      setCurrentFilters(currentFilters.filter(x => x !== filter));
+    }
   }
 
   return (
@@ -152,8 +179,8 @@ export default function Page() {
               currentTheme={currentTheme}
               onThemeClick={handleThemeClick}
             />
-            <FilterSelect
-              currentFilter={currentFilter}
+            <FilterDrawer
+              currentFilters={currentFilters}
               onFilterClick={handleFilterClick}
             />
           </HStack>
