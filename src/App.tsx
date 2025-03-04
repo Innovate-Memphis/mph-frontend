@@ -130,16 +130,19 @@ export default function Page() {
         // TODO: CLEAN UP HARD_CODING
         await felt.setLayerFilters({
           layerId: "f0ejhfquQumj9AErURSWWcD", //evictions
+          // @ts-ignore
           filters: layerFilters
         });
 
         await felt.setLayerFilters({
           layerId: "DnA76OKlSseShttdvQj6DA", //vacancy
+          // @ts-ignore
           filters: layerFilters
         });
 
         await felt.setLayerFilters({
           layerId: "jKGugNqhTeCtLtxUlCghaD", //ownership
+          // @ts-ignore
           filters: layerFilters
         });
       }
