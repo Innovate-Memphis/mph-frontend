@@ -71,6 +71,14 @@ export default function Page() {
         allParcelLayers.delete(currentTheme)
         const layersToHide = Array.from(allParcelLayers.values())
 
+        // The following is debug code - I'm trying to hide 3 layers from the legend upon app load and can't figure it out
+        const items = await felt.getLegendItems();
+        // This doesn't return anything
+
+        const items2 = await felt.getLegendItems({layerIds: ["f0ejhfquQumj9AErURSWWcD"]})
+        // evictions by parcel layer ID - f0ejhfquQumj9AErURSWWcD
+        // Also doesn't return anything
+
         await felt.setLayerVisibility({
           show: layersToShow,
           hide: layersToHide,
