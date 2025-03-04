@@ -156,7 +156,9 @@ export default function Page() {
   }
 
   async function handleFilterClick(filter: string) {
+    // @ts-ignore
     if (!currentFilters.includes(filter)) {
+      // @ts-ignore
       setCurrentFilters([...currentFilters, filter]);
     } else {
       setCurrentFilters(currentFilters.filter(x => x !== filter));
