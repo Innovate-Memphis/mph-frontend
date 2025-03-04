@@ -1,6 +1,7 @@
 import {
   Box,
   Center,
+  HStack,
   Separator,
   Spinner,
   Stack,
@@ -13,8 +14,9 @@ import { FeltController } from "@feltmaps/js-sdk";
 import { LayersList } from "./components/LayersList";
 import { ViewportInfo } from "./components/ViewportInfo";
 import { ThemeSelect } from "./components/ThemeSelect";
+import { FilterSelect } from "./components/FilterSelect";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
-import { THEME_TO_GROUP_LAYER_MAP, THEME_TO_PARCEL_LAYER_MAP } from "./constants";
+import { FILTERS_TO_FELT_FILTER, THEME_TO_GROUP_LAYER_MAP, THEME_TO_PARCEL_LAYER_MAP } from "./constants";
 import { useState, useEffect } from "react";
 
 export default function Page() {
@@ -27,6 +29,7 @@ export default function Page() {
   });
 
   const [currentTheme, setCurrentTheme] = useState("");
+  const [currentFilter, setCurrentFilter] = useState("");
 
   useEffect(() => {
     const updateLayerVisibility = async () => {
@@ -75,7 +78,7 @@ export default function Page() {
         const items = await felt.getLegendItems();
         // This doesn't return anything
 
-        const items2 = await felt.getLegendItems({layerIds: ["f0ejhfquQumj9AErURSWWcD"]})
+        const items2 = await felt.getLegendItems({ layerIds: ["f0ejhfquQumj9AErURSWWcD"] })
         // evictions by parcel layer ID - f0ejhfquQumj9AErURSWWcD
         // Also doesn't return anything
 
@@ -94,8 +97,40 @@ export default function Page() {
     updateLayerVisibility().catch(console.error);
   }, [felt, currentTheme]);
 
-  async function handleClick(theme: string) {
+  useEffect(() => {
+    const updateLayerFilter = async () => {
+      if (felt) {
+
+        let allLayerFilters = new Map(FILTERS_TO_FELT_FILTER);
+        const layerFilter = allLayerFilters.get(currentFilter) ?? null;
+
+        // TODO: CLEAN UP HARD_CODING
+        await felt.setLayerFilters({
+          layerId: "f0ejhfquQumj9AErURSWWcD", //evictions
+          filters: layerFilter
+        });
+
+        await felt.setLayerFilters({
+          layerId: "DnA76OKlSseShttdvQj6DA", //vacancy
+          filters: layerFilter
+        });
+
+        await felt.setLayerFilters({
+          layerId: "jKGugNqhTeCtLtxUlCghaD", //ownership
+          filters: layerFilter
+        });
+      }
+    }
+
+    updateLayerFilter().catch(console.error);
+  }, [felt, currentFilter])
+
+  async function handleThemeClick(theme: string) {
     setCurrentTheme(theme);
+  }
+
+  async function handleFilterClick(filter: string) {
+    setCurrentFilter(filter);
   }
 
   return (
@@ -111,10 +146,17 @@ export default function Page() {
           flexGrow={0}
           overflow="hidden"
         >
-          <ThemeSelect
-            currentTheme={currentTheme}
-            onThemeClick={handleClick}
-          />
+          <HStack
+            padding="5px">
+            <ThemeSelect
+              currentTheme={currentTheme}
+              onThemeClick={handleThemeClick}
+            />
+            <FilterSelect
+              currentFilter={currentFilter}
+              onFilterClick={handleFilterClick}
+            />
+          </HStack>
           {/* <FeltSidebar felt={felt} /> */}
         </Stack>
         <Box
