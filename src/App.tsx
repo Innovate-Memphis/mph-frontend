@@ -179,7 +179,6 @@ export default function Page() {
           borderRight="1px solid"
           borderColor="border.muted"
           userSelect="none"
-          // w="320px"
           flexShrink={0}
           flexGrow={0}
           overflow="hidden"
