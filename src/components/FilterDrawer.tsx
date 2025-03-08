@@ -34,7 +34,7 @@ export const FilterDrawer = ({ currentFilters, onFilterClick }: FilterHandler) =
                     <DrawerTitle>Filters</DrawerTitle>
                 </DrawerHeader>
                 <DrawerBody>
-                    Filter the map by:
+                    Use these filters to narrow down the properties shown on the map.
                     <HStack>
                         <For each={FILTERS}>
                             {(filter) => (
