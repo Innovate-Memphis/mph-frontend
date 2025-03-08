@@ -145,6 +145,12 @@ export default function Page() {
           // @ts-ignore
           filters: layerFilters
         });
+
+        await felt.setLayerFilters({
+          layerId: "VHBjOKqIQBuydqkCtCw9AWD", //filtered parcels layer
+          // @ts-ignore
+          filters: layerFilters
+        });
       }
     }
 

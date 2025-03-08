@@ -12,6 +12,8 @@ const EVICTIONS_PARCEL_LAYER_ID = "f0ejhfquQumj9AErURSWWcD"
 const VACANCY_PARCEL_LAYER_ID = "DnA76OKlSseShttdvQj6DA"
 const OWNERSHIP_PARCEL_LAYER_ID = "jKGugNqhTeCtLtxUlCghaD"
 
+export const FILTERED_PARCEL_LAYER_ID = "VHBjOKqIQBuydqkCtCw9AWD"
+
 export const THEMES = [
     EVICTIONS,
     VACANCY,
@@ -24,10 +26,11 @@ export const THEME_TO_GROUP_LAYER_MAP = new Map<string, string>([
     [OWNERSHIP, OWNERSHIP_GROUP_LAYER_ID],
   ]);
 
-export const THEME_TO_PARCEL_LAYER_MAP = new Map<string, string>([
+export const THEME_TO_PARCEL_LAYER_MAP = new Map<string | null, string>([
   [EVICTIONS, EVICTIONS_PARCEL_LAYER_ID],
   [VACANCY, VACANCY_PARCEL_LAYER_ID],
   [OWNERSHIP, OWNERSHIP_PARCEL_LAYER_ID],
+  ["", FILTERED_PARCEL_LAYER_ID],
 ]);
 
 const RECENT_SALE = "Recent Sale"
@@ -43,7 +46,7 @@ export const FILTERS = [
 ];
 
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
-const RECENT_EVICTION_FILTER: Filters = ["evict_60mo", "gt", 0];
+const RECENT_EVICTION_FILTER: Filters = ["evict_6mo", "gt", 0];
 const RECENT_VACANCY_FILTER: Filters = ["long_term_vacancy", "eq", 1];
 const INVESTOR_OWNED_FILTER: Filters = ["owner_occupied", "eq", "N"];
 
