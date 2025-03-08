@@ -3,7 +3,7 @@ import { THEMES } from "../constants";
 
 interface ThemeHandler {
     currentTheme: string;
-    onThemeClick(boundaryName: string): any;
+    onThemeClick(themeName: string): any;
 }
 
 export function ThemeSelect({ currentTheme, onThemeClick }: ThemeHandler) {
