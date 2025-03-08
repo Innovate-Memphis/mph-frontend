@@ -16,7 +16,7 @@ import { ViewportInfo } from "./components/ViewportInfo";
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterDrawer } from "./components/FilterDrawer";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
-import { FILTERS_TO_FELT_FILTER, THEME_TO_GROUP_LAYER_MAP, THEME_TO_PARCEL_LAYER_MAP } from "./constants";
+import { EXPLORE, FILTERS_TO_FELT_FILTER, THEME_TO_GROUP_LAYER_MAP, THEME_TO_PARCEL_LAYER_MAP } from "./constants";
 import { useState, useEffect } from "react";
 
 export default function Page() {
@@ -28,7 +28,7 @@ export default function Page() {
     },
   });
 
-  const [currentTheme, setCurrentTheme] = useState("");
+  const [currentTheme, setCurrentTheme] = useState(EXPLORE);
   const [currentFilters, setCurrentFilters] = useState([]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function Page() {
           groupsToShow.push(groupVisible);
         }
 
-        if (currentTheme && !groupsToShow.length) {
+        if (currentTheme !== EXPLORE && !groupsToShow.length) {
           console.warn("ERROR: Group layer not found for theme");
           return;
         }
@@ -179,7 +179,7 @@ export default function Page() {
           borderRight="1px solid"
           borderColor="border.muted"
           userSelect="none"
-          w="320px"
+          // w="320px"
           flexShrink={0}
           flexGrow={0}
           overflow="hidden"

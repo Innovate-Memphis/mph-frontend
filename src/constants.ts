@@ -1,5 +1,6 @@
 import type { Filters } from "@feltmaps/js-sdk";
 
+export const EXPLORE = "Explore"
 const EVICTIONS = "Evictions"
 const VACANCY = "Vacancy"
 const OWNERSHIP = "Ownership"
@@ -15,6 +16,7 @@ const OWNERSHIP_PARCEL_LAYER_ID = "jKGugNqhTeCtLtxUlCghaD"
 export const FILTERED_PARCEL_LAYER_ID = "VHBjOKqIQBuydqkCtCw9AWD"
 
 export const THEMES = [
+    EXPLORE,
     EVICTIONS,
     VACANCY,
     OWNERSHIP,
@@ -30,7 +32,7 @@ export const THEME_TO_PARCEL_LAYER_MAP = new Map<string | null, string>([
   [EVICTIONS, EVICTIONS_PARCEL_LAYER_ID],
   [VACANCY, VACANCY_PARCEL_LAYER_ID],
   [OWNERSHIP, OWNERSHIP_PARCEL_LAYER_ID],
-  ["", FILTERED_PARCEL_LAYER_ID],
+  [EXPLORE, FILTERED_PARCEL_LAYER_ID],
 ]);
 
 const RECENT_SALE = "Sale in last 6 months"
