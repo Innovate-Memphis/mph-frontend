@@ -1,8 +1,12 @@
 import {
   Box,
+  Button,
   Center,
+  For,
+  Heading,
   HStack,
   Separator,
+  StackSeparator,
   Spinner,
   Stack,
   Text,
@@ -14,7 +18,7 @@ import { FeltController, Filters } from "@feltmaps/js-sdk";
 import { LayersList } from "./components/LayersList";
 import { ViewportInfo } from "./components/ViewportInfo";
 import { ThemeSelect } from "./components/ThemeSelect";
-import { FilterDrawer } from "./components/FilterDrawer";
+import { FilterSelection } from "./components/FilterSelection";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
 import { EXPLORE, FILTERS_TO_FELT_FILTER, THEME_TO_GROUP_LAYER_MAP, THEME_TO_PARCEL_LAYER_MAP } from "./constants";
 import { useState, useEffect } from "react";
@@ -182,17 +186,24 @@ export default function Page() {
           flexShrink={0}
           flexGrow={0}
           overflow="hidden"
+          padding="10px"
         >
           <HStack
-            padding="5px">
-            <ThemeSelect
-              currentTheme={currentTheme}
-              onThemeClick={handleThemeClick}
-            />
-            <FilterDrawer
-              currentFilters={currentFilters}
-              onFilterClick={handleFilterClick}
-            />
+            gap="25px"
+            separator={<StackSeparator />}>
+            <Stack>
+              <Heading>Explore parcels or select a theme:</Heading>
+              <ThemeSelect
+                currentTheme={currentTheme}
+                onThemeClick={handleThemeClick}
+              />
+            </Stack>
+            <Stack>
+              <Heading>Filter Properties by:</Heading>
+              <FilterSelection
+                currentFilters={currentFilters}
+                onFilterClick={handleFilterClick} />
+            </Stack>
           </HStack>
           {/* <FeltSidebar felt={felt} /> */}
         </Stack>
@@ -219,8 +230,8 @@ export default function Page() {
             </Center>
           )}
         </Box>
-      </Stack>
-    </Theme>
+      </Stack >
+    </Theme >
   );
 }
 
