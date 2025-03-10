@@ -12,7 +12,7 @@ export function ThemeSelect({ currentTheme, onThemeClick }: ThemeHandler) {
             <Tabs.List bg="bg.muted" rounded="l3" p="1">
                 <For each={THEMES}>
                 {(theme) => (
-                    <Tabs.Trigger value={theme}>
+                    <Tabs.Trigger key={theme} value={theme}>
                         {theme.toUpperCase()}
                     </Tabs.Trigger>
                 )}
