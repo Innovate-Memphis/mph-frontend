@@ -1,4 +1,5 @@
 import { Button, For, HStack } from "@chakra-ui/react";
+import { LuCheck } from "react-icons/lu";
 import {
     DrawerActionTrigger,
     DrawerBackdrop,
@@ -43,6 +44,7 @@ export const FilterDrawer = ({ currentFilters, onFilterClick }: FilterHandler) =
                                     onClick={() => onFilterClick(filter)}
                                     variant={currentFilters.includes(filter) ? "outline" : "solid"}
                                 >
+                                    {currentFilters.includes(filter) && <LuCheck />}
                                     {filter}
                                 </Button>
                             )}
