@@ -21,6 +21,7 @@ import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
 import { EXPLORE, FILTERS_TO_FELT_FILTER, THEME_TO_GROUP_LAYER_MAP, THEME_TO_PARCEL_LAYER_MAP } from "./constants";
+import { filterUtils } from "./utils";
 import { useState, useEffect } from "react";
 
 export default function Page() {
@@ -105,55 +106,33 @@ export default function Page() {
     const updateLayerFilter = async () => {
       if (felt) {
 
-        let allLayerFilters = new Map(FILTERS_TO_FELT_FILTER);
+        const allLayerFilters = new Map(FILTERS_TO_FELT_FILTER);
+        const allFeltFormattedFilters: Filters[] = currentFilters.map((f) => allLayerFilters.get(f) || null);
+        const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
-        function filterReducer(accumulator: Array<Filters | string>, currentValue: string) {
-          const retrievedValue = allLayerFilters.get(currentValue);
-          if (retrievedValue === undefined) {
-            console.warn("Filter value not found");
-            return accumulator;
-          }
-          accumulator.push(retrievedValue);
-          accumulator.push("and")
-          return accumulator;
-        }
-
-        let layerFilters: null | Filters | Array<Filters | string> = null;
-        if (currentFilters.length === 1) {
-          const filterItem = allLayerFilters.get(currentFilters[0]);
-          if (filterItem === undefined) {
-            console.warn("Filter value not found");
-          } else {
-            layerFilters = filterItem;
-          }
-        } else if (currentFilters.length > 1) {
-          layerFilters = currentFilters.reduce(filterReducer, []);
-          layerFilters.pop(); // Remove final unneeded "and" from the reduce
-        }
-
-        // TODO: CLEAN UP HARD_CODING
+        // TODO: CLEAN UP HARD CODING
         await felt.setLayerFilters({
           layerId: "f0ejhfquQumj9AErURSWWcD", //evictions
           // @ts-ignore
-          filters: layerFilters
+          filters: newFilters
         });
 
         await felt.setLayerFilters({
           layerId: "DnA76OKlSseShttdvQj6DA", //vacancy
           // @ts-ignore
-          filters: layerFilters
+          filters: newFilters
         });
 
         await felt.setLayerFilters({
           layerId: "jKGugNqhTeCtLtxUlCghaD", //ownership
           // @ts-ignore
-          filters: layerFilters
+          filters: newFilters
         });
 
         await felt.setLayerFilters({
           layerId: "VHBjOKqIQBuydqkCtCw9AWD", //filtered parcels layer
           // @ts-ignore
-          filters: layerFilters
+          filters: newFilters
         });
       }
     }
