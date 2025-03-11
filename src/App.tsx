@@ -134,19 +134,19 @@ export default function Page() {
         const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
         await felt.setLayerFilters({
-          layerId: "f0ejhfquQumj9AErURSWWcD", //evictions
+          layerId: "PlRKU27xT5O9Btg66aI3uhD", //evictions
           // @ts-ignore
           filters: newFilters
         });
 
         await felt.setLayerFilters({
-          layerId: "DnA76OKlSseShttdvQj6DA", //vacancy
+          layerId: "r5slc7q8TYi4U5Ts29AyMBB", //vacancy
           // @ts-ignore
           filters: newFilters
         });
 
         await felt.setLayerFilters({
-          layerId: "jKGugNqhTeCtLtxUlCghaD", //ownership
+          layerId: "vJqTqosmS1GOhuvwue9AcfC", //ownership
           // @ts-ignore
           filters: newFilters
         });
