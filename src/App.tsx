@@ -19,8 +19,17 @@ import { LayersList } from "./components/LayersList";
 import { ViewportInfo } from "./components/ViewportInfo";
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
+import { DateRangeSlider } from "./components/DateRangeSlider";
 import { FeltContext, useFeltEmbed } from "./feltUtils";
-import { EXPLORE, FILTERS_TO_FELT_FILTER, THEME_TO_GROUP_LAYER_MAP, THEME_TO_PARCEL_LAYER_MAP } from "./constants";
+import {
+  DEFAULT_BUILT_YEAR_FILTERS,
+  EXPLORE,
+  FILTERS_TO_FELT_FILTER,
+  MIN_YEAR_BUILT_FILTER,
+  MAX_YEAR_BUILT_FILTER,
+  THEME_TO_GROUP_LAYER_MAP,
+  THEME_TO_PARCEL_LAYER_MAP
+} from "./constants";
 import { filterUtils } from "./utils";
 import { useState, useEffect } from "react";
 
@@ -35,6 +44,7 @@ export default function Page() {
 
   const [currentTheme, setCurrentTheme] = useState(EXPLORE);
   const [currentFilters, setCurrentFilters] = useState([]);
+  const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
 
   useEffect(() => {
     const updateLayerVisibility = async () => {
@@ -108,9 +118,23 @@ export default function Page() {
 
         const allLayerFilters = new Map(FILTERS_TO_FELT_FILTER);
         const allFeltFormattedFilters: Filters[] = currentFilters.map((f) => allLayerFilters.get(f) || null);
+
+        if (currentFilterBuildDate[0] !== DEFAULT_BUILT_YEAR_FILTERS[0]) {
+          let minYearBuiltFilter = MIN_YEAR_BUILT_FILTER;
+          // @ts-ignore
+          minYearBuiltFilter[2] = currentFilterBuildDate[0]
+          allFeltFormattedFilters.push(minYearBuiltFilter)
+        }
+
+        if (currentFilterBuildDate[1] !== DEFAULT_BUILT_YEAR_FILTERS[1]) {
+          let maxYearBuiltFilter = MAX_YEAR_BUILT_FILTER;
+          // @ts-ignore
+          maxYearBuiltFilter[2] = currentFilterBuildDate[1]
+          allFeltFormattedFilters.push(maxYearBuiltFilter)
+        }
+
         const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
-        // TODO: CLEAN UP HARD CODING
         await felt.setLayerFilters({
           layerId: "f0ejhfquQumj9AErURSWWcD", //evictions
           // @ts-ignore
@@ -138,7 +162,7 @@ export default function Page() {
     }
 
     updateLayerFilter().catch(console.error);
-  }, [felt, currentFilters])
+  }, [felt, currentFilters, currentFilterBuildDate])
 
   async function handleThemeClick(theme: string) {
     setCurrentTheme(theme);
@@ -182,6 +206,9 @@ export default function Page() {
               <FilterSelection
                 currentFilters={currentFilters}
                 onFilterClick={handleFilterClick} />
+              <DateRangeSlider
+                value={currentFilterBuildDate}
+                onDateSliderChange={setCurrentFilterBuildDate} />
             </Stack>
           </HStack>
           {/* <FeltSidebar felt={felt} /> */}

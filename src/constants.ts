@@ -47,10 +47,17 @@ export const FILTERS = [
   INVESTOR_OWNED
 ];
 
+export const MIN_YEAR = 1883
+export const CURRENT_YEAR = new Date().getFullYear();
+export const DEFAULT_BUILT_YEAR_FILTERS = [MIN_YEAR, CURRENT_YEAR];
+
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
 const RECENT_EVICTION_FILTER: Filters = ["evict_6mo", "gt", 0];
 const RECENT_VACANCY_FILTER: Filters = ["long_term_vacancy", "eq", 1];
 const INVESTOR_OWNED_FILTER: Filters = ["owner_occupied", "eq", "N"];
+
+export const MIN_YEAR_BUILT_FILTER: Filters = ["dwel_yrblt", "ge", 1950];
+export const MAX_YEAR_BUILT_FILTER: Filters = ["dwel_yrblt", "le", CURRENT_YEAR];
 
 export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [RECENT_SALE, RECENT_SALE_FILTER],
