@@ -1,5 +1,7 @@
 import type { Filters } from "@feltmaps/js-sdk";
 
+export const FELT_MAP_ID = "p9CPdaItsRQm9COaGzgt17WB"
+
 export const EXPLORE = "Explore"
 const EVICTIONS = "Evictions"
 const VACANCY = "Vacancy"
@@ -10,8 +12,8 @@ const VACANCY_GROUP_LAYER_ID = "4dr5K3ZrTCKK9AWb18v8MEB"
 const OWNERSHIP_GROUP_LAYER_ID = "AoKl9AxdERg6pZVDObvxmjC"
 
 const EVICTIONS_PARCEL_LAYER_ID = "PlRKU27xT5O9Btg66aI3uhD"
-const VACANCY_PARCEL_LAYER_ID = "DnA76OKlSseShttdvQj6DA"
-const OWNERSHIP_PARCEL_LAYER_ID = "jKGugNqhTeCtLtxUlCghaD"
+const VACANCY_PARCEL_LAYER_ID = "r5slc7q8TYi4U5Ts29AyMBB"
+const OWNERSHIP_PARCEL_LAYER_ID = "vJqTqosmS1GOhuvwue9AcfC"
 
 export const FILTERED_PARCEL_LAYER_ID = "VHBjOKqIQBuydqkCtCw9AWD"
 

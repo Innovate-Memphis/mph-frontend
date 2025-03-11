@@ -19,6 +19,7 @@ import { useFeltEmbed } from "./feltUtils";
 import {
   DEFAULT_BUILT_YEAR_FILTERS,
   EXPLORE,
+  FELT_MAP_ID,
   FILTERS_TO_FELT_FILTER,
   MIN_YEAR_BUILT_FILTER,
   MAX_YEAR_BUILT_FILTER,
@@ -29,7 +30,7 @@ import { filterUtils } from "./utils";
 import { useState, useEffect } from "react";
 
 export default function Page() {
-  const { felt, mapRef } = useFeltEmbed("p9CPdaItsRQm9COaGzgt17WB", {
+  const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
     uiControls: {
       cooperativeGestures: false,
       fullScreenButton: false,
@@ -198,7 +199,6 @@ export default function Page() {
                 onDateSliderChange={setCurrentFilterBuildDate} />
             </Stack>
           </HStack>
-          {/* <FeltSidebar felt={felt} /> */}
         </Stack>
         <Box
           bg="gray.100"
