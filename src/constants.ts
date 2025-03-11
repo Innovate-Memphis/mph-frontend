@@ -61,9 +61,22 @@ const INVESTOR_OWNED_FILTER: Filters = ["owner_occupied", "eq", "N"];
 export const MIN_YEAR_BUILT_FILTER: Filters = ["dwel_yrblt", "ge", 1950];
 export const MAX_YEAR_BUILT_FILTER: Filters = ["dwel_yrblt", "le", CURRENT_YEAR];
 
+export const LAND_USE_CATEGORY_FILTER: Filters = ["lu_category", "in", []]
+
 export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [RECENT_SALE, RECENT_SALE_FILTER],
   [RECENT_EVICTION, RECENT_EVICTION_FILTER],
   [RECENT_VACANCY, RECENT_VACANCY_FILTER],
   [INVESTOR_OWNED, INVESTOR_OWNED_FILTER],
 ]);
+
+const VACANT = "Vacant";
+const RESIDENTIAL = "Residential";
+const COMMERCIAL = "Commercial";
+const INDUSTRIAL = "Industrial";
+const INSTITUTIONAL = "Institutional";
+const RECREATIONAL = "Recreational";
+const EXEMPT = "Exempt";
+const OTHER = "Other";
+
+export const LAND_USE_CATEGORIES = [VACANT, RESIDENTIAL, COMMERCIAL, INDUSTRIAL, INSTITUTIONAL, RECREATIONAL, EXEMPT, OTHER];

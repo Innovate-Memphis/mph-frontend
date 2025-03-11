@@ -15,12 +15,14 @@ import { Filters } from "@feltmaps/js-sdk";
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
 import { DateRangeSlider } from "./components/DateRangeSlider";
+import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
 import { useFeltEmbed } from "./feltUtils";
 import {
   DEFAULT_BUILT_YEAR_FILTERS,
   EXPLORE,
   FELT_MAP_ID,
   FILTERS_TO_FELT_FILTER,
+  LAND_USE_CATEGORY_FILTER,
   MIN_YEAR_BUILT_FILTER,
   MAX_YEAR_BUILT_FILTER,
   THEME_TO_GROUP_LAYER_MAP,
@@ -41,6 +43,7 @@ export default function Page() {
   const [currentTheme, setCurrentTheme] = useState(EXPLORE);
   const [currentFilters, setCurrentFilters] = useState([]);
   const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
+  const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
 
   useEffect(() => {
     const updateLayerVisibility = async () => {
@@ -121,6 +124,13 @@ export default function Page() {
           allFeltFormattedFilters.push(maxYearBuiltFilter)
         }
 
+        if (currentFilterLandUseCategory.length) {
+          let landUseCategoryFilter = LAND_USE_CATEGORY_FILTER;
+          // @ts-ignore
+          landUseCategoryFilter[2] = currentFilterLandUseCategory
+          allFeltFormattedFilters.push(landUseCategoryFilter)
+        }
+
         const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
         await felt.setLayerFilters({
@@ -150,7 +160,7 @@ export default function Page() {
     }
 
     updateLayerFilter().catch(console.error);
-  }, [felt, currentFilters, currentFilterBuildDate])
+  }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory])
 
   async function handleThemeClick(theme: string) {
     setCurrentTheme(theme);
@@ -194,9 +204,14 @@ export default function Page() {
               <FilterSelection
                 currentFilters={currentFilters}
                 onFilterClick={handleFilterClick} />
-              <DateRangeSlider
-                value={currentFilterBuildDate}
-                onDateSliderChange={setCurrentFilterBuildDate} />
+              <HStack gap="15px">
+                <DateRangeSlider
+                  value={currentFilterBuildDate}
+                  onDateSliderChange={setCurrentFilterBuildDate} />
+                <LandUseCategorySelect
+                  value={currentFilterLandUseCategory}
+                  onSelectChange={setCurrentFilterLandUseCategory} />
+              </HStack>
             </Stack>
           </HStack>
         </Stack>
