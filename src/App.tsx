@@ -1,11 +1,8 @@
 import {
   Box,
-  Button,
   Center,
-  For,
   Heading,
   HStack,
-  Separator,
   StackSeparator,
   Spinner,
   Stack,
@@ -14,13 +11,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { FeltController, Filters } from "@feltmaps/js-sdk";
-import { LayersList } from "./components/LayersList";
-import { ViewportInfo } from "./components/ViewportInfo";
+import { Filters } from "@feltmaps/js-sdk";
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
 import { DateRangeSlider } from "./components/DateRangeSlider";
-import { FeltContext, useFeltEmbed } from "./feltUtils";
+import { useFeltEmbed } from "./feltUtils";
 import {
   DEFAULT_BUILT_YEAR_FILTERS,
   EXPLORE,
@@ -238,38 +233,5 @@ export default function Page() {
         </Box>
       </Stack >
     </Theme >
-  );
-}
-
-function FeltSidebar({ felt }: { felt: FeltController | null }) {
-  return (
-    <Stack
-      flex={1}
-      gap={0}
-      fontSize="md"
-      overflow="hidden"
-      separator={
-        <Separator borderColor="border.muted" css={{ margin: "0!important" }} />
-      }
-    >
-      {felt ? (
-        <FeltContext.Provider value={felt}>
-          <Stack flex={1} gap={0} overflow="hidden">
-            <LayersList />
-          </Stack>
-
-          <Stack flexGrow={0} flexShrink={0} gap={0} overflow="hidden">
-            <ViewportInfo />
-          </Stack>
-        </FeltContext.Provider>
-      ) : (
-        <VStack py={8} gap={3}>
-          <Spinner color="fg.subtle" alignSelf="center" />
-          <Text fontSize="sm" color="fg.subtle">
-            Loading&hellip;
-          </Text>
-        </VStack>
-      )}
-    </Stack>
   );
 }
