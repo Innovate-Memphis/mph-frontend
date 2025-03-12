@@ -37,6 +37,8 @@ export const THEME_TO_PARCEL_LAYER_MAP = new Map<string | null, string>([
   [EXPLORE, FILTERED_PARCEL_LAYER_ID],
 ]);
 
+export const PARCEL_LAYERS_ZOOM_LEVEL = 14.8;
+
 const RECENT_SALE = "Sale in last 6 months"
 const RECENT_EVICTION = "Eviction in last 6 months"
 const RECENT_VACANCY = "Vacant for last 6 months"

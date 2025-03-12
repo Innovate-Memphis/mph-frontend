@@ -25,6 +25,7 @@ import {
   LAND_USE_CATEGORY_FILTER,
   MIN_YEAR_BUILT_FILTER,
   MAX_YEAR_BUILT_FILTER,
+  PARCEL_LAYERS_ZOOM_LEVEL,
   THEME_TO_GROUP_LAYER_MAP,
   THEME_TO_PARCEL_LAYER_MAP
 } from "./constants";
@@ -141,6 +142,15 @@ export default function Page() {
             filters: newFilters
           });
         });
+
+        if (currentTheme !== EXPLORE) {
+          const viewport = await felt.getViewport();
+          if (viewport.zoom < PARCEL_LAYERS_ZOOM_LEVEL) {
+            felt.setViewport({
+              zoom: PARCEL_LAYERS_ZOOM_LEVEL
+            });
+          }
+        }
       }
     }
 
@@ -185,6 +195,9 @@ export default function Page() {
                 currentTheme={currentTheme}
                 onThemeClick={handleThemeClick}
               />
+              {currentTheme !== EXPLORE && currentFilters.length > 0 &&
+                <span style={{ fontStyle: "italic" }}>Filters do not apply to geographic aggregations</span>
+              }
             </Stack>
             <Stack>
               <Heading>Filter Properties by:</Heading>
