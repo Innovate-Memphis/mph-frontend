@@ -133,28 +133,13 @@ export default function Page() {
 
         const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
-        await felt.setLayerFilters({
-          layerId: "PlRKU27xT5O9Btg66aI3uhD", //evictions
-          // @ts-ignore
-          filters: newFilters
-        });
+        const allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP).values();
 
-        await felt.setLayerFilters({
-          layerId: "r5slc7q8TYi4U5Ts29AyMBB", //vacancy
-          // @ts-ignore
-          filters: newFilters
-        });
-
-        await felt.setLayerFilters({
-          layerId: "vJqTqosmS1GOhuvwue9AcfC", //ownership
-          // @ts-ignore
-          filters: newFilters
-        });
-
-        await felt.setLayerFilters({
-          layerId: "VHBjOKqIQBuydqkCtCw9AWD", //filtered parcels layer
-          // @ts-ignore
-          filters: newFilters
+        allParcelLayers.forEach(async (layerId) => {
+          await felt.setLayerFilters({
+            layerId: layerId,
+            filters: newFilters
+          });
         });
       }
     }
