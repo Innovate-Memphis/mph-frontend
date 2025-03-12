@@ -195,7 +195,7 @@ export default function Page() {
                 currentTheme={currentTheme}
                 onThemeClick={handleThemeClick}
               />
-              {currentTheme !== EXPLORE && currentFilters.length > 0 &&
+              {currentTheme !== EXPLORE && (currentFilters.length > 0 || currentFilterBuildDate !== DEFAULT_BUILT_YEAR_FILTERS || currentFilterLandUseCategory.length > 0) &&
                 <span style={{ fontStyle: "italic" }}>Filters do not apply to geographic aggregations</span>
               }
             </Stack>
