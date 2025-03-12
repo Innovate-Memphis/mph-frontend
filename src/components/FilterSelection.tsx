@@ -4,7 +4,7 @@ import { FILTERS } from "../constants";
 
 interface FilterHandler {
     currentFilters: Array<string>;
-    onFilterClick(filterName: string): any;
+    onFilterClick(filterName?: string): any;
 }
 
 export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler) => {
@@ -22,6 +22,7 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
                     </Button>
                 )}
             </For>
+            <Button onClick={() => onFilterClick()} variant="subtle">Reset Filters</Button>
         </HStack>
     )
 }

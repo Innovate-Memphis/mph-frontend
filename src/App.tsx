@@ -151,9 +151,11 @@ export default function Page() {
     setCurrentTheme(theme);
   }
 
-  async function handleFilterClick(filter: string) {
-    // @ts-ignore
-    if (!currentFilters.includes(filter)) {
+  async function handleFilterClick(filter?: string) {
+    if (!filter) {
+      setCurrentFilters([]);
+      // @ts-ignore
+    } else if (!currentFilters.includes(filter)) {
       // @ts-ignore
       setCurrentFilters([...currentFilters, filter]);
     } else {
