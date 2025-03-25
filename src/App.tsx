@@ -1,7 +1,7 @@
 import {
   Box,
+  Button,
   Center,
-  Heading,
   HStack,
   StackSeparator,
   Spinner,
@@ -10,7 +10,7 @@ import {
   Theme,
   VStack,
 } from "@chakra-ui/react";
-
+import mphLogoUrl from './assets/mph_logo.png';
 import { Filters } from "@feltmaps/js-sdk";
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
@@ -164,6 +164,8 @@ export default function Page() {
   async function handleFilterClick(filter?: string) {
     if (!filter) {
       setCurrentFilters([]);
+      setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
+      setCurrentFilterLandUseCategory([]);
       // @ts-ignore
     } else if (!currentFilters.includes(filter)) {
       // @ts-ignore
@@ -184,13 +186,13 @@ export default function Page() {
           flexShrink={0}
           flexGrow={0}
           overflow="hidden"
-          padding="10px"
+          paddingTop="10px"
+          paddingLeft="10px"
         >
-          <HStack
-            gap="25px"
-            separator={<StackSeparator />}>
-            <Stack>
-              <Heading>Explore parcels or select a theme:</Heading>
+          <Stack
+            separator={<StackSeparator style={{ marginTop: "0" }} />}>
+            <HStack>
+              <img src={mphLogoUrl} style={{ width: "150px" }} />
               <ThemeSelect
                 currentTheme={currentTheme}
                 onThemeClick={handleThemeClick}
@@ -198,22 +200,21 @@ export default function Page() {
               {currentTheme !== EXPLORE && (currentFilters.length > 0 || currentFilterBuildDate !== DEFAULT_BUILT_YEAR_FILTERS || currentFilterLandUseCategory.length > 0) &&
                 <span style={{ fontStyle: "italic" }}>Filters do not apply to geographic aggregations</span>
               }
-            </Stack>
-            <Stack>
-              <Heading>Filter Properties by:</Heading>
+            </HStack>
+            <HStack paddingBottom="5" paddingTop="5">
+              <Text>Filter by:</Text>
               <FilterSelection
                 currentFilters={currentFilters}
                 onFilterClick={handleFilterClick} />
-              <HStack gap="15px">
-                <DateRangeSlider
-                  value={currentFilterBuildDate}
-                  onDateSliderChange={setCurrentFilterBuildDate} />
-                <LandUseCategorySelect
-                  value={currentFilterLandUseCategory}
-                  onSelectChange={setCurrentFilterLandUseCategory} />
-              </HStack>
-            </Stack>
-          </HStack>
+              <DateRangeSlider
+                value={currentFilterBuildDate}
+                onDateSliderChange={setCurrentFilterBuildDate} />
+              <LandUseCategorySelect
+                value={currentFilterLandUseCategory}
+                onSelectChange={setCurrentFilterLandUseCategory} />
+              <Button onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
+            </HStack>
+          </Stack>
         </Stack>
         <Box
           bg="gray.100"
