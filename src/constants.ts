@@ -24,6 +24,14 @@ export const THEMES = [
     OWNERSHIP,
 ];
 
+export const FILTER = "Filter Properties"
+const TRENDS = "View Trends"
+
+export const AGGS = [
+  FILTER,
+  TRENDS
+]
+
 export const THEME_TO_GROUP_LAYER_MAP = new Map<string, string>([
     [EVICTIONS, EVICTIONS_GROUP_LAYER_ID],
     [VACANCY, VACANCY_GROUP_LAYER_ID],

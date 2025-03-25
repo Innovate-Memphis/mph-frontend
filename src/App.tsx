@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 
 import { Filters } from "@feltmaps/js-sdk";
+import { AggSelect } from "./components/AggSelect";
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
 import { DateRangeSlider } from "./components/DateRangeSlider";
@@ -21,6 +22,7 @@ import {
   DEFAULT_BUILT_YEAR_FILTERS,
   EXPLORE,
   FELT_MAP_ID,
+  FILTER,
   FILTERS_TO_FELT_FILTER,
   LAND_USE_CATEGORY_FILTER,
   MIN_YEAR_BUILT_FILTER,
@@ -42,6 +44,7 @@ export default function Page() {
   });
 
   const [currentTheme, setCurrentTheme] = useState(EXPLORE);
+  const [currentAgg, setCurrentAgg] = useState(FILTER);
   const [currentFilters, setCurrentFilters] = useState([]);
   const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
   const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
@@ -161,6 +164,10 @@ export default function Page() {
     setCurrentTheme(theme);
   }
 
+  async function handleAggClick(agg: string) {
+    setCurrentAgg(agg);
+  }
+
   async function handleFilterClick(filter?: string) {
     if (!filter) {
       setCurrentFilters([]);
@@ -190,29 +197,30 @@ export default function Page() {
             gap="25px"
             separator={<StackSeparator />}>
             <Stack>
-              <Heading>Explore parcels or select a theme:</Heading>
               <ThemeSelect
                 currentTheme={currentTheme}
                 onThemeClick={handleThemeClick}
               />
-              {currentTheme !== EXPLORE && (currentFilters.length > 0 || currentFilterBuildDate !== DEFAULT_BUILT_YEAR_FILTERS || currentFilterLandUseCategory.length > 0) &&
-                <span style={{ fontStyle: "italic" }}>Filters do not apply to geographic aggregations</span>
-              }
+              {currentTheme !== EXPLORE &&
+                <AggSelect
+                  currentAgg={currentAgg}
+                  onAggClick={handleAggClick}
+                />}
             </Stack>
-            <Stack>
-              <Heading>Filter Properties by:</Heading>
-              <FilterSelection
-                currentFilters={currentFilters}
-                onFilterClick={handleFilterClick} />
-              <HStack gap="15px">
-                <DateRangeSlider
-                  value={currentFilterBuildDate}
-                  onDateSliderChange={setCurrentFilterBuildDate} />
-                <LandUseCategorySelect
-                  value={currentFilterLandUseCategory}
-                  onSelectChange={setCurrentFilterLandUseCategory} />
-              </HStack>
-            </Stack>
+            {currentAgg === FILTER &&
+              <Stack>
+                <FilterSelection
+                  currentFilters={currentFilters}
+                  onFilterClick={handleFilterClick} />
+                <HStack gap="15px">
+                  <DateRangeSlider
+                    value={currentFilterBuildDate}
+                    onDateSliderChange={setCurrentFilterBuildDate} />
+                  <LandUseCategorySelect
+                    value={currentFilterLandUseCategory}
+                    onSelectChange={setCurrentFilterLandUseCategory} />
+                </HStack>
+              </Stack>}
           </HStack>
         </Stack>
         <Box
