@@ -1,7 +1,7 @@
 import {
   Box,
+  Button,
   Center,
-  Heading,
   HStack,
   StackSeparator,
   Spinner,
@@ -10,7 +10,7 @@ import {
   Theme,
   VStack,
 } from "@chakra-ui/react";
-
+import mphLogoUrl from './assets/mph_logo.png';
 import { Filters } from "@feltmaps/js-sdk";
 import { AggSelect } from "./components/AggSelect";
 import { ThemeSelect } from "./components/ThemeSelect";
@@ -171,6 +171,8 @@ export default function Page() {
   async function handleFilterClick(filter?: string) {
     if (!filter) {
       setCurrentFilters([]);
+      setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
+      setCurrentFilterLandUseCategory([]);
       // @ts-ignore
     } else if (!currentFilters.includes(filter)) {
       // @ts-ignore
@@ -191,37 +193,42 @@ export default function Page() {
           flexShrink={0}
           flexGrow={0}
           overflow="hidden"
-          padding="10px"
+          paddingTop="10px"
+          paddingLeft="10px"
         >
-          <HStack
-            gap="25px"
-            separator={<StackSeparator />}>
-            <Stack>
+          <Stack
+            separator={<StackSeparator style={{ marginTop: "0" }} />}>
+            <HStack>
+              <img src={mphLogoUrl} style={{ width: "150px" }} />
               <ThemeSelect
                 currentTheme={currentTheme}
                 onThemeClick={handleThemeClick}
               />
+              {currentTheme !== EXPLORE && (currentFilters.length > 0 || currentFilterBuildDate !== DEFAULT_BUILT_YEAR_FILTERS || currentFilterLandUseCategory.length > 0) &&
+                <span style={{ fontStyle: "italic" }}>Filters do not apply to geographic aggregations</span>
+              }
+            </HStack>
+            <HStack paddingBottom="5" paddingTop="5">
               {currentTheme !== EXPLORE &&
                 <AggSelect
                   currentAgg={currentAgg}
                   onAggClick={handleAggClick}
                 />}
-            </Stack>
-            {currentAgg === FILTER &&
-              <Stack>
-                <FilterSelection
-                  currentFilters={currentFilters}
-                  onFilterClick={handleFilterClick} />
-                <HStack gap="15px">
+              {currentAgg === FILTER &&
+                <>
+                  <FilterSelection
+                    currentFilters={currentFilters}
+                    onFilterClick={handleFilterClick} />
                   <DateRangeSlider
                     value={currentFilterBuildDate}
                     onDateSliderChange={setCurrentFilterBuildDate} />
                   <LandUseCategorySelect
                     value={currentFilterLandUseCategory}
                     onSelectChange={setCurrentFilterLandUseCategory} />
-                </HStack>
-              </Stack>}
-          </HStack>
+                  <Button onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
+                </>}
+            </HStack>
+          </Stack>
         </Stack>
         <Box
           bg="gray.100"

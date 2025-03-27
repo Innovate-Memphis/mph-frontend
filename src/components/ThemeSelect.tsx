@@ -8,16 +8,15 @@ interface ThemeHandler {
 
 export function ThemeSelect({ currentTheme, onThemeClick }: ThemeHandler) {
     return (
-        <Tabs.Root value={currentTheme} variant="plain" onValueChange={(e) => onThemeClick(e.value)} size="lg">
-            <Tabs.List bg="bg.muted" rounded="l3" p="1">
+        <Tabs.Root value={currentTheme} onValueChange={(e) => onThemeClick(e.value)} size="md" colorPalette="green">
+            <Tabs.List>
                 <For each={THEMES}>
-                {(theme) => (
-                    <Tabs.Trigger key={theme} value={theme}>
-                        {theme.toUpperCase()}
-                    </Tabs.Trigger>
-                )}
+                    {(theme) => (
+                        <Tabs.Trigger key={theme} value={theme}>
+                            {theme.toUpperCase()}
+                        </Tabs.Trigger>
+                    )}
                 </For>
-                <Tabs.Indicator rounded="l2" />
             </Tabs.List>
         </Tabs.Root>
     );

@@ -22,7 +22,6 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
                     </Button>
                 )}
             </For>
-            <Button onClick={() => onFilterClick()} variant="subtle">Reset Filters</Button>
         </HStack>
     )
 }
