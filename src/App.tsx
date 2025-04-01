@@ -145,12 +145,12 @@ export default function Page() {
         });
 
         if (currentTheme !== EXPLORE) {
-          const viewport = await felt.getViewport();
-          if (viewport.zoom < PARCEL_LAYERS_ZOOM_LEVEL) {
-            felt.setViewport({
-              zoom: PARCEL_LAYERS_ZOOM_LEVEL
-            });
-          }
+          // const viewport = await felt.getViewport();
+          // if (viewport.zoom < PARCEL_LAYERS_ZOOM_LEVEL) {
+          //   felt.setViewport({
+          //     zoom: PARCEL_LAYERS_ZOOM_LEVEL
+          //   });
+          // }
         }
       }
     }
