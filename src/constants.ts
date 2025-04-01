@@ -44,7 +44,7 @@ const RECENT_EVICTION = "Eviction last 6 months"
 const RECENT_VACANCY = "Vacant last 6 months"
 const INVESTOR_OWNED = "Investor Owned"
 
-export const FILTER_BUTTON_WIDTH = 125;
+export const FILTER_BUTTON_WIDTH = 145;
 
 export const FILTERS = [
   RECENT_SALE,
