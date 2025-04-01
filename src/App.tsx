@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   HStack,
   StackSeparator,
   Spinner,
@@ -201,19 +202,23 @@ export default function Page() {
                 <span style={{ fontStyle: "italic" }}>Filters do not apply to geographic aggregations</span>
               }
             </HStack>
-            <HStack paddingBottom="5" paddingTop="5">
-              <Text>Filter by:</Text>
-              <FilterSelection
-                currentFilters={currentFilters}
-                onFilterClick={handleFilterClick} />
-              <DateRangeSlider
-                value={currentFilterBuildDate}
-                onDateSliderChange={setCurrentFilterBuildDate} />
-              <LandUseCategorySelect
-                value={currentFilterLandUseCategory}
-                onSelectChange={setCurrentFilterLandUseCategory} />
-              <Button onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
-            </HStack>
+            <Stack>
+              <b><Text fontSize={12}>FILTERS</Text></b>
+              <Flex justify="space-between" paddingBottom="2">
+                <HStack>
+                  <FilterSelection
+                    currentFilters={currentFilters}
+                    onFilterClick={handleFilterClick} />
+                  <DateRangeSlider
+                    value={currentFilterBuildDate}
+                    onDateSliderChange={setCurrentFilterBuildDate} />
+                  <LandUseCategorySelect
+                    value={currentFilterLandUseCategory}
+                    onSelectChange={setCurrentFilterLandUseCategory} />
+                </HStack>
+                <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
+              </Flex>
+            </Stack>
           </Stack>
         </Stack>
         <Box

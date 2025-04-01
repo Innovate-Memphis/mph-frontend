@@ -23,7 +23,7 @@ export const LandUseCategorySelect = ({ value, onSelectChange }: LandUseCategory
         onValueChange={(e) => onSelectChange(e.value)}
       >
         <SelectTrigger>
-          <SelectValueText placeholder="Select Land Use Category" />
+          <SelectValueText placeholder="Land Use Category" />
         </SelectTrigger>
         <SelectContent>
           {LAND_USE_CATEGORIES.map((category) => (

@@ -1,6 +1,6 @@
 import { Button, For, HStack } from "@chakra-ui/react";
 import { LuCheck } from "react-icons/lu";
-import { FILTERS } from "../constants";
+import { FILTERS, FILTER_BUTTON_WIDTH } from "../constants";
 
 interface FilterHandler {
     currentFilters: Array<string>;
@@ -13,6 +13,7 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
             <For each={FILTERS}>
                 {(filter) => (
                     <Button
+                        width={FILTER_BUTTON_WIDTH}
                         key={filter}
                         onClick={() => onFilterClick(filter)}
                         variant={currentFilters.includes(filter) ? "outline" : "solid"}
