@@ -17,16 +17,17 @@ import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
 import { DateRangeSlider } from "./components/DateRangeSlider";
 import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
+import { GeographicFiltersSelect } from "./components/GeographicFiltersSelect";
 import { useFeltEmbed } from "./feltUtils";
 import {
   DEFAULT_BUILT_YEAR_FILTERS,
   EXPLORE,
   FELT_MAP_ID,
   FILTERS_TO_FELT_FILTER,
+  GEOGRAPHIC_FELT_FILTER_MAP,
   LAND_USE_CATEGORY_FILTER,
   MIN_YEAR_BUILT_FILTER,
   MAX_YEAR_BUILT_FILTER,
-  PARCEL_LAYERS_ZOOM_LEVEL,
   THEME_TO_GROUP_LAYER_MAP,
   THEME_TO_PARCEL_LAYER_MAP
 } from "./constants";
@@ -46,6 +47,8 @@ export default function Page() {
   const [currentFilters, setCurrentFilters] = useState([]);
   const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
   const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
+  const [currentGeographicFilter, setCurrentGeographicFilter] = useState([]);
+  const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState([]);
 
   useEffect(() => {
     const updateLayerVisibility = async () => {
@@ -133,6 +136,15 @@ export default function Page() {
           allFeltFormattedFilters.push(landUseCategoryFilter)
         }
 
+        if (currentGeoFilteredValues.length) {
+          let currentGeoFilter = GEOGRAPHIC_FELT_FILTER_MAP.get(currentGeographicFilter[0])
+          if (currentGeoFilter) {
+            // @ts-ignore
+            currentGeoFilter[2] = currentGeoFilteredValues
+            allFeltFormattedFilters.push(currentGeoFilter);
+          }
+        }
+
         const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
         const allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP).values();
@@ -156,10 +168,15 @@ export default function Page() {
     }
 
     updateLayerFilter().catch(console.error);
-  }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory])
+  }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues])
 
   async function handleThemeClick(theme: string) {
     setCurrentTheme(theme);
+  }
+
+  async function handleGeoFilterValueClick(value: Array<string>) {
+    // @ts-ignore
+    setCurrentGeoFilteredValues(value);
   }
 
   async function handleFilterClick(filter?: string) {
@@ -167,6 +184,8 @@ export default function Page() {
       setCurrentFilters([]);
       setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
       setCurrentFilterLandUseCategory([]);
+      setCurrentGeographicFilter([]);
+      setCurrentGeoFilteredValues([]);
       // @ts-ignore
     } else if (!currentFilters.includes(filter)) {
       // @ts-ignore
@@ -218,6 +237,14 @@ export default function Page() {
                 </HStack>
                 <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
               </Flex>
+              <HStack paddingBottom="2">
+                <GeographicFiltersSelect
+                  geoFilter={currentGeographicFilter}
+                  geoValues={currentGeoFilteredValues}
+                  onFilterChange={setCurrentGeographicFilter}
+                  onFilterValueChange={handleGeoFilterValueClick}
+                />
+              </HStack>
             </Stack>
           </Stack>
         </Stack>
