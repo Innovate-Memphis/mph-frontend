@@ -74,6 +74,12 @@ export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [INVESTOR_OWNED, INVESTOR_OWNED_FILTER],
 ]);
 
+export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
+  [EVICTIONS, RECENT_EVICTION],
+  [VACANCY, RECENT_VACANCY],
+  [OWNERSHIP, INVESTOR_OWNED],
+]);
+
 const VACANT = "Vacant";
 const RESIDENTIAL = "Residential";
 const COMMERCIAL = "Commercial";

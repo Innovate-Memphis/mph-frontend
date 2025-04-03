@@ -28,6 +28,7 @@ import {
   LAND_USE_CATEGORY_FILTER,
   MIN_YEAR_BUILT_FILTER,
   MAX_YEAR_BUILT_FILTER,
+  THEME_TO_DEFAULT_FILTER_MAP,
   THEME_TO_GROUP_LAYER_MAP,
   THEME_TO_PARCEL_LAYER_MAP
 } from "./constants";
@@ -102,6 +103,19 @@ export default function Page() {
           show: layersToShow,
           hide: layersToHide,
         });
+
+        let themeFilter = THEME_TO_DEFAULT_FILTER_MAP.get(currentTheme);
+        if (themeFilter) {
+          // Reset all filters except theme filter
+          // @ts-ignore
+          setCurrentFilters([themeFilter]);
+          setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
+          setCurrentFilterLandUseCategory([]);
+          setCurrentGeographicFilter([]);
+          setCurrentGeoFilteredValues([]);
+        } else {
+          setCurrentFilters([]);
+        }
       }
     }
 
