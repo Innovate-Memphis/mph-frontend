@@ -15,6 +15,7 @@ import mphLogoUrl from './assets/mph_logo.png';
 import { Filters } from "@feltmaps/js-sdk";
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
+import { FilterSwitch } from "./components/FilterSwitch";
 import { DateRangeSlider } from "./components/DateRangeSlider";
 import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
 import { GeographicFiltersSelect } from "./components/GeographicFiltersSelect";
@@ -44,6 +45,7 @@ export default function Page() {
     },
   });
 
+  const [showFilters, setShowFilters] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(EXPLORE);
   const [currentFilters, setCurrentFilters] = useState([]);
   const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
@@ -57,16 +59,18 @@ export default function Page() {
         let allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
         const groupVisible = allGroupLayers.get(currentTheme);
         const groupsToShow = new Array();
-        if (groupVisible) {
+        if (groupVisible && !showFilters) {
           groupsToShow.push(groupVisible);
         }
 
-        if (currentTheme !== EXPLORE && !groupsToShow.length) {
+        if (currentTheme !== EXPLORE && !groupsToShow.length && !showFilters) {
           console.warn("ERROR: Group layer not found for theme");
           return;
         }
 
-        allGroupLayers.delete(currentTheme)
+        if (!showFilters) {
+          allGroupLayers.delete(currentTheme)
+        }
         const groupsToHide = Array.from(allGroupLayers.values());
 
         await felt.setLayerGroupVisibility({
@@ -120,7 +124,7 @@ export default function Page() {
     }
 
     updateLayerVisibility().catch(console.error);
-  }, [felt, currentTheme]);
+  }, [felt, currentTheme, showFilters]);
 
   useEffect(() => {
     const updateLayerFilter = async () => {
@@ -169,15 +173,6 @@ export default function Page() {
             filters: newFilters
           });
         });
-
-        if (currentTheme !== EXPLORE) {
-          // const viewport = await felt.getViewport();
-          // if (viewport.zoom < PARCEL_LAYERS_ZOOM_LEVEL) {
-          //   felt.setViewport({
-          //     zoom: PARCEL_LAYERS_ZOOM_LEVEL
-          //   });
-          // }
-        }
       }
     }
 
@@ -225,41 +220,42 @@ export default function Page() {
         >
           <Stack
             separator={<StackSeparator style={{ marginTop: "0" }} />}>
-            <HStack>
-              <img src={mphLogoUrl} style={{ width: "150px" }} />
-              <ThemeSelect
-                currentTheme={currentTheme}
-                onThemeClick={handleThemeClick}
-              />
-              {currentTheme !== EXPLORE && (currentFilters.length > 0 || currentFilterBuildDate !== DEFAULT_BUILT_YEAR_FILTERS || currentFilterLandUseCategory.length > 0) &&
-                <span style={{ fontStyle: "italic" }}>Filters do not apply to geographic aggregations</span>
-              }
-            </HStack>
-            <Stack>
-              <b><Text fontSize={12}>FILTERS</Text></b>
-              <Flex justify="space-between" paddingBottom="2">
-                <HStack>
-                  <FilterSelection
-                    currentFilters={currentFilters}
-                    onFilterClick={handleFilterClick} />
-                  <DateRangeSlider
-                    value={currentFilterBuildDate}
-                    onDateSliderChange={setCurrentFilterBuildDate} />
-                  <LandUseCategorySelect
-                    value={currentFilterLandUseCategory}
-                    onSelectChange={setCurrentFilterLandUseCategory} />
-                </HStack>
-                <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
-              </Flex>
-              <HStack paddingBottom="2">
-                <GeographicFiltersSelect
-                  geoFilter={currentGeographicFilter}
-                  geoValues={currentGeoFilteredValues}
-                  onFilterChange={setCurrentGeographicFilter}
-                  onFilterValueChange={handleGeoFilterValueClick}
+            <Flex justify="space-between" marginBottom="5px" paddingRight="10px">
+              <HStack>
+                <img src={mphLogoUrl} style={{ width: "150px" }} />
+                <ThemeSelect
+                  currentTheme={currentTheme}
+                  onThemeClick={handleThemeClick}
                 />
               </HStack>
-            </Stack>
+              <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />
+            </Flex>
+            {showFilters &&
+              <Stack>
+                <b><Text fontSize={12}>FILTERS</Text></b>
+                <Flex justify="space-between" paddingBottom="2">
+                  <HStack>
+                    <FilterSelection
+                      currentFilters={currentFilters}
+                      onFilterClick={handleFilterClick} />
+                    <DateRangeSlider
+                      value={currentFilterBuildDate}
+                      onDateSliderChange={setCurrentFilterBuildDate} />
+                    <LandUseCategorySelect
+                      value={currentFilterLandUseCategory}
+                      onSelectChange={setCurrentFilterLandUseCategory} />
+                  </HStack>
+                  <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
+                </Flex>
+                <HStack paddingBottom="2">
+                  <GeographicFiltersSelect
+                    geoFilter={currentGeographicFilter}
+                    geoValues={currentGeoFilteredValues}
+                    onFilterChange={setCurrentGeographicFilter}
+                    onFilterValueChange={handleGeoFilterValueClick}
+                  />
+                </HStack>
+              </Stack>}
           </Stack>
         </Stack>
         <Box
