@@ -80,7 +80,7 @@ export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
   [OWNERSHIP, INVESTOR_OWNED],
 ]);
 
-const VACANT = "Vacant";
+const VACANT = "Vacant Land";
 const RESIDENTIAL = "Residential";
 const COMMERCIAL = "Commercial";
 const INDUSTRIAL = "Industrial";
