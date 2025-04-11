@@ -59,7 +59,7 @@ export const DEFAULT_BUILT_YEAR_FILTERS = [MIN_YEAR, CURRENT_YEAR];
 
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
 const RECENT_EVICTION_FILTER: Filters = ["evictions_6mo", "gt", 0];
-const RECENT_VACANCY_FILTER: Filters = ["long_term_vacant", "eq", 1];
+const RECENT_VACANCY_FILTER: Filters = ["long_term_vacant", "eq", "Y"];
 const INVESTOR_OWNED_FILTER: Filters = ["investor_owned", "eq", "Y"];
 
 export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
