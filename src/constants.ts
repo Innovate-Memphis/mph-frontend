@@ -58,12 +58,12 @@ export const CURRENT_YEAR = new Date().getFullYear();
 export const DEFAULT_BUILT_YEAR_FILTERS = [MIN_YEAR, CURRENT_YEAR];
 
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
-const RECENT_EVICTION_FILTER: Filters = ["evict_6mo", "gt", 0];
-const RECENT_VACANCY_FILTER: Filters = ["long_term_vacancy", "eq", 1];
-const INVESTOR_OWNED_FILTER: Filters = ["owner_occupied", "eq", "N"];
+const RECENT_EVICTION_FILTER: Filters = ["evictions_6mo", "gt", 0];
+const RECENT_VACANCY_FILTER: Filters = ["long_term_vacant", "eq", 1];
+const INVESTOR_OWNED_FILTER: Filters = ["investor_owned", "eq", "Y"];
 
-export const MIN_YEAR_BUILT_FILTER: Filters = ["dwel_yrblt", "ge", 1950];
-export const MAX_YEAR_BUILT_FILTER: Filters = ["dwel_yrblt", "le", CURRENT_YEAR];
+export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
+export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR];
 
 export const LAND_USE_CATEGORY_FILTER: Filters = ["lu_category", "in", []]
 
@@ -172,9 +172,9 @@ export const GEOGRAPHIC_FILTER_MAP = new Map<string | null, Array<string | numbe
 ]);
 
 const CITY_COUNCIL_FILTER: Filters = ["council_district", "in", []];
-const SUPER_COUNCIL_FILTER: Filters = ["council_super_district", "in", []];
-const ZIPCODE_FILTER: Filters = ["zipcode", "in", []];
-const COUNTY_COMMISSION_FILTER: Filters = ["commission", "in", []]
+const SUPER_COUNCIL_FILTER: Filters = ["super_district", "in", []];
+const ZIPCODE_FILTER: Filters = ["parzip", "in", []];
+const COUNTY_COMMISSION_FILTER: Filters = ["commission_district", "in", []]
 
 export const GEOGRAPHIC_FELT_FILTER_MAP = new Map<string, Filters>([
   [COUNCIL_DISTRICT, CITY_COUNCIL_FILTER],
