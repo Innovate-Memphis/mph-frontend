@@ -13,8 +13,8 @@ export const FilterSwitch = ({ showFilters, onButtonClick }: FilterHandler) => {
             variant={showFilters ? "outline" : "solid"}
             size="sm"
         >
-            {showFilters && <><LuCheck />Applying Filters</>}
-            {!showFilters && "Apply Filters"}
+            {showFilters && <LuCheck />}
+            FILTER
         </Button>
     )
 }

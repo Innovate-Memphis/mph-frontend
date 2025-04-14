@@ -232,7 +232,6 @@ export default function Page() {
             </Flex>
             {showFilters &&
               <Stack>
-                <b><Text fontSize={12}>FILTERS</Text></b>
                 <Flex justify="space-between" paddingBottom="2">
                   <HStack>
                     <FilterSelection
