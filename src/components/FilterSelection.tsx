@@ -1,4 +1,5 @@
 import { Button, For, HStack } from "@chakra-ui/react";
+import { Tooltip } from "./ui/tooltip";
 import { LuCheck } from "react-icons/lu";
 import { FILTERS, FILTER_BUTTON_WIDTH } from "../constants";
 
@@ -11,16 +12,18 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
     return (
         <HStack>
             <For each={FILTERS}>
-                {(filter) => (
+                {({filter, buttonTitle, hoverDescription }, index) => (
+                    <Tooltip content={hoverDescription} openDelay={300}>
                     <Button
                         width={FILTER_BUTTON_WIDTH}
-                        key={filter}
+                        key={index}
                         onClick={() => onFilterClick(filter)}
                         variant={currentFilters.includes(filter) ? "outline" : "solid"}
                     >
                         {currentFilters.includes(filter) && <LuCheck />}
-                        {filter}
+                        {buttonTitle}
                     </Button>
+                    </Tooltip>
                 )}
             </For>
         </HStack>

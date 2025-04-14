@@ -37,14 +37,12 @@ export const THEME_TO_PARCEL_LAYER_MAP = new Map<string | null, string>([
   [EXPLORE, FILTERED_PARCEL_LAYER_ID],
 ]);
 
-export const PARCEL_LAYERS_ZOOM_LEVEL = 14.8;
+const RECENT_SALE = { filter: "SALE", buttonTitle: "Recent Sale", hoverDescription: "Parcels with a sale in the past 6 months" }
+const RECENT_EVICTION = { filter: "EVICT", buttonTitle: "Recent Eviction", hoverDescription: "Parcels with an eviction in the past 6 months" }
+const RECENT_VACANCY = { filter: "VACANT", buttonTitle: "Vacant", hoverDescription: "Parcels that have had vacancy in the last 6 months" }
+const INVESTOR_OWNED = { filter: "INVESTOR", buttonTitle: "Investor Owned", hoverDescription: "Residential parcels that are owned by LLCs and other corporations" }
 
-const RECENT_SALE = "Sale last 6 months"
-const RECENT_EVICTION = "Eviction last 6 months"
-const RECENT_VACANCY = "Vacant last 6 months"
-const INVESTOR_OWNED = "Investor Owned"
-
-export const FILTER_BUTTON_WIDTH = 145;
+export const FILTER_BUTTON_WIDTH = 125;
 
 export const FILTERS = [
   RECENT_SALE,
@@ -68,16 +66,16 @@ export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR]
 export const LAND_USE_CATEGORY_FILTER: Filters = ["lu_category", "in", []]
 
 export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
-  [RECENT_SALE, RECENT_SALE_FILTER],
-  [RECENT_EVICTION, RECENT_EVICTION_FILTER],
-  [RECENT_VACANCY, RECENT_VACANCY_FILTER],
-  [INVESTOR_OWNED, INVESTOR_OWNED_FILTER],
+  [RECENT_SALE.filter, RECENT_SALE_FILTER],
+  [RECENT_EVICTION.filter, RECENT_EVICTION_FILTER],
+  [RECENT_VACANCY.filter, RECENT_VACANCY_FILTER],
+  [INVESTOR_OWNED.filter, INVESTOR_OWNED_FILTER],
 ]);
 
 export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
-  [EVICTIONS, RECENT_EVICTION],
-  [VACANCY, RECENT_VACANCY],
-  [OWNERSHIP, INVESTOR_OWNED],
+  [EVICTIONS, RECENT_EVICTION.filter],
+  [VACANCY, RECENT_VACANCY.filter],
+  [OWNERSHIP, INVESTOR_OWNED.filter],
 ]);
 
 const VACANT = "Vacant Land";
