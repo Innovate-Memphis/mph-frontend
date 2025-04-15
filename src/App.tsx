@@ -112,7 +112,7 @@ export default function Page() {
         if (themeFilter) {
           // Reset all filters except theme filter
           // @ts-ignore
-          setCurrentFilters([themeFilter]);
+          setCurrentFilters(themeFilter);
           setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
           setCurrentFilterLandUseCategory([]);
           setCurrentGeographicFilter([]);

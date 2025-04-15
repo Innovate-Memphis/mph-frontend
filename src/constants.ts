@@ -37,6 +37,7 @@ export const THEME_TO_PARCEL_LAYER_MAP = new Map<string | null, string>([
   [EXPLORE, FILTERED_PARCEL_LAYER_ID],
 ]);
 
+const EXPLORE_THEME = { filter: "EXPLORE" };
 const RECENT_SALE = { filter: "SALE", buttonTitle: "Recent Sale", hoverDescription: "Parcels with a sale in the past 6 months" }
 const RECENT_EVICTION = { filter: "EVICT", buttonTitle: "Recent Eviction", hoverDescription: "Parcels with an eviction in the past 6 months" }
 const RECENT_VACANCY = { filter: "VACANT", buttonTitle: "Vacant", hoverDescription: "Parcels that have had vacancy in the last 6 months" }
@@ -57,6 +58,8 @@ export const MIN_YEAR = 1883
 export const CURRENT_YEAR = new Date().getFullYear();
 export const DEFAULT_BUILT_YEAR_FILTERS = [MIN_YEAR, CURRENT_YEAR];
 
+const EXPLORE_FILTER: Filters = ["state", "eq", "TN"]
+
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
 const RECENT_EVICTION_FILTER: Filters = ["evictions_6mo", "gt", 0];
 const RECENT_VACANCY_FILTER: Filters = ["prop_luc", "eq", "000"];
@@ -69,6 +72,7 @@ export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR]
 export const LAND_USE_CATEGORY_FILTER: Filters = ["lu_category", "in", []]
 
 export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
+  [EXPLORE_THEME.filter, EXPLORE_FILTER],
   [RECENT_SALE.filter, RECENT_SALE_FILTER],
   [RECENT_EVICTION.filter, RECENT_EVICTION_FILTER],
   [RECENT_VACANCY.filter, RECENT_VACANCY_FILTER],
@@ -77,6 +81,7 @@ export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
 ]);
 
 export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
+  [EXPLORE, EXPLORE_FILTER],
   [EVICTIONS, RECENT_EVICTION.filter],
   [VACANCY, RECENT_VACANCY.filter],
   [OWNERSHIP, INVESTOR_OWNED.filter],
