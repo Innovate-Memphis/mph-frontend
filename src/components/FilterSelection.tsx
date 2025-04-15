@@ -19,6 +19,7 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
                         key={index}
                         onClick={() => onFilterClick(filter)}
                         variant={currentFilters.includes(filter) ? "outline" : "solid"}
+                        size="sm"
                     >
                         {currentFilters.includes(filter) && <LuCheck />}
                         {buttonTitle}
