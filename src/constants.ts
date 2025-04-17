@@ -81,7 +81,7 @@ export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
 ]);
 
 export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
-  [EXPLORE, EXPLORE_FILTER],
+  [EXPLORE, EXPLORE_THEME.filter],
   [EVICTIONS, RECENT_EVICTION.filter],
   [VACANCY, RECENT_VACANCY.filter],
   [OWNERSHIP, INVESTOR_OWNED.filter],
