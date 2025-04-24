@@ -233,7 +233,7 @@ export default function Page() {
             {showFilters &&
               <Stack>
                 <Flex justify="space-between" paddingBottom="2">
-                  <HStack>
+                  <Flex align="baseline" gap="4">
                     <FilterSelection
                       currentFilters={currentFilters}
                       onFilterClick={handleFilterClick} />
@@ -243,7 +243,7 @@ export default function Page() {
                     <LandUseCategorySelect
                       value={currentFilterLandUseCategory}
                       onSelectChange={setCurrentFilterLandUseCategory} />
-                  </HStack>
+                  </Flex>
                   <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
                 </Flex>
                 <HStack paddingBottom="2">
