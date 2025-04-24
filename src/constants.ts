@@ -43,6 +43,8 @@ const RECENT_EVICTION = { filter: "EVICT", buttonTitle: "Recent Eviction", hover
 const RECENT_VACANCY = { filter: "VACANT", buttonTitle: "Vacant", hoverDescription: "Parcels that have had vacancy in the last 6 months" }
 const INVESTOR_OWNED = { filter: "INVESTOR", buttonTitle: "Investor Owned", hoverDescription: "Residential parcels that are owned by LLCs and other corporations" }
 const LONG_TERM_VACANCY = { filter: "LONG_VACANT", buttonTitle: "Long-term Vacant", hoverDescription: "Parcels that are deemed long-term vacant" }
+const RECENT_BUILDING_PERMIT = { filter: "RECENT_BUILD_PERMIT", buttonTitle: "Recent Build Permit", hoverDescription: "Parcels that were granted a building permit in the past 1 year" }
+const RECENT_DEMO_PERMIT = { filter: "RECENT_DEMO_PERMIT", buttonTitle: "Recent Demo Permit", hoverDescription: "Parcels that were granted a demolition permit in the past 1 year" }
 
 export const FILTER_BUTTON_WIDTH = 125;
 
@@ -50,6 +52,8 @@ export const FILTERS = [
   RECENT_SALE,
   RECENT_EVICTION,
   RECENT_VACANCY,
+  RECENT_BUILDING_PERMIT,
+  RECENT_DEMO_PERMIT,
   LONG_TERM_VACANCY,
   INVESTOR_OWNED
 ];
@@ -65,6 +69,8 @@ const RECENT_EVICTION_FILTER: Filters = ["evictions_6mo", "gt", 0];
 const RECENT_VACANCY_FILTER: Filters = ["prop_luc", "eq", "000"];
 const INVESTOR_OWNED_FILTER: Filters = ["investor_owned", "eq", "Y"];
 const LONG_TERM_VACANT_FILTER: Filters = ["long_term_vacant", "eq", "Y"];
+const RECENT_BUILD_PERMIT_FILTER: Filters = ["recent_building_permit", "gt", 0];
+const RECENT_DEMO_PERMIT_FILTER: Filters = ["recent_demo_permit", "gt", 0];
 
 export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
 export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR];
@@ -78,6 +84,8 @@ export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [RECENT_VACANCY.filter, RECENT_VACANCY_FILTER],
   [LONG_TERM_VACANCY.filter, LONG_TERM_VACANT_FILTER],
   [INVESTOR_OWNED.filter, INVESTOR_OWNED_FILTER],
+  [RECENT_BUILDING_PERMIT.filter, RECENT_BUILD_PERMIT_FILTER],
+  [RECENT_DEMO_PERMIT.filter, RECENT_DEMO_PERMIT_FILTER],
 ]);
 
 export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
