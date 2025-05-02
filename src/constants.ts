@@ -42,7 +42,7 @@ const RECENT_SALE = { filter: "SALE", buttonTitle: "Recent Sale", hoverDescripti
 const RECENT_EVICTION = { filter: "EVICT", buttonTitle: "Recent Eviction", hoverDescription: "Parcels with an eviction in the past 6 months" }
 const RECENT_VACANCY = { filter: "VACANT", buttonTitle: "Vacant", hoverDescription: "Parcels that have a vacant land use code" }
 const INVESTOR_OWNED = { filter: "INVESTOR", buttonTitle: "Investor Owned", hoverDescription: "Residential parcels that are owned by LLCs and other corporations" }
-const LONG_TERM_VACANCY = { filter: "LONG_VACANT", buttonTitle: "Long-term Vacant", hoverDescription: "Parcels that are deemed long-term vacant" }
+const LONG_TERM_VACANCY = { filter: "LONG_VACANT", buttonTitle: "Long-term Vacant", hoverDescription: "Parcels that have been vacant over 12 months" }
 const RECENT_BUILDING_PERMIT = { filter: "RECENT_BUILD_PERMIT", buttonTitle: "Recent Build Permit", hoverDescription: "Parcels that were granted a building permit in the past 1 year" }
 const RECENT_DEMO_PERMIT = { filter: "RECENT_DEMO_PERMIT", buttonTitle: "Recent Demo Permit", hoverDescription: "Parcels that were granted a demolition permit in the past 1 year" }
 const CONTAINS_IMAGE = { filter: "CONTAINS_IMAGE", buttonTitle: "Contains Image", hoverDescription: "Parcels that have an image on file" }
@@ -70,7 +70,7 @@ const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
 const RECENT_EVICTION_FILTER: Filters = ["evictions_6mo", "gt", 0];
 const RECENT_VACANCY_FILTER: Filters = ["prop_lucdesc", "eq", "VACANTLAND"];
 const INVESTOR_OWNED_FILTER: Filters = ["investor_owner", "eq", "Y"];
-const LONG_TERM_VACANT_FILTER: Filters = ["long_term_vacant", "eq", "Y"];
+const LONG_TERM_VACANT_FILTER: Filters = ["months_vacant", "gt", 12];
 const RECENT_BUILD_PERMIT_FILTER: Filters = ["building_permit_1year", "gt", 0];
 const RECENT_DEMO_PERMIT_FILTER: Filters = ["demo_permit_1year", "gt", 0];
 
