@@ -71,8 +71,8 @@ const RECENT_EVICTION_FILTER: Filters = ["evictions_6mo", "gt", 0];
 const RECENT_VACANCY_FILTER: Filters = ["prop_luc", "eq", "000"];
 const INVESTOR_OWNED_FILTER: Filters = ["investor_owner", "eq", "Y"];
 const LONG_TERM_VACANT_FILTER: Filters = ["long_term_vacant", "eq", "Y"];
-const RECENT_BUILD_PERMIT_FILTER: Filters = ["recent_building_permit", "gt", 0];
-const RECENT_DEMO_PERMIT_FILTER: Filters = ["recent_demo_permit", "gt", 0];
+const RECENT_BUILD_PERMIT_FILTER: Filters = ["building_permit_1year", "gt", 0];
+const RECENT_DEMO_PERMIT_FILTER: Filters = ["demo_permit_1year", "gt", 0];
 
 const CONTAINS_IMAGE_FILTER: Filters = ["bcs_property_image", "isnt", null];
 
