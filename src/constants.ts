@@ -74,7 +74,7 @@ const LONG_TERM_VACANT_FILTER: Filters = ["long_term_vacant", "eq", "Y"];
 const RECENT_BUILD_PERMIT_FILTER: Filters = ["recent_building_permit", "gt", 0];
 const RECENT_DEMO_PERMIT_FILTER: Filters = ["recent_demo_permit", "gt", 0];
 
-const CONTAINS_IMAGE_FILTER: Filters = ["corrected_image", "cn", "https"];
+const CONTAINS_IMAGE_FILTER: Filters = ["bcs_property_image", "isnt", null];
 
 export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
 export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR];
