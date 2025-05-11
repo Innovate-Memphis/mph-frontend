@@ -29,7 +29,6 @@ import {
   LAND_USE_CATEGORY_FILTER,
   MIN_YEAR_BUILT_FILTER,
   MAX_YEAR_BUILT_FILTER,
-  THEME_TO_DEFAULT_FILTER_MAP,
   THEME_TO_GROUP_LAYER_MAP,
   THEME_TO_PARCEL_LAYER_MAP
 } from "./constants";
@@ -56,16 +55,13 @@ export default function Page() {
   useEffect(() => {
     const updateLayerVisibility = async () => {
       if (felt) {
+        const alwaysShowFilteredParcelLayer = currentTheme === EXPLORE
+
         let allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
         const groupVisible = allGroupLayers.get(currentTheme);
         const groupsToShow = new Array();
         if (groupVisible && !showFilters) {
           groupsToShow.push(groupVisible);
-        }
-
-        if (currentTheme !== EXPLORE && !groupsToShow.length && !showFilters) {
-          console.warn("ERROR: Group layer not found for theme");
-          return;
         }
 
         if (!showFilters) {
@@ -86,16 +82,13 @@ export default function Page() {
         let allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP);
         const parcelsVisible = allParcelLayers.get(currentTheme);
         const layersToShow = new Array();
-        if (parcelsVisible) {
+        if (parcelsVisible && (showFilters || alwaysShowFilteredParcelLayer)) {
           layersToShow.push(parcelsVisible);
         }
 
-        if (currentTheme && !layersToShow.length) {
-          console.warn("ERROR: Parcel layer not found for theme");
-          return;
+        if (showFilters || alwaysShowFilteredParcelLayer) {
+          allParcelLayers.delete(currentTheme);
         }
-
-        allParcelLayers.delete(currentTheme);
         const layersToHide = Array.from(allParcelLayers.values());
 
         await felt.setLayerVisibility({
@@ -108,18 +101,8 @@ export default function Page() {
           hide: layersToHide,
         });
 
-        let themeFilter = THEME_TO_DEFAULT_FILTER_MAP.get(currentTheme);
-        if (themeFilter) {
-          // Reset all filters except theme filter
-          // @ts-ignore
-          setCurrentFilters(themeFilter);
-          setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
-          setCurrentFilterLandUseCategory([]);
-          setCurrentGeographicFilter([]);
-          setCurrentGeoFilteredValues([]);
-        } else {
-          setCurrentFilters([]);
-        }
+        console.log(`layersToShow: ${layersToShow}`)
+        console.log(`layersToHide: ${layersToHide}`)
       }
     }
 
@@ -165,14 +148,14 @@ export default function Page() {
 
         const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
-        const allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP).values();
+        let layerToUpdate = THEME_TO_PARCEL_LAYER_MAP.get(currentTheme);
 
-        allParcelLayers.forEach(async (layerId) => {
+        if (layerToUpdate) {
           await felt.setLayerFilters({
-            layerId: layerId,
+            layerId: layerToUpdate,
             filters: newFilters
           });
-        });
+        }
       }
     }
 

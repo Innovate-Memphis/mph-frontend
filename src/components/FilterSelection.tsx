@@ -13,10 +13,9 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
         <Flex gap="4" wrap="wrap" maxW="700px">
             <For each={FILTERS}>
                 {({filter, buttonTitle, hoverDescription }, index) => (
-                    <Tooltip content={hoverDescription} openDelay={300}>
+                    <Tooltip key={index} content={hoverDescription} openDelay={300}>
                         <Button
                             width={FILTER_BUTTON_WIDTH}
-                            key={index}
                             onClick={() => onFilterClick(filter)}
                             variant={currentFilters.includes(filter) ? "outline" : "solid"}
                             size="sm"

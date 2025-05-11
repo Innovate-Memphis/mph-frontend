@@ -11,11 +11,11 @@ const EVICTIONS_GROUP_LAYER_ID = "n5zmBsz8Rw2wis3xrwtNzB"
 const VACANCY_GROUP_LAYER_ID = "4dr5K3ZrTCKK9AWb18v8MEB"
 const OWNERSHIP_GROUP_LAYER_ID = "AoKl9AxdERg6pZVDObvxmjC"
 
-const EVICTIONS_PARCEL_LAYER_ID = "aZ1zwDaQTeCGiVc1PRoszB"
-const VACANCY_PARCEL_LAYER_ID = "WLyGl9CcaQKyswJYbenGjWD"
+const EVICTIONS_PARCEL_LAYER_ID = "CJTXTOzITbGe9BoWDE3y7LB"
+const VACANCY_PARCEL_LAYER_ID = "t7PVtMCKQKS2oSSwl9CHIND"
 const OWNERSHIP_PARCEL_LAYER_ID = "ipk9AOGZtTFOkCg6BWLRBkC"
 
-export const FILTERED_PARCEL_LAYER_ID = "370zsBb2SrSZ9BtKK9BMruBB"
+export const FILTERED_PARCEL_LAYER_ID = "aLFXLp9B9CTRO9BVGm89BBazLA"
 
 export const THEMES = [
   EXPLORE,
@@ -31,10 +31,10 @@ export const THEME_TO_GROUP_LAYER_MAP = new Map<string, string>([
 ]);
 
 export const THEME_TO_PARCEL_LAYER_MAP = new Map<string | null, string>([
+  [EXPLORE, FILTERED_PARCEL_LAYER_ID],
   [EVICTIONS, EVICTIONS_PARCEL_LAYER_ID],
   [VACANCY, VACANCY_PARCEL_LAYER_ID],
   [OWNERSHIP, OWNERSHIP_PARCEL_LAYER_ID],
-  [EXPLORE, FILTERED_PARCEL_LAYER_ID],
 ]);
 
 const EXPLORE_THEME = { filter: "EXPLORE" };
@@ -69,7 +69,7 @@ const EXPLORE_FILTER: Filters = ["state", "eq", "TN"]
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
 const RECENT_EVICTION_FILTER: Filters = ["evictions_6mo", "gt", 0];
 const RECENT_VACANCY_FILTER: Filters = ["prop_lucdesc", "eq", "VACANTLAND"];
-const INVESTOR_OWNED_FILTER: Filters = ["investor_owner", "eq", "Y"];
+const INVESTOR_OWNED_FILTER: Filters = ["owner_occupied", "eq", "N"];
 const LONG_TERM_VACANT_FILTER: Filters = ["months_vacant", "gt", 12];
 const RECENT_BUILD_PERMIT_FILTER: Filters = ["building_permit_1year", "gt", 0];
 const RECENT_DEMO_PERMIT_FILTER: Filters = ["demo_permit_1year", "gt", 0];
@@ -79,7 +79,7 @@ const CONTAINS_IMAGE_FILTER: Filters = ["bcs_property_image", "isnt", null];
 export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
 export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR];
 
-export const LAND_USE_CATEGORY_FILTER: Filters = ["lu_category", "in", []]
+export const LAND_USE_CATEGORY_FILTER: Filters = ["land_use_category", "in", []]
 
 export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [EXPLORE_THEME.filter, EXPLORE_FILTER],
