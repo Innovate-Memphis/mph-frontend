@@ -4,7 +4,7 @@ export const FELT_MAP_ID = "p9CPdaItsRQm9COaGzgt17WB"
 
 export const EXPLORE = "Explore"
 const EVICTIONS = "Evictions"
-const VACANCY = "Vacancy"
+const VACANCY = "Vacant Land"
 const OWNERSHIP = "Ownership"
 
 const EVICTIONS_GROUP_LAYER_ID = "n5zmBsz8Rw2wis3xrwtNzB"
