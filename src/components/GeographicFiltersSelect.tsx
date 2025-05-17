@@ -26,9 +26,10 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
   }
   return (
     <HStack>
-      <Stack width="200px">
+      <Stack maxWidth="180px">
         <SelectRoot
           collection={geographicFilters}
+          size="sm"
           value={geoFilter}
           onValueChange={(e) => onFilterChange(e.value)}
         >

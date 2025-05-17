@@ -1,0 +1,344 @@
+<html class="{{_theme}}">
+
+<head>
+    <link rel="preload" href="https://felt.com/fonts/AtlasGrotesk-Regular-Cy-Web.woff2" as="font" type="font/woff2"
+        crossorigin>
+    <link rel="stylesheet" type="text/css" href="https://felt.com/fonts/fonts.css">
+    <link rel="stylesheet" type="text/css" href="https://felt.com/css/root.css">
+    <link rel="stylesheet" type="text/css" href="https://felt.com/css/html-popup.css">
+    <style>
+        .tooltip-img-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .tooltip-img {
+            width: 100%;
+            height: 100%;
+            object-fit: scale-down;
+        }
+
+        .img-placeholder {
+            height: 100%;
+            background-color: black;
+            color: white;
+            padding: 10px;
+        }
+
+        .tooltip-data {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 20px;
+        }
+
+        .img-overlay {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            background-color: rgba(83, 80, 80, 0.5);
+            display: flex;
+            flex-direction: column;
+            font-weight: 900;
+            color: white;
+        }
+
+        .add-1,
+        .add-2 {
+            padding-left: 15px;
+        }
+
+        table {
+            width: 100%;
+            font-size: 10px;
+        }
+
+        table tr td {
+            padding: 5px;
+        }
+
+        .bg-gray {
+            background: #f2f2f2;
+        }
+
+        h3 {
+            border-bottom: solid #048188;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tooltip-img-container">
+        {% assign bcs_property_image = _attributes | find: "name", "bcs_property_image" %}
+        {% if bcs_property_image.value == nil %}
+        <div class="img-placeholder">No image available</div>
+        {% else %}
+        <img class="tooltip-img" src="{{bcs_property_image.value}}">
+        {% endif %}
+        <div class="img-overlay">
+            <span class="add-1">
+                {% assign address = _attributes | find: "name", "address" %}
+                {{address.value}}
+            </span>
+            <span class="add-2">
+                {% assign parzip = _attributes | find: "name", "parzip" %}
+                {% assign city = _attributes | find: "name", "city" %}
+                {% assign state = _attributes | find: "name", "state" %}
+                {{city.value}}, {{state.value}} {{parzip.value}}
+            </span>
+        </div>
+    </div>
+    <div class="tooltip-data">
+        <section>
+            <table class="bg-gray">
+                <thead>
+                    <tr>
+                        {% assign parid = _attributes | find: "name", "parid" %}
+                        <td>Parcel ID: {{parid.value}}</td>
+                    </tr>
+                </thead>
+            </table>
+        </section>
+        <section>
+            <h3>Ownership</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Owner</td>
+                        {% assign owner_name = _attributes | find: "name", "owner_name" %}
+                        <td>{{owner_name.value}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        <td>Owner Address</td>
+                        {% assign own_addr = _attributes | find: "name", "own_addr" %}
+                        {% assign own_zip = _attributes | find: "name", "own_zip" %}
+                        {% assign own_cityname = _attributes | find: "name", "own_cityname" %}
+                        {% assign own_statecode = _attributes | find: "name", "own_statecode" %}
+                        <td>{{own_addr.value}} {{own_cityname.value}}, {{own_statecode.value}} {{own_zip.value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>Geography</h3>
+            <table>
+                <tbody>
+                    <tr class="bg-gray">
+                        <td>Legal Subdivision</td>
+                        {% assign legal_subdiv = _attributes | find: "name", "legal_subdiv" %}
+                        <td>{{legal_subdiv.value | default: "-"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>Usage & Classification</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Property Class</td>
+                        {% assign propclass = _attributes | find: "name", "propclass" %}
+                        <td>{{propclass.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        <td>Property Use</td>
+                        {% assign prop_lucdesc = _attributes | find: "name", "prop_lucdesc" %}
+                        <td>{{prop_lucdesc.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>Zoning</td>
+                        {% assign zon_code_desc = _attributes | find: "name", "zon_code_desc" %}
+                        <td>{{zon_code_desc.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        <td>Year built</td>
+                        {% assign year_built = _attributes | find: "name", "year_built" %}
+                        <td>{{year_built.value | date: "%Y-%m-%d" | default: "-"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>Dimensions</h3>
+            <table>
+                <tbody>
+                    <tr class="bg-gray">
+                        <td>Square Foot Living Area</td>
+                        {% assign dwel_sfla = _attributes | find: "name", "dwel_sfla" %}
+                        <td>{{dwel_sfla.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        <td>Lot Dimensions</td>
+                        {% assign lot_dim = _attributes | find: "name", "lot_dim" %}
+                        <td>{{lot_dim.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign living_units = _attributes | find: "name", "living_units" %}
+                        <td>Living Units</td>
+                        <td>{{living_units.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        {% assign acres = _attributes | find: "name", "acres" %}
+                        <td>Acres</td>
+                        <td>{{acres.value | default: "-"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>Taxation</h3>
+            <table>
+                <tbody>
+                    <tr class="bg-gray">
+                        {% assign total_assessment = _attributes | find: "name", "total_assessment" %}
+                        <td>Assessed Value</td>
+                        <td>${{total_assessment.value | default: "-" }}</td>
+                    </tr>
+                    <tr>
+                        {% assign total_appraisal = _attributes | find: "name", "total_appraisal" %}
+                        <td>Appraised Value</td>
+                        <td>${{total_appraisal.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign change_in_value = _attributes | find: "name", "change_in_value" %}
+                        <td>% Change Appraisal Value Past Year</td>
+                        <td>{{change_in_value.value | default: "-"}}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>Sales</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        {% assign sales_1yr = _attributes | find: "name", "sales_1yr" %}
+                        <td>Past 1 Year</td>
+                        <td>{{sales_1yr.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign sales_5yr = _attributes | find: "name", "sales_5yr" %}
+                        <td>Past 5 Years</td>
+                        <td>{{sales_5yr.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        {% assign total_sales = _attributes | find: "name", "total_sales" %}
+                        <td>Total</td>
+                        <td>{{total_sales.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign most_recent_sale = _attributes | find: "name", "most_recent_sale" %}
+                        <td>Most Recent Sale Date</td>
+                        <td>{{ most_recent_sale.value | date: "%Y-%m-%d" | default: "-" }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>Evictions</h3>
+            <table>
+                <tbody>
+                    <tr class="bg-gray">
+                        {% assign evictions_6mo = _attributes | find: "name", "evictions_6mo" %}
+                        <td>Past 6 Months</td>
+                        <td>{{evictions_6mo.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        {% assign evictions_1yr = _attributes | find: "name", "evictions_1yr" %}
+                        <td>Past 1 Year</td>
+                        <td>{{evictions_1yr.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign total_evictions = _attributes | find: "name", "total_evictions" %}
+                        <td>Total</td>
+                        <td>{{total_evictions.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        {% assign eviction_filing_date = _attributes | find: "name", "eviction_filing_date" %}
+                        <td>Most Recent Eviction Filing Date</td>
+                        <td>{{eviction_filing_date.value | date: "%Y-%m-%d" | default: "-"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>Occupancy</h3>
+            <table>
+                <tbody>
+                    <tr class="bg-gray">
+                        {% assign occupancy_status = _attributes | find: "name", "occupancy_status" %}
+                        <td>Occupancy Status</td>
+                        <td>{{occupancy_status.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign months_vacant = _attributes | find: "name", "months_vacant" %}
+                        <td>Months Vacant</td>
+                        <td>{{months_vacant.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        {% assign vacant_since = _attributes | find: "name", "vacant_since" %}
+                        <td>Vacant Since</td>
+                        <td>{{vacant_since.value | date: "%Y-%m-%d" | default: "-"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>311 Service Requests</h3>
+            <table>
+                <tbody>
+                    <tr class="bg-gray">
+                        {% assign service_req_6mo = _attributes | find: "name", "service_req_6mo" %}
+                        <td>Past 6 Months</td>
+                        <td>{{service_req_6mo.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        {% assign service_req_1yr = _attributes | find: "name", "service_req_1yr" %}
+                        <td>Past 1 Year</td>
+                        <td>{{service_req_1yr.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign total_service_req = _attributes | find: "name", "total_service_req" %}
+                        <td>Total</td>
+                        <td>{{total_service_req.value | default: "-"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>Permits</h3>
+            <table>
+                <tbody>
+                    <tr class="bg-gray">
+                        {% assign permit_cost_1year = _attributes | find: "name", "permit_cost_1year" %}
+                        <td>Permit Cost - Past 1 Year</td>
+                        <td>${{permit_cost_1year.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        {% assign demo_permit_1year = _attributes | find: "name", "demo_permit_1year" %}
+                        <td>Demo Permits - Past 1 Year</td>
+                        <td>{{demo_permit_1year.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign building_permit_1year = _attributes | find: "name", "building_permit_1year" %}
+                        <td>Building Permits - Past 1 Year</td>
+                        <td>{{building_permit_1year.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        {% assign total_permits = _attributes | find: "name", "total_permits" %}
+                        <td>Total Permits</td>
+                        <td>{{total_permits.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign total_permit_cost = _attributes | find: "name", "total_permit_cost" %}
+                        <td>Total Permit Costs</td>
+                        <td>${{total_permit_cost.value | default: "-"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+
+</html>

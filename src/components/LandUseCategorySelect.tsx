@@ -19,6 +19,7 @@ export const LandUseCategorySelect = ({ value, onSelectChange }: LandUseCategory
       <SelectRoot
         collection={categories}
         multiple
+        size="sm"
         value={value}
         onValueChange={(e) => onSelectChange(e.value)}
       >

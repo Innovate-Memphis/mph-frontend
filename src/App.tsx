@@ -226,17 +226,15 @@ export default function Page() {
                     <LandUseCategorySelect
                       value={currentFilterLandUseCategory}
                       onSelectChange={setCurrentFilterLandUseCategory} />
+                    <GeographicFiltersSelect
+                      geoFilter={currentGeographicFilter}
+                      geoValues={currentGeoFilteredValues}
+                      onFilterChange={setCurrentGeographicFilter}
+                      onFilterValueChange={handleGeoFilterValueClick}
+                    />
                   </Flex>
                   <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
                 </Flex>
-                <HStack paddingBottom="2">
-                  <GeographicFiltersSelect
-                    geoFilter={currentGeographicFilter}
-                    geoValues={currentGeoFilteredValues}
-                    onFilterChange={setCurrentGeographicFilter}
-                    onFilterValueChange={handleGeoFilterValueClick}
-                  />
-                </HStack>
               </Stack>}
           </Stack>
         </Stack>

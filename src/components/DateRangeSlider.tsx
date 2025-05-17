@@ -15,6 +15,7 @@ export const DateRangeSlider = ({ value, onDateSliderChange }: DateRangerFilterH
             max={CURRENT_YEAR}
             minW="150px"
             maxW="200px"
+            size="sm"
             value={value}
             onValueChange={(e) => setSlideValue(e.value)}
             onValueChangeEnd={(e) => onDateSliderChange(e.value)}
