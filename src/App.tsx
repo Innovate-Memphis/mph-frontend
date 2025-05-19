@@ -220,18 +220,22 @@ export default function Page() {
                     <FilterSelection
                       currentFilters={currentFilters}
                       onFilterClick={handleFilterClick} />
-                    <DateRangeSlider
-                      value={currentFilterBuildDate}
-                      onDateSliderChange={setCurrentFilterBuildDate} />
-                    <LandUseCategorySelect
-                      value={currentFilterLandUseCategory}
-                      onSelectChange={setCurrentFilterLandUseCategory} />
-                    <GeographicFiltersSelect
-                      geoFilter={currentGeographicFilter}
-                      geoValues={currentGeoFilteredValues}
-                      onFilterChange={setCurrentGeographicFilter}
-                      onFilterValueChange={handleGeoFilterValueClick}
-                    />
+                    <Stack>
+                      <DateRangeSlider
+                        value={currentFilterBuildDate}
+                        onDateSliderChange={setCurrentFilterBuildDate} />
+                      <HStack>
+                        <LandUseCategorySelect
+                          value={currentFilterLandUseCategory}
+                          onSelectChange={setCurrentFilterLandUseCategory} />
+                        <GeographicFiltersSelect
+                          geoFilter={currentGeographicFilter}
+                          geoValues={currentGeoFilteredValues}
+                          onFilterChange={setCurrentGeographicFilter}
+                          onFilterValueChange={handleGeoFilterValueClick}
+                        />
+                      </HStack>
+                    </Stack>
                   </Flex>
                   <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
                 </Flex>
