@@ -40,7 +40,7 @@ export const THEME_TO_PARCEL_LAYER_MAP = new Map<string | null, string>([
 const EXPLORE_THEME = { filter: "EXPLORE" };
 const RECENT_SALE = { filter: "SALE", buttonTitle: "Recent Sale", hoverDescription: "Parcels with a sale in the past 6 months" }
 const RECENT_EVICTION = { filter: "EVICT", buttonTitle: "Recent Eviction", hoverDescription: "Parcels with an eviction in the past 6 months" }
-const RECENT_VACANCY = { filter: "VACANT", buttonTitle: "Vacant", hoverDescription: "Parcels that have a vacant land use code" }
+const RECENT_VACANCY = { filter: "VACANT", buttonTitle: "Vacant", hoverDescription: "Residential parcels that are marked vacant by USPS" }
 const INVESTOR_OWNED = { filter: "INVESTOR", buttonTitle: "Investor Owned", hoverDescription: "Residential parcels that are owned by LLCs and other corporations" }
 const LONG_TERM_VACANCY = { filter: "LONG_VACANT", buttonTitle: "Long-term Vacant", hoverDescription: "Parcels that have been vacant over 12 months" }
 const RECENT_BUILDING_PERMIT = { filter: "RECENT_BUILD_PERMIT", buttonTitle: "Recent Build Permit", hoverDescription: "Parcels that were granted a building permit in the past 1 year" }
@@ -68,7 +68,7 @@ const EXPLORE_FILTER: Filters = ["state", "eq", "TN"]
 
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
 const RECENT_EVICTION_FILTER: Filters = ["evictions_6mo", "gt", 0];
-const RECENT_VACANCY_FILTER: Filters = ["prop_lucdesc", "eq", "VACANTLAND"];
+const RECENT_VACANCY_FILTER: Filters = ["months_vacant", "gt", 0];
 const INVESTOR_OWNED_FILTER: Filters = ["owner_occupied", "eq", "N"];
 const LONG_TERM_VACANT_FILTER: Filters = ["months_vacant", "gt", 12];
 const RECENT_BUILD_PERMIT_FILTER: Filters = ["building_permit_1year", "gt", 0];
