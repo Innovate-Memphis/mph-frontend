@@ -154,7 +154,7 @@
                     <tr class="bg-gray">
                         <td>Year built</td>
                         {% assign year_built = _attributes | find: "name", "year_built" %}
-                        <td>{{year_built.value | date: "%Y-%m-%d" | default: "-"}}</td>
+                        <td>{{year_built.value | date: "%Y" | default: "-"}}</td>
                     </tr>
                 </tbody>
             </table>
