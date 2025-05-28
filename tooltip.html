@@ -117,6 +117,21 @@
                         {% assign own_statecode = _attributes | find: "name", "own_statecode" %}
                         <td>{{own_addr.value}} {{own_cityname.value}}, {{own_statecode.value}} {{own_zip.value}}</td>
                     </tr>
+                    <tr>
+                        <td>Investor Owned?</td>
+                        {% assign investor_owned = _attributes | find: "name", "investor_owned" %}
+                        <td>{{investor_owned.value}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        <td>Owner Geography</td>
+                        {% assign owner_geography = _attributes | find: "name", "owner_geography" %}
+                        <td>{{owner_geography.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>Owner Type</td>
+                        {% assign owner_type = _attributes | find: "name", "owner_type" %}
+                        <td>{{owner_type.value}}</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -340,4 +355,5 @@
         </section>
     </div>
 </body>
+
 </html>
