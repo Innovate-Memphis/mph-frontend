@@ -22,10 +22,10 @@ export const FILTERED_PARCEL_LAYER_ID = "aLFXLp9B9CTRO9BVGm89BBazLA"
 
 export const THEMES = [
   EXPLORE,
+  OWNERSHIP,
   EVICTIONS,
   OCCUPANCY,
   VACANCY,
-  OWNERSHIP,
 ];
 
 export const THEME_TO_GROUP_LAYER_MAP = new Map<string, string>([
