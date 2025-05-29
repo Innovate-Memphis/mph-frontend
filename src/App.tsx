@@ -17,11 +17,13 @@ import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
 import { FilterSwitch } from "./components/FilterSwitch";
 import { DateRangeSlider } from "./components/DateRangeSlider";
+import { LivingUnitsSlider } from "./components/LivingUnitsSlider";
 import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
 import { GeographicFiltersSelect } from "./components/GeographicFiltersSelect";
 import { useFeltEmbed } from "./feltUtils";
 import {
   DEFAULT_BUILT_YEAR_FILTERS,
+  DEFAULT_UNITS_FILTERS,
   EXPLORE,
   FELT_MAP_ID,
   FILTERS_TO_FELT_FILTER,
@@ -30,7 +32,9 @@ import {
   MIN_YEAR_BUILT_FILTER,
   MAX_YEAR_BUILT_FILTER,
   THEME_TO_GROUP_LAYER_MAP,
-  THEME_TO_PARCEL_LAYER_MAP
+  THEME_TO_PARCEL_LAYER_MAP,
+  MIN_UNITS_FILTER,
+  MAX_UNITS_FILTER,
 } from "./constants";
 import { filterUtils } from "./utils";
 import { useState, useEffect } from "react";
@@ -48,6 +52,7 @@ export default function Page() {
   const [currentTheme, setCurrentTheme] = useState(EXPLORE);
   const [currentFilters, setCurrentFilters] = useState([]);
   const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
+  const [currentFilterUnits, setCurrentFilterUnits] = useState(DEFAULT_UNITS_FILTERS);
   const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
   const [currentGeographicFilter, setCurrentGeographicFilter] = useState([]);
   const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState([]);
@@ -101,8 +106,6 @@ export default function Page() {
           hide: layersToHide,
         });
 
-        console.log(`layersToShow: ${layersToShow}`)
-        console.log(`layersToHide: ${layersToHide}`)
       }
     }
 
@@ -128,6 +131,20 @@ export default function Page() {
           // @ts-ignore
           maxYearBuiltFilter[2] = currentFilterBuildDate[1]
           allFeltFormattedFilters.push(maxYearBuiltFilter)
+        }
+
+        if (currentFilterUnits[0] !== DEFAULT_UNITS_FILTERS[0]) {
+          let minUnitsFilter = MIN_UNITS_FILTER;
+          // @ts-ignore
+          minUnitsFilter[2] = currentFilterUnits[0]
+          allFeltFormattedFilters.push(minUnitsFilter)
+        }
+
+        if (currentFilterUnits[1] !== DEFAULT_UNITS_FILTERS[1]) {
+          let maxUnitsFilter = MAX_UNITS_FILTER;
+          // @ts-ignore
+          maxUnitsFilter[2] = currentFilterUnits[1]
+          allFeltFormattedFilters.push(maxUnitsFilter)
         }
 
         if (currentFilterLandUseCategory.length) {
@@ -221,9 +238,14 @@ export default function Page() {
                       currentFilters={currentFilters}
                       onFilterClick={handleFilterClick} />
                     <Stack>
-                      <DateRangeSlider
-                        value={currentFilterBuildDate}
-                        onDateSliderChange={setCurrentFilterBuildDate} />
+                      <HStack>
+                        <DateRangeSlider
+                          value={currentFilterBuildDate}
+                          onDateSliderChange={setCurrentFilterBuildDate} />
+                        <LivingUnitsSlider
+                          value={currentFilterUnits}
+                          onUnitsSliderChange={setCurrentFilterUnits} />
+                      </HStack>
                       <HStack>
                         <LandUseCategorySelect
                           value={currentFilterLandUseCategory}

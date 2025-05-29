@@ -74,6 +74,10 @@ export const MIN_YEAR = 1883
 export const CURRENT_YEAR = new Date().getFullYear();
 export const DEFAULT_BUILT_YEAR_FILTERS = [MIN_YEAR, CURRENT_YEAR];
 
+export const MIN_UNITS = 0;
+export const MAX_UNITS = 1000;
+export const DEFAULT_UNITS_FILTERS = [MIN_UNITS, MAX_UNITS];
+
 const EXPLORE_FILTER: Filters = ["state", "eq", "TN"]
 
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
@@ -90,6 +94,9 @@ const NONLOCAL_OWNER_FILTER: Filters = ["owner_location", "eq", "Non-local"];
 
 export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
 export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR];
+
+export const MIN_UNITS_FILTER: Filters = ["living_units", "ge", MIN_UNITS];
+export const MAX_UNITS_FILTER: Filters = ["living_units", "le", MAX_UNITS];
 
 export const LAND_USE_CATEGORY_FILTER: Filters = ["land_use_category", "in", []]
 
@@ -474,4 +481,3 @@ export const GEOGRAPHIC_FELT_FILTER_MAP = new Map<string, Filters>([
   [COUNTY_COMMISSION, COUNTY_COMMISSION_FILTER],
   [CENSUS_TRACT, CENSUS_TRACT_FILTER],
 ]);
-
