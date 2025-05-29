@@ -52,6 +52,7 @@ const LONG_TERM_VACANCY = { filter: "LONG_VACANT", buttonTitle: "Long-term Vacan
 const RECENT_BUILDING_PERMIT = { filter: "RECENT_BUILD_PERMIT", buttonTitle: "Recent Build Permit", hoverDescription: "Parcels that were granted a building permit in the past 1 year" }
 const RECENT_DEMO_PERMIT = { filter: "RECENT_DEMO_PERMIT", buttonTitle: "Recent Demo Permit", hoverDescription: "Parcels that were granted a demolition permit in the past 1 year" }
 const CONTAINS_IMAGE = { filter: "CONTAINS_IMAGE", buttonTitle: "Contains Image", hoverDescription: "Parcels that have an image on file" }
+const OWNER_OCCUPIED = { filter: "OWNER_OCCUPIED", buttonTitle: "Owner Occupied", hoverDescription: "Parcels where owner address matches the address" }
 
 export const FILTER_BUTTON_WIDTH = 125;
 
@@ -64,6 +65,7 @@ export const FILTERS = [
   RECENT_BUILDING_PERMIT,
   RECENT_DEMO_PERMIT,
   CONTAINS_IMAGE,
+  OWNER_OCCUPIED,
 ];
 
 export const MIN_YEAR = 1883
@@ -81,6 +83,7 @@ const RECENT_BUILD_PERMIT_FILTER: Filters = ["building_permit_1year", "gt", 0];
 const RECENT_DEMO_PERMIT_FILTER: Filters = ["demo_permit_1year", "gt", 0];
 
 const CONTAINS_IMAGE_FILTER: Filters = ["bcs_property_image", "isnt", null];
+const OWNER_OCCUPIED_FILTER: Filters = ["owner_occupied", "eq", "Y"];
 
 export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
 export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR];
@@ -97,6 +100,7 @@ export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [RECENT_BUILDING_PERMIT.filter, RECENT_BUILD_PERMIT_FILTER],
   [RECENT_DEMO_PERMIT.filter, RECENT_DEMO_PERMIT_FILTER],
   [CONTAINS_IMAGE.filter, CONTAINS_IMAGE_FILTER],
+  [OWNER_OCCUPIED.filter, OWNER_OCCUPIED_FILTER],
 ]);
 
 export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
