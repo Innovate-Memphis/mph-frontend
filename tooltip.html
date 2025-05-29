@@ -66,6 +66,19 @@
             border-bottom: solid #048188;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.currency-format').forEach(function (element) {
+                const text = element.textContent;
+                const number = text.replace(/[$,-]/g, '');
+
+                if (number && !isNaN(number)) {
+                    const formatted = parseInt(number).toLocaleString();
+                    element.textContent = '$' + formatted;
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -169,7 +182,7 @@
                     <tr class="bg-gray">
                         <td>Year built</td>
                         {% assign year_built = _attributes | find: "name", "year_built" %}
-                        <td>{{year_built.value | date: "%Y" | default: "-"}}</td>
+                        <td>{{year_built.value | default: "-"}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -208,12 +221,12 @@
                     <tr class="bg-gray">
                         {% assign total_assessment = _attributes | find: "name", "total_assessment" %}
                         <td>Assessed Value</td>
-                        <td>${{total_assessment.value | default: "-" }}</td>
+                        <td class="currency-format">{{total_assessment.value | default: "-" }}</td>
                     </tr>
                     <tr>
                         {% assign total_appraisal = _attributes | find: "name", "total_appraisal" %}
                         <td>Appraised Value</td>
-                        <td>${{total_appraisal.value | default: "-"}}</td>
+                        <td class="currency-format">{{total_appraisal.value | default: "-"}}</td>
                     </tr>
                     <tr class="bg-gray">
                         {% assign change_in_value = _attributes | find: "name", "change_in_value" %}
@@ -328,7 +341,7 @@
                     <tr class="bg-gray">
                         {% assign permit_cost_1year = _attributes | find: "name", "permit_cost_1year" %}
                         <td>Permit Cost - Past 1 Year</td>
-                        <td>${{permit_cost_1year.value | default: "-"}}</td>
+                        <td class="currency-format">{{permit_cost_1year.value | default: "-"}}</td>
                     </tr>
                     <tr>
                         {% assign demo_permit_1year = _attributes | find: "name", "demo_permit_1year" %}
@@ -348,7 +361,7 @@
                     <tr class="bg-gray">
                         {% assign total_permit_cost = _attributes | find: "name", "total_permit_cost" %}
                         <td>Total Permit Costs</td>
-                        <td>${{total_permit_cost.value | default: "-"}}</td>
+                        <td class="currency-format">{{total_permit_cost.value | default: "-"}}</td>
                     </tr>
                 </tbody>
             </table>
