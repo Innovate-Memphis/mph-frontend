@@ -53,6 +53,7 @@ const RECENT_BUILDING_PERMIT = { filter: "RECENT_BUILD_PERMIT", buttonTitle: "Re
 const RECENT_DEMO_PERMIT = { filter: "RECENT_DEMO_PERMIT", buttonTitle: "Recent Demo Permit", hoverDescription: "Parcels that were granted a demolition permit in the past 1 year" }
 const CONTAINS_IMAGE = { filter: "CONTAINS_IMAGE", buttonTitle: "Contains Image", hoverDescription: "Parcels that have an image on file" }
 const OWNER_OCCUPIED = { filter: "OWNER_OCCUPIED", buttonTitle: "Owner Occupied", hoverDescription: "Parcels where owner address matches the address" }
+const NON_LOCAL_OWNER = { filter: "NONLOCAL_OWNER", buttonTitle: "Non-Local Owner", hoverDescription: "Parcels where owner address is the Memphis metro area" }
 
 export const FILTER_BUTTON_WIDTH = 125;
 
@@ -66,6 +67,7 @@ export const FILTERS = [
   RECENT_DEMO_PERMIT,
   CONTAINS_IMAGE,
   OWNER_OCCUPIED,
+  NON_LOCAL_OWNER,
 ];
 
 export const MIN_YEAR = 1883
@@ -84,6 +86,7 @@ const RECENT_DEMO_PERMIT_FILTER: Filters = ["demo_permit_1year", "gt", 0];
 
 const CONTAINS_IMAGE_FILTER: Filters = ["bcs_property_image", "isnt", null];
 const OWNER_OCCUPIED_FILTER: Filters = ["owner_occupied", "eq", "Y"];
+const NONLOCAL_OWNER_FILTER: Filters = ["owner_location", "eq", "Non-local"];
 
 export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
 export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR];
@@ -101,6 +104,7 @@ export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [RECENT_DEMO_PERMIT.filter, RECENT_DEMO_PERMIT_FILTER],
   [CONTAINS_IMAGE.filter, CONTAINS_IMAGE_FILTER],
   [OWNER_OCCUPIED.filter, OWNER_OCCUPIED_FILTER],
+  [NON_LOCAL_OWNER.filter, NONLOCAL_OWNER_FILTER],
 ]);
 
 export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
