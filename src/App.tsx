@@ -3,6 +3,8 @@ import {
   Button,
   Center,
   Flex,
+  Grid,
+  GridItem,
   HStack,
   StackSeparator,
   Spinner,
@@ -237,27 +239,35 @@ export default function Page() {
                     <FilterSelection
                       currentFilters={currentFilters}
                       onFilterClick={handleFilterClick} />
-                    <Stack>
-                      <HStack>
+                    <Grid
+                      templateRows="repeat(2, 1fr)"
+                      templateColumns="repeat(2, 1fr)"
+                      gap={4}
+                    >
+                      <GridItem colSpan={1}>
                         <DateRangeSlider
                           value={currentFilterBuildDate}
                           onDateSliderChange={setCurrentFilterBuildDate} />
+                      </GridItem>
+                      <GridItem colSpan={1}>
                         <LivingUnitsSlider
                           value={currentFilterUnits}
                           onUnitsSliderChange={setCurrentFilterUnits} />
-                      </HStack>
-                      <HStack>
+                      </GridItem>
+                      <GridItem colSpan={1}>
                         <LandUseCategorySelect
                           value={currentFilterLandUseCategory}
                           onSelectChange={setCurrentFilterLandUseCategory} />
+                      </GridItem>
+                      <GridItem colSpan={1}>
                         <GeographicFiltersSelect
                           geoFilter={currentGeographicFilter}
                           geoValues={currentGeoFilteredValues}
                           onFilterChange={setCurrentGeographicFilter}
                           onFilterValueChange={handleGeoFilterValueClick}
                         />
-                      </HStack>
-                    </Stack>
+                      </GridItem>
+                    </Grid>
                   </Flex>
                   <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
                 </Flex>
