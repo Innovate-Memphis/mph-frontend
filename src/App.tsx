@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 import mphLogoUrl from './assets/mph_logo.png';
 import { Filters } from "@feltmaps/js-sdk";
+import Joyride from 'react-joyride';
+
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
 import { FilterSwitch } from "./components/FilterSwitch";
@@ -35,6 +37,7 @@ import {
   MAX_YEAR_BUILT_FILTER,
   THEME_TO_GROUP_LAYER_MAP,
   THEME_TO_PARCEL_LAYER_MAP,
+  TOUR_STEPS,
   MIN_UNITS_FILTER,
   MAX_UNITS_FILTER,
 } from "./constants";
@@ -208,6 +211,7 @@ export default function Page() {
 
   return (
     <Theme appearance="light">
+      <Joyride steps={TOUR_STEPS} />
       <Stack direction="column" height="100vh" overflow="hidden" gap={0}>
         <Stack
           gap={0}

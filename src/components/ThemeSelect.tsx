@@ -9,7 +9,7 @@ interface ThemeHandler {
 export function ThemeSelect({ currentTheme, onThemeClick }: ThemeHandler) {
     return (
         <Tabs.Root value={currentTheme} onValueChange={(e) => onThemeClick(e.value)} size="md" colorPalette="green">
-            <Tabs.List>
+            <Tabs.List id="theme-tabs">
                 <For each={THEMES}>
                     {(theme) => (
                         <Tabs.Trigger key={theme} value={theme}>

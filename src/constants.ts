@@ -481,3 +481,14 @@ export const GEOGRAPHIC_FELT_FILTER_MAP = new Map<string, Filters>([
   [COUNTY_COMMISSION, COUNTY_COMMISSION_FILTER],
   [CENSUS_TRACT, CENSUS_TRACT_FILTER],
 ]);
+
+export const TOUR_STEPS = [
+  {
+    target: '#theme-tabs',
+    content: 'Explore different themes of data aggregations',
+  },
+  {
+    target: '#filter',
+    content: 'Use the filter button to filter for individual properties',
+  },
+];
