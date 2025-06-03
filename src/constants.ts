@@ -485,10 +485,10 @@ export const GEOGRAPHIC_FELT_FILTER_MAP = new Map<string, Filters>([
 export const TOUR_STEPS = [
   {
     target: '#theme-tabs',
-    content: 'Explore different themes of data aggregations',
+    content: 'Explore different themes of housing data. The view defaults to summaries of different geographic boundaries (city council districts, census tracts, etc.)',
   },
   {
     target: '#filter',
-    content: 'Use the filter button to filter for individual properties',
+    content: 'Use the filter button to switch from summary view to individual parcels. Use a combination of filters to drill down into data you want to see.',
   },
 ];
