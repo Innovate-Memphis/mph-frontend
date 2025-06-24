@@ -20,6 +20,7 @@ import Joyride from 'react-joyride';
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
 import { FilterSwitch } from "./components/FilterSwitch";
+import { AggregationsSwitch } from "./components/AggregationsSwitch";
 import { DateRangeSlider } from "./components/DateRangeSlider";
 import { LivingUnitsSlider } from "./components/LivingUnitsSlider";
 import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
@@ -54,6 +55,7 @@ export default function Page() {
   });
 
   const [showFilters, setShowFilters] = useState(false);
+  const [showAggregations, setShowAggregations] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(EXPLORE);
   const [currentFilters, setCurrentFilters] = useState([]);
   const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
@@ -65,16 +67,14 @@ export default function Page() {
   useEffect(() => {
     const updateLayerVisibility = async () => {
       if (felt) {
-        const alwaysShowFilteredParcelLayer = currentTheme === EXPLORE
+        const alwaysShowParcelLayer = currentTheme === EXPLORE
 
-        let allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
-        const groupVisible = allGroupLayers.get(currentTheme);
+        const allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
         const groupsToShow = new Array();
-        if (groupVisible && !showFilters) {
-          groupsToShow.push(groupVisible);
-        }
-
-        if (!showFilters) {
+        
+        if (showAggregations) {
+          const groupForTheme = allGroupLayers.get(currentTheme);
+          groupsToShow.push(groupForTheme);
           allGroupLayers.delete(currentTheme)
         }
         const groupsToHide = Array.from(allGroupLayers.values());
@@ -89,16 +89,15 @@ export default function Page() {
           hide: groupsToHide,
         });
 
-        let allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP);
-        const parcelsVisible = allParcelLayers.get(currentTheme);
+        const allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP);
         const layersToShow = new Array();
-        if (parcelsVisible && (showFilters || alwaysShowFilteredParcelLayer)) {
-          layersToShow.push(parcelsVisible);
-        }
 
-        if (showFilters || alwaysShowFilteredParcelLayer) {
+        if (!showAggregations || alwaysShowParcelLayer) {
+          const layerForTheme = allParcelLayers.get(currentTheme);
+          layersToShow.push(layerForTheme);
           allParcelLayers.delete(currentTheme);
         }
+
         const layersToHide = Array.from(allParcelLayers.values());
 
         await felt.setLayerVisibility({
@@ -115,7 +114,7 @@ export default function Page() {
     }
 
     updateLayerVisibility().catch(console.error);
-  }, [felt, currentTheme, showFilters]);
+  }, [felt, currentTheme, showAggregations]);
 
   useEffect(() => {
     const updateLayerFilter = async () => {
@@ -184,6 +183,12 @@ export default function Page() {
     updateLayerFilter().catch(console.error);
   }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues])
 
+  useEffect(() => {
+    if (showAggregations) {
+      setShowFilters(false);
+    }
+  }, [showAggregations]);
+
   async function handleThemeClick(theme: string) {
     setCurrentTheme(theme);
   }
@@ -234,7 +239,12 @@ export default function Page() {
                   onThemeClick={handleThemeClick}
                 />
               </HStack>
-              <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />
+              <HStack>
+                {!showAggregations &&
+                  <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />}
+                {currentTheme !== EXPLORE &&
+                  <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
+              </HStack>
             </Flex>
             {showFilters &&
               <Stack>
