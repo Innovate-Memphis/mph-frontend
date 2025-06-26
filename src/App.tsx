@@ -72,7 +72,7 @@ export default function Page() {
         const allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
         const groupsToShow = new Array();
 
-        if (showAggregations) {
+        if (showAggregations && !alwaysShowParcelLayer) {
           const groupForTheme = allGroupLayers.get(currentTheme);
           groupsToShow.push(groupForTheme);
           allGroupLayers.delete(currentTheme)
