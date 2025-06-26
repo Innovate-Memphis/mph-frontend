@@ -71,7 +71,7 @@ export default function Page() {
 
         const allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
         const groupsToShow = new Array();
-        
+
         if (showAggregations) {
           const groupForTheme = allGroupLayers.get(currentTheme);
           groupsToShow.push(groupForTheme);
@@ -185,9 +185,13 @@ export default function Page() {
 
   useEffect(() => {
     if (showAggregations) {
-      setShowFilters(false);
+      return setShowFilters(false);
     }
-  }, [showAggregations]);
+
+    if (currentTheme !== EXPLORE) {
+      return setShowFilters(true);
+    }
+  }, [showAggregations, currentTheme]);
 
   async function handleThemeClick(theme: string) {
     setCurrentTheme(theme);
