@@ -1,5 +1,4 @@
 import { Button } from "@chakra-ui/react";
-import { LuCheck } from "react-icons/lu";
 
 interface AggregationHandler {
     showAggregations: boolean;
@@ -7,6 +6,7 @@ interface AggregationHandler {
 }
 
 export const AggregationsSwitch = ({ showAggregations, onButtonClick }: AggregationHandler) => {
+    const text = showAggregations ? "VIEW PARCELS" : "VIEW TRENDS";
     return (
         <Button
             id="filter"
@@ -14,8 +14,7 @@ export const AggregationsSwitch = ({ showAggregations, onButtonClick }: Aggregat
             variant={showAggregations ? "outline" : "solid"}
             size="sm"
         >
-            {showAggregations && <LuCheck />}
-            Show Aggregations
+            {text}
         </Button>
     )
 }
