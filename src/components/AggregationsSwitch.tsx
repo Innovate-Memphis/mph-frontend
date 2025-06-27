@@ -11,7 +11,6 @@ export const AggregationsSwitch = ({ showAggregations, onButtonClick }: Aggregat
         <Button
             id="filter"
             onClick={() => onButtonClick(!showAggregations)}
-            variant={showAggregations ? "outline" : "solid"}
             size="sm"
         >
             {text}
