@@ -499,7 +499,7 @@ export const TOUR_STEPS = [
     target: '.view-trends',
     content: 'View aggregation trends across different geographic boundaries.'
   },
-  { target: 'div[role="group"]',
+  { target: 'div[aria-label="Toggle slider"]',
     content: 'Use this slider to change geographic boundaries.'
   },
   { target: '.view-parcels',
