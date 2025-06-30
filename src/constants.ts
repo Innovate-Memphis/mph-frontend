@@ -484,11 +484,25 @@ export const GEOGRAPHIC_FELT_FILTER_MAP = new Map<string, Filters>([
 
 export const TOUR_STEPS = [
   {
+    target: '#filter',
+    content: 'Use the filter button to switch from summary view to individual parcels. Use a combination of filters to drill down into data you want to see.',
+  },
+  {
     target: '#theme-tabs',
+    content: 'Explore different themes of housing data. The view defaults to viewing parcel-level data.',
+  },
+  {
+    target: '#trends',
     content: 'Explore different themes of housing data. The view defaults to summaries of different geographic boundaries (city council districts, census tracts, etc.)',
   },
   {
-    target: '#filter',
-    content: 'Use the filter button to switch from summary view to individual parcels. Use a combination of filters to drill down into data you want to see.',
+    target: '.view-trends',
+    content: 'View aggregation trends across different geographic boundaries.'
+  },
+  { target: 'div[role="group"]',
+    content: 'Use this slider to change geographic boundaries.'
+  },
+  { target: '.view-parcels',
+    content: 'Switch back to parcel view from the aggregation level.'
   },
 ];
