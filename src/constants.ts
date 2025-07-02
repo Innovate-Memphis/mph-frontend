@@ -471,7 +471,7 @@ export const GEOGRAPHIC_FILTER_MAP = new Map<string | null, Array<string | numbe
 const CITY_COUNCIL_FILTER: Filters = ["council_district", "in", []];
 const SUPER_COUNCIL_FILTER: Filters = ["super_district", "in", []];
 const ZIPCODE_FILTER: Filters = ["parzip", "in", []];
-const COUNTY_COMMISSION_FILTER: Filters = ["commission_district", "in", []]
+const COUNTY_COMMISSION_FILTER: Filters = ["commission_district", "in", []];
 const CENSUS_TRACT_FILTER: Filters = ["tract_2020", "in", []];
 
 export const GEOGRAPHIC_FELT_FILTER_MAP = new Map<string, Filters>([
