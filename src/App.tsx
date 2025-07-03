@@ -25,6 +25,7 @@ import { DateRangeSlider } from "./components/DateRangeSlider";
 import { LivingUnitsSlider } from "./components/LivingUnitsSlider";
 import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
 import { GeographicFiltersSelect } from "./components/GeographicFiltersSelect";
+import { HelpMenu } from "./components/HelpMenu";
 // import LoginButton from "./components/LoginButton";
 // import LogoutButton from "./components/LogoutButton";
 
@@ -253,6 +254,7 @@ export default function Page() {
                   <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
                   {/* <LoginButton />
                   <LogoutButton /> */}
+                  <HelpMenu />
               </HStack>
             </Flex>
             {showFilters &&
