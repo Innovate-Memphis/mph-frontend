@@ -25,6 +25,9 @@ import { DateRangeSlider } from "./components/DateRangeSlider";
 import { LivingUnitsSlider } from "./components/LivingUnitsSlider";
 import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
 import { GeographicFiltersSelect } from "./components/GeographicFiltersSelect";
+import LoginButton from "./components/LoginButton";
+import LogoutButton from "./components/LogoutButton";
+
 import { useFeltEmbed } from "./feltUtils";
 import {
   DEFAULT_BUILT_YEAR_FILTERS,
@@ -248,6 +251,8 @@ export default function Page() {
                   <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />}
                 {currentTheme !== EXPLORE &&
                   <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
+                  {/* <LoginButton />
+                  <LogoutButton /> */}
               </HStack>
             </Flex>
             {showFilters &&
