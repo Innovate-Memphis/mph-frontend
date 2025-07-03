@@ -25,8 +25,8 @@ import { DateRangeSlider } from "./components/DateRangeSlider";
 import { LivingUnitsSlider } from "./components/LivingUnitsSlider";
 import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
 import { GeographicFiltersSelect } from "./components/GeographicFiltersSelect";
-import LoginButton from "./components/LoginButton";
-import LogoutButton from "./components/LogoutButton";
+// import LoginButton from "./components/LoginButton";
+// import LogoutButton from "./components/LogoutButton";
 
 import { useFeltEmbed } from "./feltUtils";
 import {
