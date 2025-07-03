@@ -15,7 +15,7 @@ export const FilterSwitch = ({ showFilters, onButtonClick }: FilterHandler) => {
             size="sm"
         >
             {showFilters && <LuCheck />}
-            FILTER
+            FILTER PARCELS
         </Button>
     )
 }
