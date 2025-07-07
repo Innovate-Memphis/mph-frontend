@@ -35,6 +35,7 @@ import {
   DEFAULT_UNITS_FILTERS,
   EXPLORE,
   FELT_MAP_ID,
+  FILTERED_PARCEL_LAYER_ID,
   FILTERS_TO_FELT_FILTER,
   GEOGRAPHIC_FELT_FILTER_MAP,
   LAND_USE_CATEGORY_FILTER,
@@ -67,6 +68,23 @@ export default function Page() {
   const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
   const [currentGeographicFilter, setCurrentGeographicFilter] = useState([]);
   const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState([]);
+  const [dataYear, setDataYear] = useState<null | number>(null);
+
+  useEffect(() => {
+    const getMaxYearData = async () => {
+      if (felt) {
+        const { max } = await felt.getAggregates({
+          layerId: FILTERED_PARCEL_LAYER_ID,
+          aggregation: {
+            methods: ["max"],
+            attribute: "taxyr"
+          }
+        });
+        setDataYear(max);
+      }
+    }
+    getMaxYearData();
+  }, [felt]);
 
   useEffect(() => {
     const updateLayerVisibility = async () => {
@@ -246,15 +264,16 @@ export default function Page() {
                   currentTheme={currentTheme}
                   onThemeClick={handleThemeClick}
                 />
+                { dataYear && <Text>Currently viewing data for {dataYear}</Text> }
               </HStack>
               <HStack>
                 {!showAggregations &&
                   <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />}
                 {currentTheme !== EXPLORE &&
                   <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
-                  {/* <LoginButton />
+                {/* <LoginButton />
                   <LogoutButton /> */}
-                  <HelpMenu />
+                <HelpMenu />
               </HStack>
             </Flex>
             {showFilters &&
