@@ -258,7 +258,7 @@
                     <tr class="bg-gray">
                         {% assign most_recent_sale = _attributes | find: "name", "most_recent_sale" %}
                         <td>Most Recent Sale Date</td>
-                        <td>{{ most_recent_sale.value | date: "%Y-%m-%d" | default: "-" }}</td>
+                        <td>{{ most_recent_sale.value | date: "%m/%d/%Y" | default: "-" }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -285,7 +285,7 @@
                     <tr>
                         {% assign eviction_filing_date = _attributes | find: "name", "eviction_filing_date" %}
                         <td>Most Recent Eviction Filing Date</td>
-                        <td>{{eviction_filing_date.value | date: "%Y-%m-%d" | default: "-"}}</td>
+                        <td>{{eviction_filing_date.value | date: "%m/%d/%Y" | default: "-"}}</td>
                     </tr>
                 </tbody>
             </table>
