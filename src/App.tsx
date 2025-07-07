@@ -264,7 +264,6 @@ export default function Page() {
                   currentTheme={currentTheme}
                   onThemeClick={handleThemeClick}
                 />
-                { dataYear && <Text>Currently viewing data for {dataYear}</Text> }
               </HStack>
               <HStack>
                 {!showAggregations &&
@@ -340,6 +339,9 @@ export default function Page() {
               </VStack>
             </Center>
           )}
+        </Box>
+        <Box padding="2">
+          {dataYear && <Text textStyle="sm">Currently viewing data for {dataYear}</Text>}
         </Box>
       </Stack >
     </Theme >
