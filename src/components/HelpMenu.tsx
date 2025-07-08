@@ -28,7 +28,7 @@ export const HelpMenu = ({ activeTheme }: any) => {
     const links = buildLinks(activeTheme);
 
     return (
-        <Menu.Root positioning={({ placement: 'bottom' })}>
+        <Menu.Root id="help-menu" positioning={({ placement: 'bottom' })}>
             <Menu.Trigger asChild>
                 <IconButton area-label="Open Support">
                     <Tooltip content="Support Menu" openDelay={300}>

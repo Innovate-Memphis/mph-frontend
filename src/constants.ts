@@ -485,24 +485,23 @@ export const GEOGRAPHIC_FELT_FILTER_MAP = new Map<string, Filters>([
 export const TOUR_STEPS = [
   {
     target: '#filter',
-    content: 'Use the filter button to switch from summary view to individual parcels. Use a combination of filters to drill down into data you want to see.',
+    content: 'Filter parcels: Click here to open the filter panel. Then select one or more criteria—like vacancy status, living-unit type (e.g. “Single-Family”), or zoning—to narrow the map to exactly the parcels you need. Hit RESET to clear all filters.',
   },
   {
     target: '#theme-tabs',
-    content: 'Explore different themes of housing data. The view defaults to viewing parcel-level data.',
-  },
-  {
-    target: '#trends',
-    content: 'Explore different themes of housing data. The view defaults to summaries of different geographic boundaries (city council districts, census tracts, etc.)',
+    content: 'Choose a data theme: Click on a housing theme to switch the map and sidebar and explore that topic. Each theme defaults to viewing parcel-level data.',
   },
   {
     target: '.view-trends',
-    content: 'View aggregation trends across different geographic boundaries.'
+    content: 'View Trends: Click here to switch to an aggregated view. Use the slider to pick Heat Map, Census Tracts, ZIP Codes, City Council, or County Commission to see parcel data summarized by those geographies.'
   },
   { target: 'div[aria-label="Toggle slider"]',
     content: 'Use this slider to change geographic boundaries.'
   },
   { target: '.view-parcels',
-    content: 'Switch back to parcel view from the aggregation level.'
+    content: 'Click here to switch back to the parcel-level view.'
+  },
+  { target: 'button[data-uid="help-menu"]',
+    content: 'Help Menu: Click here to access the user guide, documentation on what’s included, data rules for each theme, and a link for you submit your ideas and feedback.'
   },
 ];
