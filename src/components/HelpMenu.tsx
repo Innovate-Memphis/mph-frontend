@@ -11,7 +11,7 @@ function buildLinks(param: string) {
         },
         {
             title: "WHAT'S INCLUDED",
-            href: "https://www.datamidsouth.org/whats-included",
+            href: "https://datamidsouth.featurebase.app/dashboard/articles/6955063",
         },
         {
             title: "DATA RULES",
@@ -19,7 +19,7 @@ function buildLinks(param: string) {
         },
         {
             title: "SUBMIT IDEAS",
-            href: "https://www.datamidsouth.org/submit-ideas",
+            href: "https://feedback.datamidsouth.org/",
         },
     ];
 }
