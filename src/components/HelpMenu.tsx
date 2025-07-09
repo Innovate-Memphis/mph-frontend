@@ -24,7 +24,7 @@ function buildLinks(param: string) {
     ];
 }
 
-export const HelpMenu = ({ activeTheme }: any) => {
+export const HelpMenu = ({ activeTheme, onResetTour }: any) => {
     const links = buildLinks(activeTheme);
 
     return (
@@ -47,6 +47,9 @@ export const HelpMenu = ({ activeTheme }: any) => {
                                 </a>
                             </Menu.Item>
                         ))}
+                        <Menu.Item onClick={onResetTour} value="reset-tour">
+                            RESTART TOUR
+                        </Menu.Item>
                     </Menu.Content>
                 </Menu.Positioner>
             </Portal>

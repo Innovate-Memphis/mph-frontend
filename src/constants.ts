@@ -493,15 +493,16 @@ export const TOUR_STEPS = [
   },
   {
     target: '.view-trends',
-    content: 'View Trends: Click here to switch to an aggregated view. Use the slider to pick Heat Map, Census Tracts, ZIP Codes, City Council, or County Commission to see parcel data summarized by those geographies.'
+    content: 'View Trends: Click here to switch to an aggregated view. Use the slider to pick Heat Map, Census Tracts, ZIP Codes, City Council, or County Commission to see parcel data summarized by those geographies.',
   },
-  { target: 'div[aria-label="Toggle slider"]',
-    content: 'Use this slider to change geographic boundaries.'
+  { target: "iframe", // timing issues with changing to the aggregation level and trying to select the toggle
+    content: 'Use the geographic slider on the left to change geographic boundaries.',
+    placement: "center",
   },
   { target: '.view-parcels',
     content: 'Click here to switch back to the parcel-level view.'
   },
-  { target: 'button[data-uid="help-menu"]',
+  { target: "button[data-uid='help-menu']",
     content: 'Help Menu: Click here to access the user guide, documentation on what’s included, data rules for each theme, and a link for you submit your ideas and feedback.'
   },
 ];

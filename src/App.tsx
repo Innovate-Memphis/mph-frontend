@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import mphLogoUrl from './assets/mph_logo.png';
 import { Filters } from "@feltmaps/js-sdk";
-import Joyride from 'react-joyride';
+import Joyride, { ACTIONS, EVENTS, CallBackProps } from 'react-joyride';
 
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
@@ -43,6 +43,7 @@ import {
   MAX_YEAR_BUILT_FILTER,
   THEME_TO_GROUP_LAYER_MAP,
   THEME_TO_PARCEL_LAYER_MAP,
+  THEMES,
   TOUR_STEPS,
   MIN_UNITS_FILTER,
   MAX_UNITS_FILTER,
@@ -69,6 +70,8 @@ export default function Page() {
   const [currentGeographicFilter, setCurrentGeographicFilter] = useState([]);
   const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState([]);
   const [dataYear, setDataYear] = useState<null | number>(null);
+  const [run, setRun] = useState(false);
+  const [stepIndex, setStepIndex] = useState(0);
 
   useEffect(() => {
     const getMaxYearData = async () => {
@@ -84,6 +87,11 @@ export default function Page() {
       }
     }
     getMaxYearData();
+
+    const hasRanTour = localStorage.getItem("tour");
+    if (!hasRanTour) {
+      setRun(true);
+    }
   }, [felt]);
 
   useEffect(() => {
@@ -240,110 +248,156 @@ export default function Page() {
     }
   }
 
-  return (
-    <Theme appearance="light">
-      <Joyride steps={TOUR_STEPS} />
-      <Stack direction="column" height="100vh" overflow="hidden" gap={0}>
+  function handleResetTour() {
+    localStorage.removeItem("tour")
+    setRun(true);
+  }
+
+  const handleJoyrideCallback = async (data: CallBackProps) => {
+    const { action, index, step, type } = data;
+
+    if (action === ACTIONS.START) {
+      localStorage.setItem("tour", "ok");
+    }
+
+    if (action === ACTIONS.CLOSE && type === "step:after" && step.target === ".view-trends") {
+      setShowAggregations(true);
+    }
+
+    if (action === ACTIONS.CLOSE && type === "step:after" && step.target === ".view-parcels") {
+      setShowAggregations(false);
+    }
+
+    if (action === ACTIONS.CLOSE && type === "step:after" && step.target === "#filter") {
+      setShowFilters(true)
+    }
+
+    if (action === ACTIONS.CLOSE && type === "step:after" && step.target === "#theme-tabs") {
+      setCurrentTheme(THEMES[2]) // Evictions Theme
+    }
+
+    if (action === ACTIONS.CLOSE && type === "step:after" && step.target === "button[data-uid='help-menu']") {
+      setCurrentTheme(EXPLORE)
+    }
+
+    // @ts-ignore
+    if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
+      // Update state to advance the tour
+      setStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
+    }
+  }
+
+return (
+  <Theme appearance="light">
+    <Joyride
+     callback={handleJoyrideCallback}
+     run={run}
+     stepIndex={stepIndex}
+     /*
+      // @ts-ignore  idk what this typescript error is about... */
+     steps={TOUR_STEPS}
+    />
+    <Stack direction="column" height="100vh" overflow="hidden" gap={0}>
+      <Stack
+        gap={0}
+        borderRight="1px solid"
+        borderColor="border.muted"
+        userSelect="none"
+        flexShrink={0}
+        flexGrow={0}
+        overflow="hidden"
+        paddingTop="10px"
+        paddingLeft="10px"
+      >
         <Stack
-          gap={0}
-          borderRight="1px solid"
-          borderColor="border.muted"
-          userSelect="none"
-          flexShrink={0}
-          flexGrow={0}
-          overflow="hidden"
-          paddingTop="10px"
-          paddingLeft="10px"
-        >
-          <Stack
-            separator={<StackSeparator style={{ marginTop: "0" }} />}>
-            <Flex justify="space-between" marginBottom="5px" paddingRight="10px">
-              <HStack>
-                <img src={mphLogoUrl} style={{ width: "150px" }} />
-                <ThemeSelect
-                  currentTheme={currentTheme}
-                  onThemeClick={handleThemeClick}
-                />
-              </HStack>
-              <HStack>
-                {!showAggregations &&
-                  <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />}
-                {currentTheme !== EXPLORE &&
-                  <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
-                {/* <LoginButton />
+          separator={<StackSeparator style={{ marginTop: "0" }} />}>
+          <Flex justify="space-between" marginBottom="5px" paddingRight="10px">
+            <HStack>
+              <img src={mphLogoUrl} style={{ width: "150px" }} />
+              <ThemeSelect
+                currentTheme={currentTheme}
+                onThemeClick={handleThemeClick}
+              />
+            </HStack>
+            <HStack>
+              {!showAggregations &&
+                <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />}
+              {currentTheme !== EXPLORE &&
+                <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
+              {/* <LoginButton />
                   <LogoutButton /> */}
-                <HelpMenu />
-              </HStack>
-            </Flex>
-            {showFilters &&
-              <Stack>
-                <Flex justify="space-between" paddingBottom="2">
-                  <Flex align="baseline" gap="4">
-                    <FilterSelection
-                      currentFilters={currentFilters}
-                      onFilterClick={handleFilterClick} />
-                    <Grid
-                      templateRows="repeat(2, 1fr)"
-                      templateColumns="repeat(2, 1fr)"
-                      gap={4}
-                    >
-                      <GridItem colSpan={1}>
-                        <DateRangeSlider
-                          value={currentFilterBuildDate}
-                          onDateSliderChange={setCurrentFilterBuildDate} />
-                      </GridItem>
-                      <GridItem colSpan={1}>
-                        <LivingUnitsSlider
-                          value={currentFilterUnits}
-                          onUnitsSliderChange={setCurrentFilterUnits} />
-                      </GridItem>
-                      <GridItem colSpan={1}>
-                        <LandUseCategorySelect
-                          value={currentFilterLandUseCategory}
-                          onSelectChange={setCurrentFilterLandUseCategory} />
-                      </GridItem>
-                      <GridItem colSpan={1}>
-                        <GeographicFiltersSelect
-                          geoFilter={currentGeographicFilter}
-                          geoValues={currentGeoFilteredValues}
-                          onFilterChange={setCurrentGeographicFilter}
-                          onFilterValueChange={handleGeoFilterValueClick}
-                        />
-                      </GridItem>
-                    </Grid>
-                  </Flex>
-                  <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
+              <HelpMenu onResetTour={handleResetTour} />
+            </HStack>
+          </Flex>
+          {showFilters &&
+            <Stack>
+              <Flex justify="space-between" paddingBottom="2">
+                <Flex align="baseline" gap="4">
+                  <FilterSelection
+                    currentFilters={currentFilters}
+                    onFilterClick={handleFilterClick} />
+                  <Grid
+                    templateRows="repeat(2, 1fr)"
+                    templateColumns="repeat(2, 1fr)"
+                    gap={4}
+                  >
+                    <GridItem colSpan={1}>
+                      <DateRangeSlider
+                        value={currentFilterBuildDate}
+                        onDateSliderChange={setCurrentFilterBuildDate} />
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                      <LivingUnitsSlider
+                        value={currentFilterUnits}
+                        onUnitsSliderChange={setCurrentFilterUnits} />
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                      <LandUseCategorySelect
+                        value={currentFilterLandUseCategory}
+                        onSelectChange={setCurrentFilterLandUseCategory} />
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                      <GeographicFiltersSelect
+                        geoFilter={currentGeographicFilter}
+                        geoValues={currentGeoFilteredValues}
+                        onFilterChange={setCurrentGeographicFilter}
+                        onFilterValueChange={handleGeoFilterValueClick}
+                      />
+                    </GridItem>
+                  </Grid>
                 </Flex>
-              </Stack>}
-          </Stack>
+                <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
+              </Flex>
+            </Stack>}
         </Stack>
-        <Box
-          bg="gray.100"
-          css={{
-            "& > iframe": {
-              position: "relative",
-              zIndex: 1,
-            },
-          }}
-          position="relative"
-          ref={mapRef}
-          flex={1}
-        >
-          {!felt && (
-            <Center zIndex={0} position="absolute" inset={0}>
-              <VStack gap={3}>
-                <Spinner color="fg.subtle" />
-                <Text fontSize="sm" color="fg.subtle">
-                  Loading map&hellip;
-                </Text>
-              </VStack>
-            </Center>
-          )}
-        </Box>
-        <Box padding="2">
-          {dataYear && <Text textStyle="sm">Currently viewing data for {dataYear}</Text>}
-        </Box>
-      </Stack >
-    </Theme >
-  );
+      </Stack>
+      <Box
+        bg="gray.100"
+        css={{
+          "& > iframe": {
+            position: "relative",
+            zIndex: 1,
+          },
+        }}
+        position="relative"
+        ref={mapRef}
+        flex={1}
+      >
+        {!felt && (
+          <Center zIndex={0} position="absolute" inset={0}>
+            <VStack gap={3}>
+              <Spinner color="fg.subtle" />
+              <Text fontSize="sm" color="fg.subtle">
+                Loading map&hellip;
+              </Text>
+            </VStack>
+          </Center>
+        )}
+      </Box>
+      <Box padding="2">
+        {dataYear && <Text textStyle="sm">Currently viewing data for {dataYear}</Text>}
+      </Box>
+    </Stack >
+  </Theme >
+);
 }

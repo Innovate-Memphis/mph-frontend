@@ -10,7 +10,7 @@ export const AggregationsSwitch = ({ showAggregations, onButtonClick }: Aggregat
     const displayClass = showAggregations ? "view-parcels" : "view-trends";
     return (
         <Button
-            id="filter"
+            id="aggs"
             className={displayClass}
             onClick={() => onButtonClick(!showAggregations)}
             size="sm"
