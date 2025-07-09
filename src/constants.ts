@@ -21,11 +21,25 @@ const OWNERSHIP_PARCEL_LAYER_ID = "ipk9AOGZtTFOkCg6BWLRBkC"
 export const FILTERED_PARCEL_LAYER_ID = "aLFXLp9B9CTRO9BVGm89BBazLA"
 
 export const THEMES = [
-  EXPLORE,
-  OWNERSHIP,
-  EVICTIONS,
-  OCCUPANCY,
-  VACANCY,
+  { theme: EXPLORE,
+    tooltip: "View and filter all parcels for all themes and fields",
+  },
+  {
+    theme: OWNERSHIP,
+    tooltip: "View trends and parcels for properties owned by investors",
+  },
+  {
+    theme: EVICTIONS,
+    tooltip: "View trends and parcels where evictions are happening",
+  },
+  {
+    theme: OCCUPANCY,
+    tooltip: "View trends and parcels with vacant homes and buildings",
+  },
+  {
+    theme: VACANCY,
+    tooltip: "View trends and parcels with vacant lots with no buildings",
+  },
 ];
 
 export const THEME_TO_GROUP_LAYER_MAP = new Map<string, string>([
