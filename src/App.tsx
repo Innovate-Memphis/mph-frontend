@@ -273,7 +273,7 @@ export default function Page() {
     }
 
     if (action === ACTIONS.CLOSE && type === "step:after" && step.target === "#theme-tabs") {
-      setCurrentTheme(THEMES[2]) // Evictions Theme
+      setCurrentTheme(THEMES[2].theme) // Evictions Theme
     }
 
     if (action === ACTIONS.CLOSE && type === "step:after" && step.target === "button[data-uid='help-menu']") {
