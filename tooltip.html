@@ -306,7 +306,7 @@
                     </tr>
                     <tr>
                         {% assign vacant_since = _attributes | find: "name", "vacant_since" %}
-                        <td>Vacant Since</td>
+                        <td>Vacant Since at least</td>
                         <td>{{vacant_since.value | date: "%Y-%m-%d" | default: "-"}}</td>
                     </tr>
                 </tbody>
