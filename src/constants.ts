@@ -520,7 +520,3 @@ export const TOUR_STEPS = [
     content: 'HELP MENU: Click here to access the user guide, documentation on what’s included, data rules for each theme, and a link for you submit your ideas and feedback.'
   },
 ];
-
-export const LOGIN_FAILURE_MESSAGE = "Thank you for your interest in the Memphis Property Hub. Access to this application requires approval. Please submit the access form using the button below and we will get back to you soon.";
-
-export const REQUEST_ACCESS_FORM_URL = "https://forms.office.com/Pages/ResponsePage.aspx?id=v_RNHxm4P0qoQco0jnU1XFhfogR1DkFKj5fBqT0dT8pUQldDVE1JNDdFSUxBQjJTMFBaUkpUMFRIWS4u";
