@@ -499,24 +499,24 @@ export const GEOGRAPHIC_FELT_FILTER_MAP = new Map<string, Filters>([
 export const TOUR_STEPS = [
   {
     target: '#filter',
-    content: 'Filter parcels: Click here to open the filter panel. Then select one or more criteria—like vacancy status, living-unit type (e.g. “Single-Family”), or zoning—to narrow the map to exactly the parcels you need. Hit RESET to clear all filters.',
+    content: 'FILTER PARCELS: Click here to open the filter panel. Then select one or more criteria—like vacancy status, living-unit type (e.g. “Single-Family”), or zoning—to narrow the map to exactly the parcels you need. Hit RESET to clear all filters.',
   },
   {
     target: '#theme-tabs',
-    content: 'Choose a data theme: Click on a housing theme to switch the map and sidebar and explore that topic. Each theme defaults to viewing parcel-level data.',
+    content: 'CHOOSE A DATA THEME: Click on a housing theme to switch the map and sidebar and explore that topic. Each theme defaults to viewing parcel-level data.',
   },
   {
     target: '.view-trends',
-    content: 'View Trends: Click here to switch to an aggregated view. Use the slider to pick Heat Map, Census Tracts, ZIP Codes, City Council, or County Commission to see parcel data summarized by those geographies.',
+    content: 'VIEW TRENDS: Click here to switch to an aggregated view. Use the slider to pick Heat Map, Census Tracts, ZIP Codes, City Council, or County Commission to see parcel data summarized by those geographies.',
   },
   { target: "iframe", // timing issues with changing to the aggregation level and trying to select the toggle
-    content: 'Use the geographic slider on the left to change geographic boundaries.',
+    content: "Use the geographic slider on the left to change geographic boundaries. Slide the black bar across the dots to change from 'Heatmap' to 'Zipcode' and more.",
     placement: "center",
   },
   { target: '.view-parcels',
-    content: 'Click here to switch back to the parcel-level view.'
+    content: 'VIEW PARCELS: Click here to switch back to the parcel-level view.'
   },
   { target: "button[data-uid='help-menu']",
-    content: 'Help Menu: Click here to access the user guide, documentation on what’s included, data rules for each theme, and a link for you submit your ideas and feedback.'
+    content: 'HELP MENU: Click here to access the user guide, documentation on what’s included, data rules for each theme, and a link for you submit your ideas and feedback.'
   },
 ];
