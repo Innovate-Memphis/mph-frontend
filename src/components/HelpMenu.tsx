@@ -11,7 +11,7 @@ function buildLinks(param: string) {
         },
         {
             title: "WHAT'S INCLUDED",
-            href: "https://datamidsouth.featurebase.app/dashboard/articles/6955063",
+            href: "https://help.datamidsouth.org/en/help/articles/6955063-welcome-to-the-memphis-property-hub",
         },
         {
             title: "DATA RULES",
