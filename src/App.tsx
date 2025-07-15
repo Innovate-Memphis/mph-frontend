@@ -6,6 +6,7 @@ import {
   Grid,
   GridItem,
   HStack,
+  Link,
   StackSeparator,
   Spinner,
   Stack,
@@ -423,7 +424,10 @@ export default function Page() {
           )}
         </Box>
         <Box padding="2">
-          {dataYear && <Text textStyle="sm">Currently viewing data for {dataYear}</Text>}
+          <HStack justify="space-between">
+            {dataYear && <Text textStyle="sm">Currently viewing data for {dataYear}</Text>}
+            <Text>Like what you see? <Link colorPalette="green" variant="underline" href="https://secure.givelively.org/donate/mayors-institute-for-excellence-in-government-inc/memphis-property-hub" target="_blank">Help sustain our work!</Link></Text>
+          </HStack>
         </Box>
       </Stack >
     </Theme >
