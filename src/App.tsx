@@ -296,7 +296,6 @@ export default function Page() {
   }
 
   const { isLoading, isAuthenticated, error } = useAuth0();
-  const onSignupPage = window.location.pathname.includes("signup");
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -309,18 +308,12 @@ export default function Page() {
       </Stack>);
   }
 
-  if (onSignupPage) {
-    return (<Stack height="100vh" align="center" justify="center" gap="5">
-      <MPHLogo width="250px" />
-      <SignupButton />
-    </Stack>);
-  }
-
   if (!isAuthenticated) {
     return (
       <Stack height="100vh" align="center" justify="center" gap="5">
         <MPHLogo width="250px" />
         <LoginButton />
+        <SignupButton />
         <RequestAccessButton />
       </Stack>
     )
