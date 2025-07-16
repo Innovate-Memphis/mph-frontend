@@ -305,6 +305,7 @@ export default function Page() {
     return (
       <Stack height="100vh" align="center" justify="center" padding="10" gap="5">
         <div>{LOGIN_FAILURE_MESSAGE}</div>
+        <div>{error.message}</div>
         <RequestAccessButton />
       </Stack>);
   }
