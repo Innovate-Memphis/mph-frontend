@@ -16,11 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ChakraProvider value={feltTheme}>
         <ThemeProvider attribute="class" disableTransitionOnChange>
           <Auth0Provider
-            domain="dev-innovatememphis.us.auth0.com"
-            clientId="tJtdBb8Eka6d4HjlTYpsH2d3kFI03X6l"
-            authorizationParams={{
-              redirect_uri: window.location.origin
-            }}
+            domain={import.meta.env.VITE_AUTH0_DOMAIN}
+            clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+            authorizationParams={{ redirect_uri: window.location.origin }}
           >
             <App />
           </Auth0Provider>
