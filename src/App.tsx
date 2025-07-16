@@ -32,6 +32,8 @@ import { MPHLogo } from "./components/MPHLogo";
 // @ts-ignore
 import LoginButton from "./components/LoginButton";
 // @ts-ignore
+import SignupButton from "./components/SignupButton";
+// @ts-ignore
 import RequestAccessButton from "./components/RequestAccessButton";
 
 import { useFeltEmbed } from "./feltUtils";
@@ -294,6 +296,7 @@ export default function Page() {
   }
 
   const { isLoading, isAuthenticated, error } = useAuth0();
+  const onSignupPage = window.location.pathname.includes("signup");
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -304,6 +307,13 @@ export default function Page() {
         <div>{LOGIN_FAILURE_MESSAGE}</div>
         <RequestAccessButton />
       </Stack>);
+  }
+
+  if (onSignupPage) {
+    return (<Stack height="100vh" align="center" justify="center" gap="5">
+      <MPHLogo width="250px" />
+      <SignupButton />
+    </Stack>);
   }
 
   if (!isAuthenticated) {
