@@ -302,10 +302,10 @@ export default function Page() {
   }
   if (error) {
     console.log(`Error occured: ${error}`);
+    // error.message === "user_not_allowed"
     return (
       <Stack height="100vh" align="center" justify="center" padding="10" gap="5">
         <div>{LOGIN_FAILURE_MESSAGE}</div>
-        <div>{error.message}</div>
         <RequestAccessButton />
       </Stack>);
   }
