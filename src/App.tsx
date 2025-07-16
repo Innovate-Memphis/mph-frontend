@@ -301,6 +301,7 @@ export default function Page() {
     return <div>Loading...</div>;
   }
   if (error) {
+    console.log(`Error occured: ${error}`);
     return (
       <Stack height="100vh" align="center" justify="center" padding="10" gap="5">
         <div>{LOGIN_FAILURE_MESSAGE}</div>
