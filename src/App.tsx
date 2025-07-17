@@ -60,6 +60,33 @@ import { filterUtils } from "./utils";
 import { useState, useEffect } from "react";
 
 export default function Page() {
+
+  const { isLoading, isAuthenticated, error } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    console.log(`Error occured: ${error}`);
+    // error.message === "user_not_allowed"
+    return (
+      <Stack height="100vh" align="center" justify="center" padding="10" gap="5">
+        <div>{LOGIN_FAILURE_MESSAGE}</div>
+        <RequestAccessButton />
+      </Stack>);
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <Stack height="100vh" align="center" justify="center" gap="5">
+        <MPHLogo width="250px" />
+        <LoginButton />
+        <SignupButton />
+        <RequestAccessButton />
+      </Stack>
+    )
+  }
+
   const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
     uiControls: {
       cooperativeGestures: false,
@@ -293,32 +320,6 @@ export default function Page() {
       // Update state to advance the tour
       setStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
     }
-  }
-
-  const { isLoading, isAuthenticated, error } = useAuth0();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    console.log(`Error occured: ${error}`);
-    // error.message === "user_not_allowed"
-    return (
-      <Stack height="100vh" align="center" justify="center" padding="10" gap="5">
-        <div>{LOGIN_FAILURE_MESSAGE}</div>
-        <RequestAccessButton />
-      </Stack>);
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <Stack height="100vh" align="center" justify="center" gap="5">
-        <MPHLogo width="250px" />
-        <LoginButton />
-        <SignupButton />
-        <RequestAccessButton />
-      </Stack>
-    )
   }
 
   return (
