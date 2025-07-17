@@ -63,6 +63,8 @@ export default function Page() {
 
   const { isLoading, isAuthenticated, error } = useAuth0();
 
+  const queryString = window.location.search;
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -76,12 +78,20 @@ export default function Page() {
       </Stack>);
   }
 
+  if (queryString === "?signup") {
+    return (
+      <Stack height="100vh" align="center" justify="center" gap="5">
+        <MPHLogo width="250px" />
+        <SignupButton />
+      </Stack>
+    )
+  }
+
   if (!isAuthenticated) {
     return (
       <Stack height="100vh" align="center" justify="center" gap="5">
         <MPHLogo width="250px" />
         <LoginButton />
-        <SignupButton />
         <RequestAccessButton />
       </Stack>
     )
