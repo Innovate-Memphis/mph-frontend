@@ -105,7 +105,7 @@ export default function Page() {
     },
   });
 
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
   const [showAggregations, setShowAggregations] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(EXPLORE);
   const [currentFilters, setCurrentFilters] = useState([]);
@@ -303,6 +303,7 @@ export default function Page() {
 
     if (action === ACTIONS.START) {
       localStorage.setItem("tour", "ok");
+      setShowFilters(false);
     }
 
     if (action === ACTIONS.CLOSE && type === "step:after" && step.target === ".view-trends") {
