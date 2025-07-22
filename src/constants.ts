@@ -104,7 +104,7 @@ const RECENT_DEMO_PERMIT_FILTER: Filters = ["demo_permit_1year", "gt", 0];
 
 const CONTAINS_IMAGE_FILTER: Filters = ["bcs_property_image", "isnt", null];
 const OWNER_OCCUPIED_FILTER: Filters = ["owner_occupied", "eq", "Y"];
-const NONLOCAL_OWNER_FILTER: Filters = ["owner_location", "eq", "Non-local"];
+const NONLOCAL_OWNER_FILTER: Filters = ["owner_location", "eq", "Non-Local"];
 
 export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
 export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR];
