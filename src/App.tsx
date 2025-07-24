@@ -244,8 +244,6 @@ export default function Page() {
 
         const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
-        console.log(`newFilters: ${newFilters}`)
-
         let layerToUpdate = THEME_TO_PARCEL_LAYER_MAP.get(currentTheme);
 
         if (layerToUpdate) {
