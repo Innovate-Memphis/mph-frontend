@@ -64,6 +64,12 @@
 
         h3 {
             border-bottom: solid #048188;
+            margin-bottom: 0;
+        }
+
+        .last-updated {
+            font-size: 10px;
+            margin-bottom: 10px;
         }
     </style>
     <script>
@@ -90,16 +96,16 @@
         <img class="tooltip-img" src="{{bcs_property_image.value}}">
         {% endif %}
         <div class="img-overlay">
-            <span class="add-1">
+            <div class="add-1">
                 {% assign address = _attributes | find: "name", "address" %}
                 {{address.value}}
-            </span>
-            <span class="add-2">
+            </div>
+            <div class="add-2">
                 {% assign parzip = _attributes | find: "name", "parzip" %}
                 {% assign city = _attributes | find: "name", "city" %}
                 {% assign state = _attributes | find: "name", "state" %}
                 {{city.value}}, {{state.value}} {{parzip.value}}
-            </span>
+            </div>
         </div>
     </div>
     <div class="tooltip-data">
@@ -115,6 +121,8 @@
         </section>
         <section>
             <h3>Ownership</h3>
+            {% assign ownership_updated_at = _attributes | find: "name", "owner_data_last_modified" %}
+            <div class="last-updated">Last updated: {{ ownership_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
                     <tr>
@@ -216,6 +224,8 @@
         </section>
         <section>
             <h3>Taxation</h3>
+            {% assign valuation_updated_at = _attributes | find: "name", "valuation_data_last_modified" %}
+            <div class="last-updated">Last updated: {{ valuation_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
                     <tr class="bg-gray">
@@ -238,6 +248,8 @@
         </section>
         <section>
             <h3>Sales</h3>
+            {% assign sales_updated_at = _attributes | find: "name", "sales_data_last_modified" %}
+            <div class="last-updated">Last updated: {{ sales_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
                     <tr>
@@ -265,6 +277,8 @@
         </section>
         <section>
             <h3>Evictions</h3>
+            {% assign evictions_updated_at = _attributes | find: "name", "evictions_data_last_modified" %}
+            <div class="last-updated">Last updated: {{ evictions_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
                     <tr class="bg-gray">
@@ -292,6 +306,8 @@
         </section>
         <section>
             <h3>Occupancy</h3>
+            {% assign occupancy_updated_at = _attributes | find: "name", "occupancy_data_last_modified" %}
+            <div class="last-updated">Last updated: {{ occupancy_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
                     <tr class="bg-gray">
@@ -314,6 +330,8 @@
         </section>
         <section>
             <h3>311 Service Requests</h3>
+            {% assign sr_updated_at = _attributes | find: "name", "sr_data_last_modified" %}
+            <div class="last-updated">Last updated: {{ sr_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
                     <tr class="bg-gray">
@@ -336,6 +354,8 @@
         </section>
         <section>
             <h3>Permits</h3>
+            {% assign permit_updated_at = _attributes | find: "name", "permit_data_last_modified" %}
+            <div class="last-updated">Last updated: {{ permit_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
                     <tr class="bg-gray">
