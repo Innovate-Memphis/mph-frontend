@@ -67,7 +67,7 @@ const RECENT_BUILDING_PERMIT = { filter: "RECENT_BUILD_PERMIT", buttonTitle: "Re
 const RECENT_DEMO_PERMIT = { filter: "RECENT_DEMO_PERMIT", buttonTitle: "Recent Demo Permit", hoverDescription: "Parcels that were granted a demolition permit in the past 1 year" }
 const CONTAINS_IMAGE = { filter: "CONTAINS_IMAGE", buttonTitle: "Contains Image", hoverDescription: "Parcels that have an image on file" }
 const OWNER_OCCUPIED = { filter: "OWNER_OCCUPIED", buttonTitle: "Owner Occupied", hoverDescription: "Parcels where owner address matches the address" }
-const NON_LOCAL_OWNER = { filter: "NONLOCAL_OWNER", buttonTitle: "Non-Local Owner", hoverDescription: "Parcels where owner address is the Memphis metro area" }
+const NON_LOCAL_OWNER = { filter: "NONLOCAL_OWNER", buttonTitle: "Non-Local Owner", hoverDescription: "Parcels where owner address is not in the Memphis metro area" }
 
 export const FILTER_BUTTON_WIDTH = 125;
 
