@@ -1,6 +1,5 @@
 import { HStack, Slider } from "@chakra-ui/react";
 import { MIN_UNITS, MAX_UNITS } from "./../constants";
-import { useState } from "react";
 
 interface DateRangerFilterHandler {
     value: Array<number>;
@@ -8,7 +7,6 @@ interface DateRangerFilterHandler {
 }
 
 export const LivingUnitsSlider = ({ value, onUnitsSliderChange }: DateRangerFilterHandler) => {
-    const [slideValue, setSlideValue] = useState([MIN_UNITS, MAX_UNITS]);
     return (
         <Slider.Root
             min={MIN_UNITS}
@@ -17,12 +15,12 @@ export const LivingUnitsSlider = ({ value, onUnitsSliderChange }: DateRangerFilt
             maxW="200px"
             size="sm"
             value={value}
-            onValueChange={(e) => setSlideValue(e.value)}
+            onValueChange={(e) => onUnitsSliderChange(e.value)}
             onValueChangeEnd={(e) => onUnitsSliderChange(e.value)}
         >
             <HStack justify="space-between">
                 <Slider.Label># Living Units:</Slider.Label>
-                {`${slideValue[0]} - ${slideValue[1]}`}
+                {`${value[0]} - ${value[1]}`}
             </HStack>
             <Slider.Control>
                 <Slider.Track>

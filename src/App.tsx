@@ -244,6 +244,8 @@ export default function Page() {
 
         const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
+        console.log(`newFilters: ${newFilters}`)
+
         let layerToUpdate = THEME_TO_PARCEL_LAYER_MAP.get(currentTheme);
 
         if (layerToUpdate) {
@@ -281,6 +283,7 @@ export default function Page() {
     if (!filter) {
       setCurrentFilters([]);
       setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
+      setCurrentFilterUnits(DEFAULT_UNITS_FILTERS);
       setCurrentFilterLandUseCategory([]);
       setCurrentGeographicFilter([]);
       setCurrentGeoFilteredValues([]);
