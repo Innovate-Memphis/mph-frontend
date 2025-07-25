@@ -7,7 +7,7 @@ function buildLinks(param: string) {
     return [
         {
             title: "USER GUIDE",
-            href: "https://www.datamidsouth.org/user-guide",
+            href: "https://help.datamidsouth.org/memphis-property-hub/",
         },
         {
             title: "WHAT'S INCLUDED",
