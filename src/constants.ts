@@ -548,4 +548,4 @@ export const HELP_MENU_LINKS = [
   },
 ];
 
-export const ALERT_MESSAGE = "";
+export const ALERT_MESSAGE = "This is a test alert message -- sorry! ";
