@@ -21,7 +21,8 @@ const OWNERSHIP_PARCEL_LAYER_ID = "ipk9AOGZtTFOkCg6BWLRBkC"
 export const FILTERED_PARCEL_LAYER_ID = "aLFXLp9B9CTRO9BVGm89BBazLA"
 
 export const THEMES = [
-  { theme: EXPLORE,
+  {
+    theme: EXPLORE,
     tooltip: "View and filter all parcels for all themes and fields",
   },
   {
@@ -509,14 +510,17 @@ export const TOUR_STEPS = [
     target: '.view-trends',
     content: 'VIEW TRENDS: Click here to switch to an aggregated view. Use the slider to pick Heat Map, Census Tracts, ZIP Codes, City Council, or County Commission to see parcel data summarized by those geographies.',
   },
-  { target: "iframe", // timing issues with changing to the aggregation level and trying to select the toggle
+  {
+    target: "iframe", // timing issues with changing to the aggregation level and trying to select the toggle
     content: "Use the geographic slider on the left to change geographic boundaries. Slide the black bar across the dots to change from 'Heatmap' to 'Zipcode' and more.",
     placement: "center",
   },
-  { target: '.view-parcels',
+  {
+    target: '.view-parcels',
     content: 'VIEW PARCELS: Click here to switch back to the parcel-level view.'
   },
-  { target: "button[data-uid='help-menu']",
+  {
+    target: "button[data-uid='help-menu']",
     content: 'HELP MENU: Click here to access the user guide, documentation on what’s included, data rules for each theme, and a link for you submit your ideas and feedback.'
   },
 ];
@@ -524,3 +528,22 @@ export const TOUR_STEPS = [
 export const LOGIN_FAILURE_MESSAGE = "Thank you for your interest in the Memphis Property Hub. Access to this application requires approval. Please submit the access form using the button below and we will get back to you soon.";
 
 export const REQUEST_ACCESS_FORM_URL = "https://forms.office.com/Pages/ResponsePage.aspx?id=v_RNHxm4P0qoQco0jnU1XFhfogR1DkFKj5fBqT0dT8pUQldDVE1JNDdFSUxBQjJTMFBaUkpUMFRIWS4u";
+
+export const HELP_MENU_LINKS = [
+  {
+    title: "USER GUIDE",
+    href: "https://help.datamidsouth.org/memphis-property-hub/",
+  },
+  {
+    title: "WHAT'S INCLUDED",
+    href: "https://help.datamidsouth.org/memphis-property-hub/getting-started/whats-mph/",
+  },
+  {
+    title: "DATA RULES",
+    href: "https://help.datamidsouth.org/memphis-property-hub/data-reference/data-rules/",
+  },
+  {
+    title: "SUBMIT IDEAS",
+    href: "https://feedback.datamidsouth.org/",
+  },
+]

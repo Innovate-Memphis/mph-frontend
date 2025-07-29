@@ -3,29 +3,9 @@ import { LuCircleHelp } from "react-icons/lu";
 
 import { Tooltip } from "./ui/tooltip";
 
-function buildLinks(param: string) {
-    return [
-        {
-            title: "USER GUIDE",
-            href: "https://help.datamidsouth.org/memphis-property-hub/",
-        },
-        {
-            title: "WHAT'S INCLUDED",
-            href: "https://help.datamidsouth.org/en/help/articles/6955063-welcome-to-the-memphis-property-hub",
-        },
-        {
-            title: "DATA RULES",
-            href: `https://www.datamidsouth.org/data-rules?#${param}`,
-        },
-        {
-            title: "SUBMIT IDEAS",
-            href: "https://feedback.datamidsouth.org/",
-        },
-    ];
-}
+import { HELP_MENU_LINKS } from "../constants";
 
-export const HelpMenu = ({ activeTheme, onResetTour }: any) => {
-    const links = buildLinks(activeTheme);
+export const HelpMenu = ({ onResetTour }: any) => {
 
     return (
         <Menu.Root id="help-menu" positioning={({ placement: 'bottom' })}>
@@ -40,7 +20,7 @@ export const HelpMenu = ({ activeTheme, onResetTour }: any) => {
             <Portal>
                 <Menu.Positioner>
                     <Menu.Content>
-                        {links.map((link) => (
+                        {HELP_MENU_LINKS.map((link) => (
                             <Menu.Item key={link.href} asChild value={link.title}>
                                 <a href={link.href} target="_blank" rel="noreferrer">
                                     {link.title}
