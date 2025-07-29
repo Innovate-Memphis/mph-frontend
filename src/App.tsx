@@ -30,6 +30,8 @@ import { HelpMenu } from "./components/HelpMenu";
 import { MPHLogo } from "./components/MPHLogo";
 
 // @ts-ignore
+import { AlertMessage } from "./components/AlertMessage";
+// @ts-ignore
 import LoginButton from "./components/LoginButton";
 // @ts-ignore
 import SignupButton from "./components/SignupButton";
@@ -358,6 +360,7 @@ export default function Page() {
         >
           <Stack
             separator={<StackSeparator style={{ marginTop: "0" }} />}>
+            <AlertMessage />
             <Flex justify="space-between" marginBottom="5px" paddingRight="10px">
               <HStack>
                 <MPHLogo width="150px" />

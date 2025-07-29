@@ -546,4 +546,6 @@ export const HELP_MENU_LINKS = [
     title: "SUBMIT IDEAS",
     href: "https://feedback.datamidsouth.org/",
   },
-]
+];
+
+export const ALERT_MESSAGE = "";
