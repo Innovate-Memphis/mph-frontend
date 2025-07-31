@@ -17,6 +17,7 @@ import {
 import { Filters } from "@feltmaps/js-sdk";
 import Joyride, { ACTIONS, EVENTS, CallBackProps } from 'react-joyride';
 import { useAuth0 } from '@auth0/auth0-react';
+import LogRocket from 'logrocket';
 
 import { ThemeSelect } from "./components/ThemeSelect";
 import { FilterSelection } from "./components/FilterSelection";
@@ -63,7 +64,9 @@ import { useState, useEffect } from "react";
 
 export default function Page() {
 
-  const { isLoading, isAuthenticated, error } = useAuth0();
+  LogRocket.init('al94sq/memphis-property-hub');
+
+  const { isLoading, isAuthenticated, error, user } = useAuth0();
 
   const queryString = window.location.search;
 
@@ -97,6 +100,10 @@ export default function Page() {
         <RequestAccessButton />
       </Stack>
     )
+  }
+
+  if (user?.email) {
+    LogRocket.identify(user.email);
   }
 
   const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
