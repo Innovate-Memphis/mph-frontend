@@ -44,6 +44,8 @@ import {
   DEFAULT_BUILT_YEAR_FILTERS,
   DEFAULT_UNITS_FILTERS,
   EXPLORE,
+  FAQ_LINK,
+  FAQ_LINK_TEXT,
   FELT_MAP_ID,
   FILTERED_PARCEL_LAYER_ID,
   FILTERS_TO_FELT_FILTER,
@@ -78,7 +80,10 @@ export default function Page() {
     // error.message === "user_not_allowed"
     return (
       <Stack height="100vh" align="center" justify="center" padding="10" gap="5">
-        <div>{LOGIN_FAILURE_MESSAGE}</div>
+        <div>
+          {LOGIN_FAILURE_MESSAGE}
+          <a style={{"color": "blue"}} href={FAQ_LINK}>{FAQ_LINK_TEXT}</a>
+        </div>
         <RequestAccessButton />
       </Stack>);
   }
