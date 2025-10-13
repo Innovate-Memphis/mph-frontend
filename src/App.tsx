@@ -103,6 +103,7 @@ export default function Page() {
         <MPHLogo width="250px" />
         <LoginButton />
         <RequestAccessButton />
+        <span>Need help? Please visit our <a style={{"color": "blue"}} href={FAQ_LINK}>{FAQ_LINK_TEXT}</a></span>
       </Stack>
     )
   }
