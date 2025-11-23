@@ -70,6 +70,8 @@ export default function Page() {
 
   const { isLoading, isAuthenticated, error, user } = useAuth0();
 
+  console.log(JSON.stringify(user));
+
   const queryString = window.location.search;
 
   if (isLoading) {
