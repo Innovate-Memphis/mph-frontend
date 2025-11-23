@@ -114,7 +114,13 @@ export default function Page() {
     LogRocket.identify(user.email);
   }
 
+  let token;
+  if (user?.feltToken) {
+    token = user.feltToken
+  }
+
   const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
+    token,
     uiControls: {
       cooperativeGestures: false,
       fullScreenButton: false,
