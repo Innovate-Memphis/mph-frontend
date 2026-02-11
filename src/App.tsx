@@ -197,6 +197,7 @@ export default function Page() {
         }
 
         const layersToHide = Array.from(allParcelLayers.values());
+        layersToHide.push("IEZBPod9BQlCqT6G9BZSlciA"); // WIP layer need to hide
 
         await felt.setLayerVisibility({
           show: layersToShow,
