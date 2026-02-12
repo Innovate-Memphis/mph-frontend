@@ -197,7 +197,8 @@ export default function Page() {
         }
 
         const layersToHide = Array.from(allParcelLayers.values());
-        layersToHide.push("IEZBPod9BQlCqT6G9BZSlciA"); // WIP layer need to hide
+        const TEMP_LAYERS = ["IEZBPod9BQlCqT6G9BZSlciA", "VMMuC0CPRbaZknZ89AgYRtD", "0OMSkb16TGim1VaJ9CxfRRA", "tma0z1egSn6DCSt9CWmVYAA", "n6KHqD29CSDa4Q9AHkZLG6iB"]; // WIP layers need to hide
+        layersToHide.concat(TEMP_LAYERS)
 
         await felt.setLayerVisibility({
           show: layersToShow,
