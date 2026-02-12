@@ -197,7 +197,7 @@ export default function Page() {
           allParcelLayers.delete(currentTheme);
         }
 
-        const layersToHide = Array.from(allParcelLayers.values());
+        let layersToHide = Array.from(allParcelLayers.values());
         layersToHide.concat(LAYERS_TO_HIDE)
 
         await felt.setLayerVisibility({
