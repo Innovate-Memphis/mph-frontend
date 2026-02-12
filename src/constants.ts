@@ -21,10 +21,11 @@ const OWNERSHIP_PARCEL_LAYER_ID = "tma0z1egSn6DCSt9CWmVYAA"
 export const LAYERS_TO_HIDE = [
   "ET1rYYcuQFyvttTCf1VgPA",
   "t7PVtMCKQKS2oSSwl9CHIND",
-  "ipk9AOGZtTFOkCg6BWLRBkC"
+  "ipk9AOGZtTFOkCg6BWLRBkC",
+  "aLFXLp9B9CTRO9BVGm89BBazLA"
 ] //use this to temporarily hide WIP layers
 
-export const FILTERED_PARCEL_LAYER_ID = "aLFXLp9B9CTRO9BVGm89BBazLA"
+export const FILTERED_PARCEL_LAYER_ID = "IEZBPod9BQlCqT6G9BZSlciA"
 
 export const THEMES = [
   {
