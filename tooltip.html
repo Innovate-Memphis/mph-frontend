@@ -264,13 +264,23 @@
                     </tr>
                     <tr>
                         {% assign total_sales = _attributes | find: "name", "total_sales" %}
-                        <td>Total</td>
+                        <td>Total Sales</td>
                         <td>{{total_sales.value | default: "-"}}</td>
                     </tr>
                     <tr class="bg-gray">
                         {% assign most_recent_sale = _attributes | find: "name", "most_recent_sale" %}
                         <td>Most Recent Sale Date</td>
                         <td>{{ most_recent_sale.value | date: "%m/%d/%Y" | default: "-" }}</td>
+                    </tr>
+                    <tr>
+                        {% assign most_recent_sale_price = _attributes | find: "name", "most_recent_sale_price" %}
+                        <td>Latest Sale Price</td>
+                        <td class="currency-format">{{ most_recent_sale_price.value | default: "-" }}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign months_since_last_sold = _attributes | find: "name", "months_since_last_sold" %}
+                        <td>Months Since Last Sold</td>
+                        <td>{{ months_since_last_sold.value | default: "-" }}</td>
                     </tr>
                 </tbody>
             </table>
