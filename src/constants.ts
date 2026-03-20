@@ -90,8 +90,9 @@ const RECENT_DEMO_PERMIT = { filter: "RECENT_DEMO_PERMIT", buttonTitle: "Recent 
 const CONTAINS_IMAGE = { filter: "CONTAINS_IMAGE", buttonTitle: "Contains Image", hoverDescription: "Parcels that have an image on file" }
 const OWNER_OCCUPIED = { filter: "OWNER_OCCUPIED", buttonTitle: "Owner Occupied", hoverDescription: "Parcels where owner address matches the address" }
 const NON_LOCAL_OWNER = { filter: "NONLOCAL_OWNER", buttonTitle: "Non-Local Owner", hoverDescription: "Parcels where owner address is not in the Memphis metro area" }
-const SFH_HOMES = { filter: "SFH_HOMES", buttonTitle: "Single-Family Homes", hoverDescription: "Parcels with single family land use code only" }
-const MFH_HOMES = { filter: "MFH_HOMES", buttonTitle: "Multi-Family Homes", hoverDescription: "Parcels with multi-family land use codes only" }
+export const SFH_HOMES = { filter: "SFH_HOMES", buttonTitle: "Single-Family Homes", hoverDescription: "Parcels with single family land use code only" }
+export const MFH_HOMES = { filter: "MFH_HOMES", buttonTitle: "Multi-Family Homes", hoverDescription: "Parcels with multi-family land use codes only" }
+export const SFH_MFH_HOMES = { filter: "SFH_MFH_HOMES" }
 
 export const FILTER_BUTTON_WIDTH = 125;
 
@@ -123,8 +124,23 @@ const INVESTOR_OWNED_FILTER: Filters = ["investor_owned", "eq", "Y"];
 const LONG_TERM_VACANT_FILTER: Filters = ["months_vacant", "gt", 12];
 const RECENT_BUILD_PERMIT_FILTER: Filters = ["building_permit_1year", "gt", 0];
 const RECENT_DEMO_PERMIT_FILTER: Filters = ["demo_permit_1year", "gt", 0];
-const SFH_FILTER: Filters = ["land_use_description", "eq", "SINGLEFAMILY"];
-const MFH_FILTER: Filters = ["land_use_description", "in", [
+const SFH_FILTER: Filters = ["prop_lucdesc", "eq", "SINGLEFAMILY"];
+const MFH_FILTER: Filters = ["prop_lucdesc", "in", [
+  "APRTGARDEN",
+  "DUPLEX",
+  "TRIPLEX",
+  "APARTMENTCOMPLEX",
+  "APARTMENTHIGHRISE",
+  "CONDOUNIT",
+  "PLNUNITDEV",
+  "PUDATTACHED",
+  "MOBILEHOME",
+  "TOWNHOUSE",
+  "ZEROLOTLINEATTACHED",
+  "MOBHOMEPARK",
+]];
+const SFH_MFH_FILTER: Filters = ["prop_lucdesc", "in", [
+  "SINGLEFAMILY",
   "APRTGARDEN",
   "DUPLEX",
   "TRIPLEX",
@@ -162,6 +178,7 @@ export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [NON_LOCAL_OWNER.filter, NONLOCAL_OWNER_FILTER],
   [SFH_HOMES.filter, SFH_FILTER],
   [MFH_HOMES.filter, MFH_FILTER],
+  [SFH_MFH_HOMES.filter, SFH_MFH_FILTER],
 ]);
 
 export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
