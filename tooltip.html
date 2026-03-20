@@ -172,13 +172,18 @@
             <h3>Usage & Classification</h3>
             <table>
                 <tbody>
+                    <tr class="bg-gray">
+                        <td>Year Built</td>
+                        {% assign year_built = _attributes | find: "name", "year_built" %}
+                        <td>{{year_built.value | default: "-"}}</td>
+                    </tr>
                     <tr>
                         <td>Property Class</td>
-                        {% assign propclass = _attributes | find: "name", "propclass" %}
-                        <td>{{propclass.value | default: "-"}}</td>
+                        {% assign propclassdesc = _attributes | find: "name", "propclassdesc" %}
+                        <td>{{propclassdesc.value | default: "-"}}</td>
                     </tr>
                     <tr class="bg-gray">
-                        <td>Property Use</td>
+                        <td>Land Use</td>
                         {% assign prop_lucdesc = _attributes | find: "name", "prop_lucdesc" %}
                         <td>{{prop_lucdesc.value}}</td>
                     </tr>
@@ -188,9 +193,16 @@
                         <td>{{zon_code_desc.value | default: "-"}}</td>
                     </tr>
                     <tr class="bg-gray">
-                        <td>Year built</td>
-                        {% assign year_built = _attributes | find: "name", "year_built" %}
-                        <td>{{year_built.value | default: "-"}}</td>
+                        {% assign living_units = _attributes | find: "name", "living_units" %}
+                        <td>Units</td>
+                        <td>{{living_units.value | default: "-"}}</td>
+                    </tr>
+                    {% assign acres = _attributes | find: "name", "acres" %}
+                    <tr>
+                        <td>Units / Acre</td>
+                        <td>
+                            {{living_units.value | divided_by: acres.value | round: 2 | default: "-"}}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -210,12 +222,6 @@
                         <td>{{lot_dim.value | default: "-"}}</td>
                     </tr>
                     <tr class="bg-gray">
-                        {% assign living_units = _attributes | find: "name", "living_units" %}
-                        <td>Living Units</td>
-                        <td>{{living_units.value | default: "-"}}</td>
-                    </tr>
-                    <tr>
-                        {% assign acres = _attributes | find: "name", "acres" %}
                         <td>Acres</td>
                         <td>{{acres.value | default: "-"}}</td>
                     </tr>
@@ -228,10 +234,16 @@
             <div class="last-updated">Last updated: {{ valuation_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
+                    {% assign total_assessment = _attributes | find: "name", "total_assessment" %}
                     <tr class="bg-gray">
-                        {% assign total_assessment = _attributes | find: "name", "total_assessment" %}
                         <td>Assessed Value</td>
                         <td class="currency-format">{{total_assessment.value | default: "-" }}</td>
+                    </tr>
+                    <tr>
+                        <td>Assessment Value / Acre</td>
+                        <td class="currency-format">
+                            {{total_assessment.value | divided_by: acres.value | round: 2 | default: "-"}}
+                        </td>
                     </tr>
                     <tr>
                         {% assign total_appraisal = _attributes | find: "name", "total_appraisal" %}
@@ -368,11 +380,6 @@
             <div class="last-updated">Last updated: {{ permit_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
-                    <tr>
-                        {% assign most_recent_permit_date = _attributes | find: "name", "most_recent_permit_date" %}
-                        <td>Most Recent Permit Date</td>
-                        <td>{{most_recent_permit_date.value | date: "%m/%d/%Y" | default: "-"}}</td>
-                    </tr>
                     <tr class="bg-gray">
                         {% assign permit_cost_1year = _attributes | find: "name", "permit_cost_1year" %}
                         <td>Permit Cost - Past 1 Year</td>
@@ -403,5 +410,4 @@
         </section>
     </div>
 </body>
-
 </html>
