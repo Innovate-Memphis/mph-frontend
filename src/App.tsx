@@ -24,7 +24,7 @@ import { FilterSelection } from "./components/FilterSelection";
 import { FilterSwitch } from "./components/FilterSwitch";
 import { AggregationsSwitch } from "./components/AggregationsSwitch";
 import { DateRangeSlider } from "./components/DateRangeSlider";
-import { LivingUnitsSlider } from "./components/LivingUnitsSlider";
+import { LivingUnitsCategorySelect } from "./components/LivingUnitsCategorySelect";
 import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
 import { GeographicFiltersSelect } from "./components/GeographicFiltersSelect";
 import { HelpMenu } from "./components/HelpMenu";
@@ -42,7 +42,6 @@ import RequestAccessButton from "./components/RequestAccessButton";
 import { useFeltEmbed } from "./feltUtils";
 import {
   DEFAULT_BUILT_YEAR_FILTERS,
-  DEFAULT_UNITS_FILTERS,
   EXPLORE,
   FAQ_LINK,
   FAQ_LINK_TEXT,
@@ -51,6 +50,7 @@ import {
   FILTERS_TO_FELT_FILTER,
   GEOGRAPHIC_FELT_FILTER_MAP,
   LAND_USE_CATEGORY_FILTER,
+  LIVING_UNITS_CATEGORY_FILTER,
   LAYERS_TO_HIDE,
   LOGIN_FAILURE_MESSAGE,
   MIN_YEAR_BUILT_FILTER,
@@ -59,8 +59,6 @@ import {
   THEME_TO_PARCEL_LAYER_MAP,
   THEMES,
   TOUR_STEPS,
-  MIN_UNITS_FILTER,
-  MAX_UNITS_FILTER,
 } from "./constants";
 import { filterUtils } from "./utils";
 import { useState, useEffect } from "react";
@@ -134,7 +132,7 @@ export default function Page() {
   const [currentTheme, setCurrentTheme] = useState(EXPLORE);
   const [currentFilters, setCurrentFilters] = useState([]);
   const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
-  const [currentFilterUnits, setCurrentFilterUnits] = useState(DEFAULT_UNITS_FILTERS);
+  const [currentFilterLivingUnitsCategory, setCurrentFilterLivingUnitsCategory] = useState([]);
   const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
   const [currentGeographicFilter, setCurrentGeographicFilter] = useState([]);
   const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState([]);
@@ -237,18 +235,11 @@ export default function Page() {
           allFeltFormattedFilters.push(maxYearBuiltFilter)
         }
 
-        if (currentFilterUnits[0] !== DEFAULT_UNITS_FILTERS[0]) {
-          let minUnitsFilter = MIN_UNITS_FILTER;
+        if (currentFilterLivingUnitsCategory.length) {
+          let livingUnitsCategoryFilter = LIVING_UNITS_CATEGORY_FILTER;
           // @ts-ignore
-          minUnitsFilter[2] = currentFilterUnits[0]
-          allFeltFormattedFilters.push(minUnitsFilter)
-        }
-
-        if (currentFilterUnits[1] !== DEFAULT_UNITS_FILTERS[1]) {
-          let maxUnitsFilter = MAX_UNITS_FILTER;
-          // @ts-ignore
-          maxUnitsFilter[2] = currentFilterUnits[1]
-          allFeltFormattedFilters.push(maxUnitsFilter)
+          livingUnitsCategoryFilter[2] = currentFilterLivingUnitsCategory
+          allFeltFormattedFilters.push(livingUnitsCategoryFilter)
         }
 
         if (currentFilterLandUseCategory.length) {
@@ -281,7 +272,7 @@ export default function Page() {
     }
 
     updateLayerFilter().catch(console.error);
-  }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues, currentFilterUnits])
+  }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues, currentFilterLivingUnitsCategory])
 
   useEffect(() => {
     if (showAggregations) {
@@ -306,7 +297,7 @@ export default function Page() {
     if (!filter) {
       setCurrentFilters([]);
       setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
-      setCurrentFilterUnits(DEFAULT_UNITS_FILTERS);
+      setCurrentFilterLivingUnitsCategory([]);
       setCurrentFilterLandUseCategory([]);
       setCurrentGeographicFilter([]);
       setCurrentGeoFilteredValues([]);
@@ -420,9 +411,9 @@ export default function Page() {
                           onDateSliderChange={setCurrentFilterBuildDate} />
                       </GridItem>
                       <GridItem colSpan={1}>
-                        <LivingUnitsSlider
-                          value={currentFilterUnits}
-                          onUnitsSliderChange={setCurrentFilterUnits} />
+                        <LivingUnitsCategorySelect
+                          value={currentFilterLivingUnitsCategory}
+                          onSelectChange={setCurrentFilterLivingUnitsCategory} />
                       </GridItem>
                       <GridItem colSpan={1}>
                         <LandUseCategorySelect
