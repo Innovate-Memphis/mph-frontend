@@ -253,24 +253,34 @@
             <table>
                 <tbody>
                     <tr>
-                        {% assign sales_1yr = _attributes | find: "name", "sales_1yr" %}
-                        <td>Past 1 Year</td>
-                        <td>{{sales_1yr.value | default: "-"}}</td>
-                    </tr>
-                    <tr class="bg-gray">
-                        {% assign sales_5yr = _attributes | find: "name", "sales_5yr" %}
-                        <td>Past 5 Years</td>
-                        <td>{{sales_5yr.value | default: "-"}}</td>
-                    </tr>
-                    <tr>
-                        {% assign total_sales = _attributes | find: "name", "total_sales" %}
-                        <td>Total</td>
-                        <td>{{total_sales.value | default: "-"}}</td>
+                        {% assign most_recent_sale_price = _attributes | find: "name", "most_recent_sale_price" %}
+                        <td>Latest Sales Price</td>
+                        <td class="currency-format">{{ most_recent_sale_price.value | default: "-" }}</td>
                     </tr>
                     <tr class="bg-gray">
                         {% assign most_recent_sale = _attributes | find: "name", "most_recent_sale" %}
                         <td>Most Recent Sale Date</td>
                         <td>{{ most_recent_sale.value | date: "%m/%d/%Y" | default: "-" }}</td>
+                    </tr>
+                    <tr>
+                        {% assign months_since_last_sold = _attributes | find: "name", "months_since_last_sold" %}
+                        <td>Months Since Last Sold</td>
+                        <td>{{ months_since_last_sold.value | default: "-" }}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign total_sales = _attributes | find: "name", "total_sales" %}
+                        <td>Total Sales</td>
+                        <td>{{total_sales.value | default: "-"}}</td>
+                    </tr>
+                    <tr>
+                        {% assign sales_5yr = _attributes | find: "name", "sales_5yr" %}
+                        <td>Past 5 Years</td>
+                        <td>{{sales_5yr.value | default: "-"}}</td>
+                    </tr>
+                    <tr class="bg-gray">
+                        {% assign sales_1yr = _attributes | find: "name", "sales_1yr" %}
+                        <td>Past 1 Year</td>
+                        <td>{{sales_1yr.value | default: "-"}}</td>
                     </tr>
                 </tbody>
             </table>
