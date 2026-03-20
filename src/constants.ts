@@ -1,6 +1,8 @@
 import type { Filters } from "@feltmaps/js-sdk";
 
-export const FELT_MAP_ID = "p9CPdaItsRQm9COaGzgt17WB"
+const PROD_ID = "p9CPdaItsRQm9COaGzgt17WB";
+const DEV_ID = "2pjfh9ClOTymZRWajPdjFoA";
+export const FELT_MAP_ID = DEV_ID;
 
 export const EXPLORE = "Explore"
 const EVICTIONS = "Evictions"
@@ -25,7 +27,9 @@ export const LAYERS_TO_HIDE = [
   "aLFXLp9B9CTRO9BVGm89BBazLA"
 ] //use this to temporarily hide WIP layers
 
-export const FILTERED_PARCEL_LAYER_ID = "IEZBPod9BQlCqT6G9BZSlciA"
+const DEV_PARCEL_LAYER_ID = "Ac9CB6AAORgyMWPewxlg8SA"
+const PROD_PARCEL_LAYER_ID = "IEZBPod9BQlCqT6G9BZSlciA"
+export const FILTERED_PARCEL_LAYER_ID = DEV_PARCEL_LAYER_ID;
 
 export const THEMES = [
   {
@@ -96,10 +100,6 @@ export const MIN_YEAR = 1883
 export const CURRENT_YEAR = new Date().getFullYear();
 export const DEFAULT_BUILT_YEAR_FILTERS = [MIN_YEAR, CURRENT_YEAR];
 
-export const MIN_UNITS = 0;
-export const MAX_UNITS = 1000;
-export const DEFAULT_UNITS_FILTERS = [MIN_UNITS, MAX_UNITS];
-
 const EXPLORE_FILTER: Filters = ["state", "eq", "TN"]
 
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
@@ -117,10 +117,8 @@ const NONLOCAL_OWNER_FILTER: Filters = ["owner_location", "eq", "Non-Local"];
 export const MIN_YEAR_BUILT_FILTER: Filters = ["year_built", "ge", 1950];
 export const MAX_YEAR_BUILT_FILTER: Filters = ["year_built", "le", CURRENT_YEAR];
 
-export const MIN_UNITS_FILTER: Filters = ["living_units", "ge", MIN_UNITS];
-export const MAX_UNITS_FILTER: Filters = ["living_units", "le", MAX_UNITS];
-
 export const LAND_USE_CATEGORY_FILTER: Filters = ["land_use_category", "in", []]
+export const LIVING_UNITS_CATEGORY_FILTER: Filters = ["living_units_category", "in", []]
 
 export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [EXPLORE_THEME.filter, EXPLORE_FILTER],
@@ -153,6 +151,16 @@ const EXEMPT = "Exempt";
 const OTHER = "Other";
 
 export const LAND_USE_CATEGORIES = [VACANT, RESIDENTIAL, COMMERCIAL, INDUSTRIAL, INSTITUTIONAL, RECREATIONAL, EXEMPT, OTHER];
+export const LIVING_UNITS_CATEGORIES = [
+  "0 units",
+  "1 unit",
+  "2-10 units",
+  "11-50 units",
+  "51-100 units",
+  "101-249 units",
+  "250+ units",
+  "Unknown"
+];
 
 const COUNCIL_DISTRICT = "City Council District"
 const COUNCIL_DISTRICT_OPTIONS = ["1", "2", "3", "4", "5", "6", "7"]
