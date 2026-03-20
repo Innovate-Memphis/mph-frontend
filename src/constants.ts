@@ -76,6 +76,8 @@ const RECENT_DEMO_PERMIT = { filter: "RECENT_DEMO_PERMIT", buttonTitle: "Recent 
 const CONTAINS_IMAGE = { filter: "CONTAINS_IMAGE", buttonTitle: "Contains Image", hoverDescription: "Parcels that have an image on file" }
 const OWNER_OCCUPIED = { filter: "OWNER_OCCUPIED", buttonTitle: "Owner Occupied", hoverDescription: "Parcels where owner address matches the address" }
 const NON_LOCAL_OWNER = { filter: "NONLOCAL_OWNER", buttonTitle: "Non-Local Owner", hoverDescription: "Parcels where owner address is not in the Memphis metro area" }
+const SFH_HOMES = { filter: "SFH_HOMES", buttonTitle: "Single-Family Homes", hoverDescription: "Parcels with single family land use code only" }
+const MFH_HOMES = { filter: "MFH_HOMES", buttonTitle: "Multi-Family Homes", hoverDescription: "Parcels with multi-family land use codes only" }
 
 export const FILTER_BUTTON_WIDTH = 125;
 
@@ -90,6 +92,8 @@ export const FILTERS = [
   CONTAINS_IMAGE,
   OWNER_OCCUPIED,
   NON_LOCAL_OWNER,
+  SFH_HOMES,
+  MFH_HOMES,
 ];
 
 export const MIN_YEAR = 1883
@@ -109,6 +113,21 @@ const INVESTOR_OWNED_FILTER: Filters = ["investor_owned", "eq", "Y"];
 const LONG_TERM_VACANT_FILTER: Filters = ["months_vacant", "gt", 12];
 const RECENT_BUILD_PERMIT_FILTER: Filters = ["building_permit_1year", "gt", 0];
 const RECENT_DEMO_PERMIT_FILTER: Filters = ["demo_permit_1year", "gt", 0];
+const SFH_FILTER: Filters = ["land_use_description", "eq", "SINGLEFAMILY"];
+const MFH_FILTER: Filters = ["land_use_description", "in", [
+  "APRTGARDEN",
+  "DUPLEX",
+  "TRIPLEX",
+  "APARTMENTCOMPLEX",
+  "APARTMENTHIGHRISE",
+  "CONDOUNIT",
+  "PLNUNITDEV",
+  "PUDATTACHED",
+  "MOBILEHOME",
+  "TOWNHOUSE",
+  "ZEROLOTLINEATTACHED",
+  "MOBHOMEPARK",
+]];
 
 const CONTAINS_IMAGE_FILTER: Filters = ["bcs_property_image", "isnt", null];
 const OWNER_OCCUPIED_FILTER: Filters = ["owner_occupied", "eq", "Y"];
@@ -134,6 +153,8 @@ export const FILTERS_TO_FELT_FILTER = new Map<string, Filters>([
   [CONTAINS_IMAGE.filter, CONTAINS_IMAGE_FILTER],
   [OWNER_OCCUPIED.filter, OWNER_OCCUPIED_FILTER],
   [NON_LOCAL_OWNER.filter, NONLOCAL_OWNER_FILTER],
+  [SFH_HOMES.filter, SFH_FILTER],
+  [MFH_HOMES.filter, MFH_FILTER],
 ]);
 
 export const THEME_TO_DEFAULT_FILTER_MAP = new Map<string, string>([
