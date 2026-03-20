@@ -368,6 +368,11 @@
             <div class="last-updated">Last updated: {{ permit_updated_at.value | date: "%m/%d/%Y" | default: "n/a" }}</div>
             <table>
                 <tbody>
+                    <tr>
+                        {% assign most_recent_permit_date = _attributes | find: "name", "most_recent_permit_date" %}
+                        <td>Most Recent Permit Date</td>
+                        <td>{{most_recent_permit_date.value | date: "%m/%d/%Y" | default: "-"}}</td>
+                    </tr>
                     <tr class="bg-gray">
                         {% assign permit_cost_1year = _attributes | find: "name", "permit_cost_1year" %}
                         <td>Permit Cost - Past 1 Year</td>
