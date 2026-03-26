@@ -11,8 +11,7 @@ export const LivingUnitsSlider = ({ value, onUnitsSliderChange }: DateRangerFilt
         <Slider.Root
             min={MIN_UNITS}
             max={MAX_UNITS}
-            minW="150px"
-            maxW="200px"
+            minW="200px"
             size="sm"
             value={value}
             onValueChange={(e) => onUnitsSliderChange(e.value)}

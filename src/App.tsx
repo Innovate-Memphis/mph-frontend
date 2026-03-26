@@ -50,7 +50,7 @@ import {
   FILTERED_PARCEL_LAYER_ID,
   FILTERS_TO_FELT_FILTER,
   GEOGRAPHIC_FELT_FILTER_MAP,
-  LAND_USE_CATEGORY_FILTER,
+  LUC_ZONING_FELT_FILTER_MAP,
   LAYERS_TO_HIDE,
   LOGIN_FAILURE_MESSAGE,
   MIN_YEAR_BUILT_FILTER,
@@ -135,7 +135,8 @@ export default function Page() {
   const [currentFilters, setCurrentFilters] = useState([]);
   const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
   const [currentFilterUnits, setCurrentFilterUnits] = useState(DEFAULT_UNITS_FILTERS);
-  const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
+  const [currentLandUseZoningFilter, setcurrentLandUseZoningFilter] = useState([]);
+  const [currentLandUseZoningValues, setcurrentLandUseZoningValues] = useState([]);
   const [currentGeographicFilter, setCurrentGeographicFilter] = useState([]);
   const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState([]);
   const [dataYear, setDataYear] = useState<null | number>(null);
@@ -251,11 +252,13 @@ export default function Page() {
           allFeltFormattedFilters.push(maxUnitsFilter)
         }
 
-        if (currentFilterLandUseCategory.length) {
-          let landUseCategoryFilter = LAND_USE_CATEGORY_FILTER;
-          // @ts-ignore
-          landUseCategoryFilter[2] = currentFilterLandUseCategory
-          allFeltFormattedFilters.push(landUseCategoryFilter)
+        if (currentLandUseZoningValues.length) {
+          let landUseZoningFilter = LUC_ZONING_FELT_FILTER_MAP.get(currentLandUseZoningFilter[0]);
+          if (landUseZoningFilter) {
+            // @ts-ignore
+            landUseZoningFilter[2] = currentLandUseZoningValues
+            allFeltFormattedFilters.push(landUseZoningFilter);
+          }
         }
 
         if (currentGeoFilteredValues.length) {
@@ -281,7 +284,7 @@ export default function Page() {
     }
 
     updateLayerFilter().catch(console.error);
-  }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues, currentFilterUnits])
+  }, [felt, currentFilters, currentFilterBuildDate, currentLandUseZoningValues, currentGeoFilteredValues, currentFilterUnits])
 
   useEffect(() => {
     if (showAggregations) {
@@ -302,12 +305,17 @@ export default function Page() {
     setCurrentGeoFilteredValues(value);
   }
 
+  async function handleLandUseZoningFilterClick(value: Array<string>) {
+    // @ts-ignore
+    setcurrentLandUseZoningValues(value);
+  }
+
   async function handleFilterClick(filter?: string) {
     if (!filter) {
       setCurrentFilters([]);
       setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
       setCurrentFilterUnits(DEFAULT_UNITS_FILTERS);
-      setCurrentFilterLandUseCategory([]);
+      setcurrentLandUseZoningFilter([]);
       setCurrentGeographicFilter([]);
       setCurrentGeoFilteredValues([]);
       // @ts-ignore
@@ -410,7 +418,7 @@ export default function Page() {
                       currentFilters={currentFilters}
                       onFilterClick={handleFilterClick} />
                     <Grid
-                      templateRows="repeat(2, 1fr)"
+                      templateRows="repeat(3, 1fr)"
                       templateColumns="repeat(2, 1fr)"
                       gap={4}
                     >
@@ -424,12 +432,14 @@ export default function Page() {
                           value={currentFilterUnits}
                           onUnitsSliderChange={setCurrentFilterUnits} />
                       </GridItem>
-                      <GridItem colSpan={1}>
+                      <GridItem colSpan={2}>
                         <LandUseCategorySelect
-                          value={currentFilterLandUseCategory}
-                          onSelectChange={setCurrentFilterLandUseCategory} />
+                        landUseZonFilter={currentLandUseZoningFilter}
+                        luzValues={currentLandUseZoningValues}
+                        onFilterChange={setcurrentLandUseZoningFilter}
+                        onFilterValueChange={handleLandUseZoningFilterClick} />
                       </GridItem>
-                      <GridItem colSpan={1}>
+                      <GridItem colSpan={2}>
                         <GeographicFiltersSelect
                           geoFilter={currentGeographicFilter}
                           geoValues={currentGeoFilteredValues}
