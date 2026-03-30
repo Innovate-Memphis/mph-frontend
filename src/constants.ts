@@ -154,6 +154,17 @@ const OTHER = "Other";
 
 export const LAND_USE_CATEGORIES = [VACANT, RESIDENTIAL, COMMERCIAL, INDUSTRIAL, INSTITUTIONAL, RECREATIONAL, EXEMPT, OTHER];
 
+const CITY = "City"
+const CITY_OPTIONS = [
+  "ARLINGTON",
+  "BARTLETT",
+  "COLLIERVILLE",
+  "GERMANTOWN",
+  "LAKELAND",
+  "MEMPHIS",
+  "MILLINGTON",
+  "SHELBYCOUNTY"
+]
 const COUNCIL_DISTRICT = "City Council District"
 const COUNCIL_DISTRICT_OPTIONS = ["1", "2", "3", "4", "5", "6", "7"]
 const SUPER_COUNCIL_DISTRICT = "Super Council District"
@@ -484,6 +495,7 @@ const CENSUS_TRACT_OPTIONS = [
 ];
 
 export const GEOGRAPHIC_FILTER_MAP = new Map<string | null, Array<string | number>>([
+  [CITY, CITY_OPTIONS],
   [COUNCIL_DISTRICT, COUNCIL_DISTRICT_OPTIONS],
   [SUPER_COUNCIL_DISTRICT, SUPER_COUNCIL_DISTRICT_OPTIONS],
   [ZIPCODE, ZIPCODE_OPTIONS],
@@ -491,6 +503,7 @@ export const GEOGRAPHIC_FILTER_MAP = new Map<string | null, Array<string | numbe
   [CENSUS_TRACT, CENSUS_TRACT_OPTIONS]
 ]);
 
+const CITY_FILTER: Filters = ["city", "in", []];
 const CITY_COUNCIL_FILTER: Filters = ["council_district", "in", []];
 const SUPER_COUNCIL_FILTER: Filters = ["super_district", "in", []];
 const ZIPCODE_FILTER: Filters = ["parzip", "in", []];
@@ -498,6 +511,7 @@ const COUNTY_COMMISSION_FILTER: Filters = ["commission_district", "in", []];
 const CENSUS_TRACT_FILTER: Filters = ["tract_2020", "in", []];
 
 export const GEOGRAPHIC_FELT_FILTER_MAP = new Map<string, Filters>([
+  [CITY, CITY_FILTER],
   [COUNCIL_DISTRICT, CITY_COUNCIL_FILTER],
   [SUPER_COUNCIL_DISTRICT, SUPER_COUNCIL_FILTER],
   [ZIPCODE, ZIPCODE_FILTER],
