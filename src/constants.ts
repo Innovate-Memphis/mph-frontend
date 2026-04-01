@@ -1,8 +1,8 @@
 import type { Filters } from "@feltmaps/js-sdk";
 
 const PROD_ID = "p9CPdaItsRQm9COaGzgt17WB";
-const DEV_ID = "2pjfh9ClOTymZRWajPdjFoA";
-export const FELT_MAP_ID = DEV_ID;
+// const DEV_ID = "2pjfh9ClOTymZRWajPdjFoA";
+export const FELT_MAP_ID = PROD_ID;
 
 export const EXPLORE = "Explore"
 const EVICTIONS = "Evictions"
@@ -27,9 +27,9 @@ export const LAYERS_TO_HIDE = [
   "aLFXLp9B9CTRO9BVGm89BBazLA"
 ] //use this to temporarily hide WIP layers
 
-const DEV_PARCEL_LAYER_ID = "Ac9CB6AAORgyMWPewxlg8SA"
+// const DEV_PARCEL_LAYER_ID = "Ac9CB6AAORgyMWPewxlg8SA"
 const PROD_PARCEL_LAYER_ID = "IEZBPod9BQlCqT6G9BZSlciA"
-export const FILTERED_PARCEL_LAYER_ID = DEV_PARCEL_LAYER_ID;
+export const FILTERED_PARCEL_LAYER_ID = PROD_PARCEL_LAYER_ID;
 
 export const THEMES = [
   {
@@ -154,12 +154,14 @@ export const LAND_USE_CATEGORIES = [VACANT, RESIDENTIAL, COMMERCIAL, INDUSTRIAL,
 export const LIVING_UNITS_CATEGORIES = [
   "0 units",
   "1 unit",
-  "2-10 units",
-  "11-50 units",
-  "51-100 units",
-  "101-249 units",
+  "2 units",
+  "3-4 units",
+  "5-12 units",
+  "13-49 units",
+  "50-149 units",
+  "150-249 units",
   "250+ units",
-  "Unknown"
+  "Unknown units"
 ];
 
 const CITY = "City"
