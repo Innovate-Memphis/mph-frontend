@@ -36,6 +36,10 @@ If you're only adding new filters or some other functionality that doesn't requi
 
 Tooltip changes should be tested in the DEV Felt map. The final changes should be saved and committed to `tooltip.html` simply for change log purposes. There is no benefit to testing the tooltip locally.
 
+### Login
+
+The login provider is Auth0. The login to this platform is in the team's password management system. There is one Auth0 Action setup to check that an email address is authorized to create an account prior to signing up. There is a DEV and PROD Auth0 account, but PROD is used for both production and local setup. The ENV secrets for Auth0 are stored securely in Github. Those may need to be set locally as well. If so, please document those steps here.
+
 ## Deployment
 
 This app is deployed as a static site to Github Pages. Whenever code is pushed to main, a Github action builds the app and deploys it.
