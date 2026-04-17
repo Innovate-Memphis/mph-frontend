@@ -49,6 +49,7 @@ import {
   FILTERED_PARCEL_LAYER_ID,
   FILTERS_TO_FELT_FILTER,
   GEOGRAPHIC_FELT_FILTER_MAP,
+  GROUP_LAYERS_TO_HIDE,
   LAND_USE_CATEGORY_FILTER,
   LIVING_UNITS_CATEGORY_FILTER,
   LAYERS_TO_HIDE,
@@ -174,7 +175,8 @@ export default function Page() {
           groupsToShow.push(groupForTheme);
           allGroupLayers.delete(currentTheme)
         }
-        const groupsToHide = Array.from(allGroupLayers.values());
+        let groupsToHide = Array.from(allGroupLayers.values());
+        groupsToHide = groupsToHide.concat(GROUP_LAYERS_TO_HIDE);
 
         await felt.setLayerGroupVisibility({
           show: groupsToShow,
@@ -196,7 +198,7 @@ export default function Page() {
         }
 
         let layersToHide = Array.from(allParcelLayers.values());
-        layersToHide.concat(LAYERS_TO_HIDE)
+        layersToHide = layersToHide.concat(LAYERS_TO_HIDE)
 
         await felt.setLayerVisibility({
           show: layersToShow,

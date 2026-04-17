@@ -26,7 +26,7 @@ Testing database changes should be done in the `(DEV) write property hub` workbo
 
 The DEV map should be isolated to just one zip code, so as not to use up all the monthly allowance of GB in the Felt account. This is done in the Custom SQL for the Felt layer by adding `where mph.zipcode = 38108` (Or whatever zipcode you want).
 
-All layers in PROD must be accounted for in the code. This is because the code is setup to hide all layers except the active one(s) for that theme. If you need to build layers in PROD prior to making them visible, you can add them to `LAYERS_TO_HIDE` in `src\constants.ts`. There is currently not a way to hide a group layer ID but surely that could be possible as well.
+All layers in PROD must be accounted for in the code. This is because the code is setup to hide all layers except the active one(s) for that theme. If you need to build layers in PROD prior to making them visible, you can add them to `LAYERS_TO_HIDE` in `src\constants.ts`. If you're building a new theme and need to hide a layer group from PROD, you can add the layer group ID to `GROUP_LAYERS_TO_HIDE`.
 
 ### Testing new filters
 
