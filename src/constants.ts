@@ -20,8 +20,11 @@ const EVICTIONS_PARCEL_LAYER_ID = "CJTXTOzITbGe9BoWDE3y7LB"
 const OCCUPANCY_PARCEL_LAYER_ID = "VMMuC0CPRbaZknZ89AgYRtD"
 const VACANCY_PARCEL_LAYER_ID = "0OMSkb16TGim1VaJ9CxfRRA"
 const OWNERSHIP_PARCEL_LAYER_ID = "tma0z1egSn6DCSt9CWmVYAA"
+const ASSESSMENT_PARCEL_LAYER_ID = "mukJJEyJRKGeU7PgTKZOWA"
 
-export const LAYERS_TO_HIDE = [] // use this to temporarily hide WIP layers
+export const LAYERS_TO_HIDE = [
+  ASSESSMENT_PARCEL_LAYER_ID
+]; // use this to temporarily hide WIP layers
 
 export const GROUP_LAYERS_TO_HIDE = [
   ASSESSMENT_GROUP_LAYER_ID
