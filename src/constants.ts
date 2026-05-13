@@ -9,6 +9,9 @@ const EVICTIONS = "Evictions"
 const OCCUPANCY = "Occupancy"
 const VACANCY = "Vacant Land"
 const OWNERSHIP = "Ownership"
+const ASSESSMENT = "Assessment"
+
+export const THEMES_WITHOUT_AGGREGATIONS = [EXPLORE, ASSESSMENT];
 
 const EVICTIONS_GROUP_LAYER_ID = "n5zmBsz8Rw2wis3xrwtNzB"
 const OCCUPANCY_GROUP_LAYER_ID = "ei0grM00S5ebBLimTXnZLA"
@@ -23,7 +26,6 @@ const OWNERSHIP_PARCEL_LAYER_ID = "tma0z1egSn6DCSt9CWmVYAA"
 const ASSESSMENT_PARCEL_LAYER_ID = "mukJJEyJRKGeU7PgTKZOWA"
 
 export const LAYERS_TO_HIDE = [
-  ASSESSMENT_PARCEL_LAYER_ID
 ]; // use this to temporarily hide WIP layers
 
 export const GROUP_LAYERS_TO_HIDE = [
@@ -55,6 +57,10 @@ export const THEMES = [
     theme: VACANCY,
     tooltip: "View trends and parcels with vacant lots with no buildings",
   },
+  {
+    theme: ASSESSMENT,
+    tooltip: "View parcel information on assessment value over time",
+  }
 ];
 
 export const THEME_TO_GROUP_LAYER_MAP = new Map<string, string>([
@@ -70,6 +76,7 @@ export const THEME_TO_PARCEL_LAYER_MAP = new Map<string | null, string>([
   [OCCUPANCY, OCCUPANCY_PARCEL_LAYER_ID],
   [VACANCY, VACANCY_PARCEL_LAYER_ID],
   [OWNERSHIP, OWNERSHIP_PARCEL_LAYER_ID],
+  [ASSESSMENT, ASSESSMENT_PARCEL_LAYER_ID],
 ]);
 
 const EXPLORE_THEME = { filter: "EXPLORE" };

@@ -59,6 +59,7 @@ import {
   THEME_TO_GROUP_LAYER_MAP,
   THEME_TO_PARCEL_LAYER_MAP,
   THEMES,
+  THEMES_WITHOUT_AGGREGATIONS,
   TOUR_STEPS,
 } from "./constants";
 import { filterUtils } from "./utils";
@@ -165,7 +166,7 @@ export default function Page() {
   useEffect(() => {
     const updateLayerVisibility = async () => {
       if (felt) {
-        const alwaysShowParcelLayer = currentTheme === EXPLORE
+        const alwaysShowParcelLayer = THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)
 
         const allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
         const groupsToShow = new Array();
@@ -281,7 +282,7 @@ export default function Page() {
       return setShowFilters(false);
     }
 
-    if (currentTheme !== EXPLORE) {
+    if (!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
       return setShowFilters(true);
     }
   }, [showAggregations, currentTheme]);
@@ -388,7 +389,7 @@ export default function Page() {
               <HStack>
                 {!showAggregations &&
                   <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />}
-                {currentTheme !== EXPLORE &&
+                {!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme) &&
                   <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
                 {/* <LoginButton />
                   <LogoutButton /> */}
