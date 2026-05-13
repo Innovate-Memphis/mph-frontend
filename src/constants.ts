@@ -11,7 +11,7 @@ const VACANCY = "Vacant Land"
 const OWNERSHIP = "Ownership"
 const ASSESSMENT = "Assessment"
 
-export const THEMES_WITHOUT_AGGREGATIONS = [EXPLORE, ASSESSMENT];
+export const THEMES_WITHOUT_AGGREGATIONS = [EXPLORE];
 
 const EVICTIONS_GROUP_LAYER_ID = "n5zmBsz8Rw2wis3xrwtNzB"
 const OCCUPANCY_GROUP_LAYER_ID = "ei0grM00S5ebBLimTXnZLA"
@@ -29,8 +29,7 @@ export const LAYERS_TO_HIDE = [
 ]; // use this to temporarily hide WIP layers
 
 export const GROUP_LAYERS_TO_HIDE = [
-  ASSESSMENT_GROUP_LAYER_ID
-]
+]; // use this to temporarily hide WIP layer groups
 
 // const DEV_PARCEL_LAYER_ID = "Ac9CB6AAORgyMWPewxlg8SA"
 const PROD_PARCEL_LAYER_ID = "IEZBPod9BQlCqT6G9BZSlciA"
@@ -68,6 +67,7 @@ export const THEME_TO_GROUP_LAYER_MAP = new Map<string, string>([
   [OCCUPANCY, OCCUPANCY_GROUP_LAYER_ID],
   [VACANCY, VACANCY_GROUP_LAYER_ID],
   [OWNERSHIP, OWNERSHIP_GROUP_LAYER_ID],
+  [ASSESSMENT, ASSESSMENT_GROUP_LAYER_ID],
 ]);
 
 export const THEME_TO_PARCEL_LAYER_MAP = new Map<string | null, string>([
