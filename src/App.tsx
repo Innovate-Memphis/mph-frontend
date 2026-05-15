@@ -56,6 +56,9 @@ import {
   LOGIN_FAILURE_MESSAGE,
   MIN_YEAR_BUILT_FILTER,
   MAX_YEAR_BUILT_FILTER,
+  MFH_HOMES,
+  SFH_HOMES,
+  SFH_MFH_HOMES,
   THEME_TO_GROUP_LAYER_MAP,
   THEME_TO_PARCEL_LAYER_MAP,
   THEMES,
@@ -315,6 +318,24 @@ export default function Page() {
       setCurrentGeographicFilter([]);
       setCurrentGeoFilteredValues([]);
       // @ts-ignore
+    } else if ((filter === MFH_HOMES.filter && currentFilters.includes(SFH_HOMES.filter)) || (filter === SFH_HOMES.filter && currentFilters.includes(MFH_HOMES.filter))) {
+      let newFilters: Array<any> = currentFilters.filter(item => item !== SFH_HOMES.filter && item !== MFH_HOMES.filter);
+      newFilters.push(SFH_MFH_HOMES.filter);
+      // @ts-ignore
+      setCurrentFilters(newFilters);
+      // @ts-ignore
+    } else if (filter === MFH_HOMES.filter && currentFilters.includes(SFH_MFH_HOMES.filter)) {
+      let newFilters: Array<any> = currentFilters.filter(item => item !== SFH_MFH_HOMES.filter);
+      newFilters.push(SFH_HOMES.filter);
+      // @ts-ignore
+      setCurrentFilters(newFilters);
+      // @ts-ignore
+    } else if (filter === SFH_HOMES.filter && currentFilters.includes(SFH_MFH_HOMES.filter)) {
+      let newFilters: Array<any> = currentFilters.filter(item => item !== SFH_MFH_HOMES.filter);
+      newFilters.push(MFH_HOMES.filter);
+      // @ts-ignore
+      setCurrentFilters(newFilters);
+    // @ts-ignore
     } else if (!currentFilters.includes(filter)) {
       // @ts-ignore
       setCurrentFilters([...currentFilters, filter]);
