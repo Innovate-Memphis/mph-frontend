@@ -196,7 +196,6 @@ export default function Page() {
           const layerForTheme = allParcelLayers.get(currentTheme);
           layersToShow.push(layerForTheme);
           allParcelLayers.delete(currentTheme);
-          setShowFilters(true);
         }
 
         let layersToHide = Array.from(allParcelLayers.values());
@@ -279,12 +278,16 @@ export default function Page() {
   }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues, currentFilterLivingUnitsCategory])
 
   useEffect(() => {
-    if (showAggregations) {
-      return setShowFilters(false);
+    if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
+      return setShowAggregations(false);
     }
 
-    if (!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
+    if (THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
       return setShowFilters(true);
+    }
+
+    if (showAggregations) {
+      return setShowFilters(false);
     }
   }, [showAggregations, currentTheme]);
 
