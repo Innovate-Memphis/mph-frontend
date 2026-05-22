@@ -196,6 +196,7 @@ export default function Page() {
           const layerForTheme = allParcelLayers.get(currentTheme);
           layersToShow.push(layerForTheme);
           allParcelLayers.delete(currentTheme);
+          setShowFilters(true);
         }
 
         let layersToHide = Array.from(allParcelLayers.values());
