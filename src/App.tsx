@@ -86,7 +86,7 @@ export default function Page() {
       <Stack height="100vh" align="center" justify="center" padding="10" gap="5">
         <div>
           {LOGIN_FAILURE_MESSAGE}
-          <a style={{"color": "blue"}} href={FAQ_LINK}>{FAQ_LINK_TEXT}</a>
+          <a style={{ "color": "blue" }} href={FAQ_LINK}>{FAQ_LINK_TEXT}</a>
         </div>
         <RequestAccessButton />
       </Stack>);
@@ -107,7 +107,7 @@ export default function Page() {
         <MPHLogo width="250px" />
         <LoginButton />
         <RequestAccessButton />
-        <span>Need help? Please visit our <a style={{"color": "blue"}} href={FAQ_LINK}>{FAQ_LINK_TEXT}</a></span>
+        <span>Need help? Please visit our <a style={{ "color": "blue" }} href={FAQ_LINK}>{FAQ_LINK_TEXT}</a></span>
       </Stack>
     )
   }
@@ -343,7 +343,7 @@ export default function Page() {
       newFilters.push(MFH_HOMES.filter);
       // @ts-ignore
       setCurrentFilters(newFilters);
-    // @ts-ignore
+      // @ts-ignore
     } else if (!currentFilters.includes(filter)) {
       // @ts-ignore
       setCurrentFilters([...currentFilters, filter]);
@@ -427,7 +427,11 @@ export default function Page() {
               </HStack>
               <HStack>
                 {!showAggregations &&
-                  <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />}
+                  <>
+                    <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />
+                    <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
+                  </>
+                }
                 {!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme) &&
                   <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
                 {/* <LoginButton />
@@ -437,44 +441,42 @@ export default function Page() {
             </Flex>
             {showFilters &&
               <Stack>
-                <Flex justify="space-between" paddingBottom="2">
-                  <Flex align="baseline" gap="4">
-                    <FilterSelection
-                      currentFilters={currentFilters}
-                      onFilterClick={handleFilterClick} />
-                    <Grid
-                      templateRows="repeat(3, 1fr)"
-                      templateColumns="repeat(2, 1fr)"
-                      gap={4}
-                    >
-                      <GridItem colSpan={1}>
-                        <DateRangeSlider
-                          value={currentFilterBuildDate}
-                          onDateSliderChange={setCurrentFilterBuildDate} />
-                      </GridItem>
-                      <GridItem colSpan={1}>
-                        <LivingUnitsCategorySelect
-                          value={currentFilterLivingUnitsCategory}
-                          onSelectChange={setCurrentFilterLivingUnitsCategory} />
-                      </GridItem>
-                      <GridItem colSpan={2}>
-                        <LandUseCategorySelect
+                <Flex align="baseline" gap="4" wrap="wrap" paddingBottom="2">
+                  <FilterSelection
+                    currentFilters={currentFilters}
+                    onFilterClick={handleFilterClick} />
+                  <Grid
+                    templateRows="repeat(2, 1fr)"
+                    templateColumns="repeat(3, 1fr)"
+                    gap={4}
+                    autoFlow="unset"
+                  >
+                    <GridItem colSpan={1}>
+                      <DateRangeSlider
+                        value={currentFilterBuildDate}
+                        onDateSliderChange={setCurrentFilterBuildDate} />
+                    </GridItem>
+                    <GridItem colSpan={2}>
+                      <GeographicFiltersSelect
+                        geoFilter={currentGeographicFilter}
+                        geoValues={currentGeoFilteredValues}
+                        onFilterChange={setCurrentGeographicFilter}
+                        onFilterValueChange={handleGeoFilterValueClick}
+                      />
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                      <LivingUnitsCategorySelect
+                        value={currentFilterLivingUnitsCategory}
+                        onSelectChange={setCurrentFilterLivingUnitsCategory} />
+                    </GridItem>
+                    <GridItem colSpan={2}>
+                      <LandUseCategorySelect
                         landUseZonFilter={currentLandUseZoningFilter}
                         luzValues={currentLandUseZoningValues}
                         onFilterChange={setcurrentLandUseZoningFilter}
                         onFilterValueChange={handleLandUseZoningFilterClick} />
-                      </GridItem>
-                      <GridItem colSpan={2}>
-                        <GeographicFiltersSelect
-                          geoFilter={currentGeographicFilter}
-                          geoValues={currentGeoFilteredValues}
-                          onFilterChange={handleGeoFilterChange}
-                          onFilterValueChange={handleGeoFilterValueClick}
-                        />
-                      </GridItem>
-                    </Grid>
-                  </Flex>
-                  <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
+                    </GridItem>
+                  </Grid>
                 </Flex>
               </Stack>}
           </Stack>
