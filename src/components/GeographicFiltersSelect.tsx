@@ -1,4 +1,4 @@
-import { createListCollection, Checkbox, HStack, Stack, Select } from "@chakra-ui/react"
+import { createListCollection, Checkbox, HStack, Show, Stack, Select } from "@chakra-ui/react"
 import {
   SelectContent,
   SelectItem,
@@ -60,7 +60,7 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
             </SelectTrigger>
             <SelectContent>
               {selectedFilterOptions.items.map((item) => (
-                <SelectItem item={item} key={item}>
+                <SelectItem item={item} key={item} className="geo-filter">
                   <Checkbox.Root
                     checked={geoValues.includes(item)}>
                     <Checkbox.HiddenInput />
