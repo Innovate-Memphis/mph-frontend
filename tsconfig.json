@@ -14,7 +14,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "customConditions": ["source"]
+    "customConditions": ["source"],
+    "maxNodeModuleJsDepth": 0
   },
   "exclude": ["node_modules"],
   "include": ["src"],
