@@ -295,6 +295,12 @@ export default function Page() {
     setCurrentTheme(theme);
   }
 
+  async function handleGeoFilterChange(value: string) {
+    // @ts-ignore
+    setCurrentGeographicFilter(value);
+    setCurrentGeoFilteredValues([]);
+  }
+
   async function handleGeoFilterValueClick(value: Array<string>) {
     // @ts-ignore
     setCurrentGeoFilteredValues(value);
@@ -431,7 +437,7 @@ export default function Page() {
                         <GeographicFiltersSelect
                           geoFilter={currentGeographicFilter}
                           geoValues={currentGeoFilteredValues}
-                          onFilterChange={setCurrentGeographicFilter}
+                          onFilterChange={handleGeoFilterChange}
                           onFilterValueChange={handleGeoFilterValueClick}
                         />
                       </GridItem>
