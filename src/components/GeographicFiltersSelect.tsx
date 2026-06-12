@@ -60,7 +60,7 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
             </SelectTrigger>
             <SelectContent>
               {selectedFilterOptions.items.map((item) => (
-                <SelectItem item={item} key={item} className="geo-filter">
+                <SelectItem item={item} key={item} className="checkbox-filter">
                   <Checkbox.Root
                     checked={geoValues.includes(item)}>
                     <Checkbox.HiddenInput />

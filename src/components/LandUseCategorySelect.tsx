@@ -1,4 +1,9 @@
-import { createListCollection, HStack, Stack } from "@chakra-ui/react"
+import {
+  createListCollection,
+  Checkbox,
+  HStack,
+  Stack,
+} from "@chakra-ui/react"
 import {
   SelectContent,
   SelectItem,
@@ -19,6 +24,7 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
   let filterSelected = landUseZonFilter.length !== 0 && LAND_USE_ZONING_FILTER_MAP.get(landUseZonFilter[0]) !== undefined;
   let selectedFilterOptions = createListCollection({ items: []})
   if (filterSelected) {
+    // @ts-ignore
     selectedFilterOptions = createListCollection({
       // @ts-ignore
       items: LAND_USE_ZONING_FILTER_MAP.get(landUseZonFilter[0])?.values()
@@ -57,9 +63,14 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
               <SelectValueText placeholder="Select one or more" />
             </SelectTrigger>
             <SelectContent>
-              {selectedFilterOptions.items.map((option) => (
-                <SelectItem item={{label: option, value: option}} key={option}>
-                  {option}
+              {selectedFilterOptions.items.map((item) => (
+                <SelectItem item={{label:item, value:item}} key={item} className="checkbox-filter">
+                  <Checkbox.Root
+                    checked={luzValues.includes(item)}>
+                    <Checkbox.HiddenInput />
+                    <Checkbox.Control />
+                    <Checkbox.Label>{item}</Checkbox.Label>
+                  </Checkbox.Root>
                 </SelectItem>
               ))}
             </SelectContent>
