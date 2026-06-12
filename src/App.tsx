@@ -285,17 +285,27 @@ export default function Page() {
   }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentLandUseZoningValues, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
 
   useEffect(() => {
-    if (showAggregations) {
-      return setShowFilters(false);
+    if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
+      return setShowAggregations(false);
     }
 
-    if (!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
+    if (THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
       return setShowFilters(true);
+    }
+
+    if (showAggregations) {
+      return setShowFilters(false);
     }
   }, [showAggregations, currentTheme]);
 
   async function handleThemeClick(theme: string) {
     setCurrentTheme(theme);
+  }
+
+  async function handleGeoFilterChange(value: string) {
+    // @ts-ignore
+    setCurrentGeographicFilter(value);
+    setCurrentGeoFilteredValues([]);
   }
 
   async function handleGeoFilterValueClick(value: Array<string>) {

@@ -1,4 +1,4 @@
-import { createListCollection, HStack, Stack } from "@chakra-ui/react"
+import { createListCollection, Checkbox, HStack, Show, Stack, Select } from "@chakra-ui/react"
 import {
   SelectContent,
   SelectItem,
@@ -17,8 +17,9 @@ interface GeographicFilterHandler {
 
 export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterChange, onFilterValueChange }: GeographicFilterHandler) => {
   let filterSelected = geoFilter.length !== 0 && GEOGRAPHIC_FILTER_MAP.get(geoFilter[0]) !== undefined;
-  let selectedFilterOptions = createListCollection({ items: []})
+  let selectedFilterOptions = createListCollection({ items: [] })
   if (filterSelected) {
+    // @ts-ignore
     selectedFilterOptions = createListCollection({
       // @ts-ignore
       items: GEOGRAPHIC_FILTER_MAP.get(geoFilter[0])?.values()
@@ -52,14 +53,20 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
             multiple
             value={geoValues}
             onValueChange={(e) => onFilterValueChange(e.value)}
+            composite
           >
             <SelectTrigger>
               <SelectValueText placeholder="Select one or more" />
             </SelectTrigger>
             <SelectContent>
-              {selectedFilterOptions.items.map((geoOption) => (
-                <SelectItem item={{label: geoOption, value: geoOption}} key={geoOption}>
-                  {geoOption}
+              {selectedFilterOptions.items.map((item) => (
+                <SelectItem item={item} key={item} className="geo-filter">
+                  <Checkbox.Root
+                    checked={geoValues.includes(item)}>
+                    <Checkbox.HiddenInput />
+                    <Checkbox.Control />
+                    <Checkbox.Label>{item}</Checkbox.Label>
+                  </Checkbox.Root>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -71,5 +78,5 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
 }
 
 const geographicFilters = createListCollection({
-  items: [ ...GEOGRAPHIC_FILTER_MAP.keys() ]
+  items: [...GEOGRAPHIC_FILTER_MAP.keys()]
 });

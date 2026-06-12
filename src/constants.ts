@@ -419,7 +419,7 @@ const ZONING_OPTIONS = ["AGRICULTURAL",
   "WAREHOUSEANDDISTRIBUTION",
   "WHOLESALEANDWAREHOUSE"];
 
-const CITY = "City"
+const CITY = "City";
 const CITY_OPTIONS = [
   "ARLINGTON",
   "BARTLETT",
@@ -429,7 +429,7 @@ const CITY_OPTIONS = [
   "MEMPHIS",
   "MILLINGTON",
   "SHELBYCOUNTY"
-]
+];
 const COUNCIL_DISTRICT = "City Council District"
 const COUNCIL_DISTRICT_OPTIONS = ["1", "2", "3", "4", "5", "6", "7"]
 const SUPER_COUNCIL_DISTRICT = "Super Council District"
