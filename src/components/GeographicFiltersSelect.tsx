@@ -27,7 +27,7 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
   }
   return (
     <HStack>
-      <Stack width="200px">
+      <Stack minW="150px">
         <SelectRoot
           collection={geographicFilters}
           size="sm"
@@ -47,7 +47,7 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
         </SelectRoot>
       </Stack>
       {filterSelected &&
-        <Stack width="200px">
+        <Stack minW="150px">
           <SelectRoot
             collection={selectedFilterOptions}
             multiple
@@ -60,7 +60,7 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
             </SelectTrigger>
             <SelectContent>
               {selectedFilterOptions.items.map((item) => (
-                <SelectItem item={item} key={item} className="geo-filter">
+                <SelectItem item={item} key={item} className="checkbox-filter">
                   <Checkbox.Root
                     checked={geoValues.includes(item)}>
                     <Checkbox.HiddenInput />

@@ -15,7 +15,7 @@ interface LivingUnitsCategoryFilterHandler {
 
 export const LivingUnitsCategorySelect = ({ value, onSelectChange }: LivingUnitsCategoryFilterHandler) => {
   return (
-    <Stack width="200px">
+    <Stack minW="150px">
       <SelectRoot
         collection={categories}
         multiple
