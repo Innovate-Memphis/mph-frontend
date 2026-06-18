@@ -9,7 +9,7 @@ const LoginButton = () => {
     backgroundColor={"#60c9b7"}
     width={250}
     onClick={() => loginWithRedirect(
-      {"dev": true}
+      {"dev": "true"}
     )}>
     Log In
   </Button>;
