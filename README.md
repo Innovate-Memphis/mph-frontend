@@ -16,6 +16,7 @@ The Felt team noted that to use Chakra UI, you'll probably need to consult these
 ## Getting started
 
 To run the project, run `npm install` and then `npm run dev`.
+Open the app locally at http://localhost:5173/dev/
 
 ## Development Workflow
 
@@ -38,12 +39,15 @@ Tooltip changes should be tested in the DEV Felt map. The final changes should b
 
 ### Login
 
-The login provider is Auth0. The login to this platform is in the team's password management system. There is one Auth0 Action setup to check that an email address is authorized to create an account prior to signing up. There is a DEV and PROD Auth0 account, but PROD is used for both production and local setup. The ENV secrets for Auth0 are stored securely in Github. Those may need to be set locally as well. If so, please document those steps here.
+The login provider is Auth0. The login to this platform is in the team's password management system. There is one Auth0 Action setup to check that an email address is authorized to create an account prior to signing up. There is a DEV and PROD Auth0 account, but PROD is used for both production, dev, and local setup. The ENV secrets for Auth0 are stored securely in Github. Those may need to be set locally as well. If so, please document those steps here.
 
 ## Deployment
 
-This app is deployed as a static site to Github Pages. Whenever code is pushed to main, a Github action builds the app and deploys it.
+This app is deployed as a static site to Github Pages. Whenever code is pushed to the `main` or `dev` branches, a Github action builds the app and deploys it.
 
-The Github action code was copied from [vite's Github documentation](https://vite.dev/guide/static-deploy) and is located in `.github/workflows/vite.yml`.
+The Github actions code is located in `.github/workflows` for both prod and dev.
 
-It would be ideal to have a separate `dev` environment that deploys to a URL such as `https://mphdev.datamidsouth.org/`. An attempt was started in the `dev` branch, based on instructions that someone got from a `Claude AI` prompt. More testing needs done to get this fully working. The `dev` environment would allow others who cannot run the app locally to test changes prior to production deployment. A workaround is to instead record the workflow using the Snipping Tool and send that to necessary people for review.
+The `main` branch deploys to `https://mph.datamidsouth.org`.
+The `dev` branch deploys to `https://mph.datamidsouth.org/dev`.
+
+Sometimes after changing config, the custom domain will disappear from the Github settings for Pages. Be sure it's always set to `mph.datamidsouth.org` (no extra slashes or http, etc.).
