@@ -49,5 +49,3 @@ The Github actions code is located in `.github/workflows` for both prod and dev.
 
 The `main` branch deploys to `https://mph.datamidsouth.org`.
 The `dev` branch deploys to `https://mph.datamidsouth.org/dev`.
-
-Sometimes after changing config, the custom domain will disappear from the Github settings for Pages. Be sure it's always set to `mph.datamidsouth.org` (no extra slashes or http, etc.).
