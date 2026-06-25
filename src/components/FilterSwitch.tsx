@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { LuCheck } from "react-icons/lu";
+import { LuFilter } from "react-icons/lu";
 
 interface FilterHandler {
     showFilters: boolean;
@@ -11,10 +11,11 @@ export const FilterSwitch = ({ showFilters, onButtonClick }: FilterHandler) => {
         <Button
             id="filter"
             onClick={() => onButtonClick(!showFilters)}
-            variant={showFilters ? "outline" : "solid"}
-            size="sm"
+            variant={showFilters ? "surface" : "outline"}
+            size="xs"
+            colorPalette="green"
         >
-            {showFilters && <LuCheck />}
+            <LuFilter />
             FILTER PARCELS
         </Button>
     )

@@ -1,7 +1,7 @@
-import { Button, For, Flex } from "@chakra-ui/react";
+import { Box, Button, For, Flex, Text } from "@chakra-ui/react";
 import { Tooltip } from "./ui/tooltip";
 import { LuCheck } from "react-icons/lu";
-import { FILTERS, FILTER_BUTTON_WIDTH, SFH_HOMES, MFH_HOMES, SFH_MFH_HOMES } from "../constants";
+import { NEW_FILTERS, SFH_HOMES, MFH_HOMES, SFH_MFH_HOMES } from "../constants";
 
 interface FilterHandler {
     currentFilters: Array<string>;
@@ -10,11 +10,12 @@ interface FilterHandler {
 
 export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler) => {
     return (
-        <Flex gap="4">
-            <For each={FILTERS}>
-                {(filterCol) => (
-                    <Flex direction="column" gap="4" wrap="wrap" maxW="700px">
-                        <For each={filterCol}>
+        <Flex gap="1">
+            <For each={NEW_FILTERS}>
+                {({ subtitle, filters }, index) => (
+                    <Flex direction="row" gap="1" alignItems="center">
+                        <Text fontSize="sm" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">{subtitle}</Text>
+                        <For each={filters}>
                             {({ filter, buttonTitle, hoverDescription }, index) => {
                                 let filterSelected = currentFilters.includes(filter) || (
                                     (filter === SFH_HOMES.filter || filter === MFH_HOMES.filter) && currentFilters.includes(SFH_MFH_HOMES.filter)
@@ -22,18 +23,22 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
                                 return (
                                     <Tooltip key={index} content={hoverDescription} openDelay={300}>
                                         <Button
-                                            width={FILTER_BUTTON_WIDTH}
                                             onClick={() => onFilterClick(filter)}
-                                            variant={filterSelected ? "outline" : "solid"}
+                                            variant={filterSelected ? "surface" : "outline"}
                                             size="xs"
+                                            borderRadius="full"
+                                            paddingY="0"
                                         >
                                             {filterSelected && <LuCheck />}
                                             {buttonTitle}
                                         </Button>
-                                    </Tooltip>
-                                )
+                                    </Tooltip>)
                             }}
                         </For>
+                       {
+                        (index !== NEW_FILTERS.length - 1) && <div className="vdiv" />
+                        }
+                        
                     </Flex>)
                 }
             </For>
