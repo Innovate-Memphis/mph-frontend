@@ -24,12 +24,11 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
                                     <Tooltip key={index} content={hoverDescription} openDelay={300}>
                                         <Button
                                             onClick={() => onFilterClick(filter)}
-                                            variant={filterSelected ? "surface" : "outline"}
+                                            variant={filterSelected ? "solid" : "outline"}
                                             size="xs"
                                             borderRadius="full"
                                             paddingY="0"
                                         >
-                                            {filterSelected && <LuCheck />}
                                             {buttonTitle}
                                         </Button>
                                     </Tooltip>)
