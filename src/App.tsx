@@ -456,39 +456,25 @@ export default function Page() {
                   <FilterSelection
                     currentFilters={currentFilters}
                     onFilterClick={handleFilterClick} />
-                  <Grid
-                    templateRows="repeat(2, 1fr)"
-                    templateColumns="repeat(3, 1fr)"
-                    gap={4}
-                    autoFlow="unset"
-                  >
-                    <GridItem colSpan={1}>
+                  <Flex gap="1">
                       <DateRangeSlider
                         value={currentFilterBuildDate}
                         onDateSliderChange={setCurrentFilterBuildDate} />
-                    </GridItem>
-                    <GridItem colSpan={2}>
                       <GeographicFiltersSelect
                         geoFilter={currentGeographicFilter}
                         geoValues={currentGeoFilteredValues}
                         onFilterChange={setCurrentGeographicFilter}
                         onFilterValueChange={handleGeoFilterValueClick}
                       />
-                    </GridItem>
-                    <GridItem colSpan={1}>
                       <LivingUnitsCategorySelect
                         value={currentFilterLivingUnitsCategory}
                         onSelectChange={setCurrentFilterLivingUnitsCategory} />
-                    </GridItem>
-                    <GridItem colSpan={2}>
                       <LandUseCategorySelect
                         landUseZonFilter={currentLandUseZoningFilter}
                         luzValues={currentLandUseZoningValues}
                         onFilterChange={setcurrentLandUseZoningFilter}
                         onFilterValueChange={handleLandUseZoningFilterClick} />
-                    </GridItem>
-
-                  </Grid>
+                    </Flex>
                 </Flex>
               </Stack>}
           </Stack>
