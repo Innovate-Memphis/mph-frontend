@@ -1,6 +1,5 @@
 import { Box, Button, For, Flex, Text } from "@chakra-ui/react";
 import { Tooltip } from "./ui/tooltip";
-import { LuCheck } from "react-icons/lu";
 import { NEW_FILTERS, SFH_HOMES, MFH_HOMES, SFH_MFH_HOMES } from "../constants";
 
 interface FilterHandler {
@@ -14,7 +13,7 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
             <For each={NEW_FILTERS}>
                 {({ subtitle, filters }, index) => (
                     <Flex direction="row" gap="1" alignItems="center">
-                        <Text fontSize="sm" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">{subtitle}</Text>
+                        <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">{subtitle}</Text>
                         <For each={filters}>
                             {({ filter, buttonTitle, hoverDescription }, index) => {
                                 let filterSelected = currentFilters.includes(filter) || (
