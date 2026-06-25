@@ -10,7 +10,7 @@ export const HelpMenu = ({ onResetTour }: any) => {
     return (
         <Menu.Root id="help-menu" positioning={({ placement: 'bottom' })}>
             <Menu.Trigger asChild>
-                <IconButton area-label="Open Support">
+                <IconButton area-label="Open Support" variant="outline" size="xs">
                     <Tooltip content="Support Menu" openDelay={300}>
                         <LuCircleHelp />
                     </Tooltip>

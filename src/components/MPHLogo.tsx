@@ -5,5 +5,5 @@ interface LogoProps {
 }
 
 export const MPHLogo = ({ width = "150px" }: LogoProps) => {
-    return <img src={mphLogoUrl} style={{ width }} />
+    return <img src={mphLogoUrl} style={{ width, marginRight: 5 }} />
 }

@@ -90,11 +90,9 @@ const RECENT_DEMO_PERMIT = { filter: "RECENT_DEMO_PERMIT", buttonTitle: "Recent 
 const CONTAINS_IMAGE = { filter: "CONTAINS_IMAGE", buttonTitle: "Contains Image", hoverDescription: "Parcels that have an image on file" }
 const OWNER_OCCUPIED = { filter: "OWNER_OCCUPIED", buttonTitle: "Owner Occupied", hoverDescription: "Parcels where owner address matches the address" }
 const NON_LOCAL_OWNER = { filter: "NONLOCAL_OWNER", buttonTitle: "Non-Local Owner", hoverDescription: "Parcels where owner address is not in the Memphis metro area" }
-export const SFH_HOMES = { filter: "SFH_HOMES", buttonTitle: "Single-Family Homes", hoverDescription: "Parcels with single family land use code only" }
-export const MFH_HOMES = { filter: "MFH_HOMES", buttonTitle: "Multi-Family Homes", hoverDescription: "Parcels with multi-family land use codes only" }
+export const SFH_HOMES = { filter: "SFH_HOMES", buttonTitle: "Single-Family", hoverDescription: "Parcels with single family land use code only" }
+export const MFH_HOMES = { filter: "MFH_HOMES", buttonTitle: "Multi-Family", hoverDescription: "Parcels with multi-family land use codes only" }
 export const SFH_MFH_HOMES = { filter: "SFH_MFH_HOMES" }
-
-export const FILTER_BUTTON_WIDTH = 125;
 
 export const FILTERS = [
   [SFH_HOMES,MFH_HOMES,CONTAINS_IMAGE],
@@ -103,7 +101,14 @@ export const FILTERS = [
   [RECENT_BUILDING_PERMIT,RECENT_DEMO_PERMIT,RECENT_SALE],
 ];
 
-export const MIN_YEAR = 1883;
+export const NEW_FILTERS = [
+  { "subtitle": "Type", "filters": [SFH_HOMES, MFH_HOMES]},
+  { "subtitle": "Ownership", "filters": [OWNER_OCCUPIED,INVESTOR_OWNED,NON_LOCAL_OWNER]},
+  { "subtitle": "Status", "filters": [RECENT_VACANCY,LONG_TERM_VACANCY,CONTAINS_IMAGE]},
+  { "subtitle": "Activity", "filters": [RECENT_EVICTION,RECENT_BUILDING_PERMIT,RECENT_DEMO_PERMIT,RECENT_SALE]},
+]
+
+export const MIN_YEAR = 1883
 export const CURRENT_YEAR = new Date().getFullYear();
 export const DEFAULT_BUILT_YEAR_FILTERS = [MIN_YEAR, CURRENT_YEAR];
 
