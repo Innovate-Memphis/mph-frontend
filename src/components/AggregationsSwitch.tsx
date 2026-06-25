@@ -1,4 +1,5 @@
 import { Button } from "@chakra-ui/react";
+import { LuMoveRight } from "react-icons/lu";
 
 interface AggregationHandler {
     showAggregations: boolean;
@@ -13,9 +14,11 @@ export const AggregationsSwitch = ({ showAggregations, onButtonClick }: Aggregat
             id="aggs"
             className={displayClass}
             onClick={() => onButtonClick(!showAggregations)}
-            size="sm"
+            size="xs"
+            variant="outline"
         >
             {text}
+            <LuMoveRight />
         </Button>
     )
 }

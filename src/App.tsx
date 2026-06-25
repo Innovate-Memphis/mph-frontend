@@ -14,6 +14,7 @@ import {
   Theme,
   VStack,
 } from "@chakra-ui/react";
+import { LuRotateCcw } from "react-icons/lu";
 import { Filters } from "@feltmaps/js-sdk";
 import Joyride, { ACTIONS, EVENTS, CallBackProps } from 'react-joyride';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -413,13 +414,12 @@ export default function Page() {
           flexShrink={0}
           flexGrow={0}
           overflow="hidden"
-          paddingTop="10px"
           paddingLeft="10px"
         >
           <Stack
             separator={<StackSeparator style={{ marginTop: "0" }} />}>
             <AlertMessage />
-            <Flex justify="space-between" marginBottom="5px" paddingRight="10px">
+            <Flex justify="space-between" paddingRight="10px">
               <HStack>
                 <MPHLogo width="150px" />
                 <ThemeSelect
@@ -431,7 +431,16 @@ export default function Page() {
                 {!showAggregations &&
                   <>
                     <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />
-                    <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
+                    <Button
+                      marginRight="5"
+                      onClick={() => handleFilterClick()}
+                      variant="outline"
+                      size="xs"
+                      colorPalette="red"
+                    >
+                      <LuRotateCcw />
+                      RESET FILTERS
+                    </Button>
                   </>
                 }
                 {!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme) &&
