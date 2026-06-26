@@ -5,6 +5,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react"
+import { LuChevronRight } from "react-icons/lu";
 import {
   SelectContent,
   SelectItem,
@@ -49,8 +50,9 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
           <SelectContent>
             <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Category</Text>
             {lucZonFilters.items.map((filterSelection) => (
-              <SelectItem item={filterSelection} key={filterSelection}>
+              <SelectItem item={filterSelection} hiddenIndicator={true} key={filterSelection}>
                 {filterSelection}
+                <LuChevronRight />
               </SelectItem>
             ))}
           </SelectContent>

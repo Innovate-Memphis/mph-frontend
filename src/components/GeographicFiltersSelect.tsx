@@ -1,4 +1,10 @@
-import { createListCollection, Checkbox, HStack, Show, Stack, Select } from "@chakra-ui/react"
+import {
+  createListCollection,
+  Checkbox,
+  Stack,
+  Text,
+} from "@chakra-ui/react"
+import { LuChevronRight } from "react-icons/lu";
 import {
   SelectContent,
   SelectItem,
@@ -26,37 +32,43 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
     });
   }
   return (
-    <HStack>
-      <Stack minW="150px">
-        <SelectRoot
-          collection={geographicFilters}
-          size="sm"
-          value={geoFilter}
-          onValueChange={(e) => onFilterChange(e.value)}
-        >
-          <SelectTrigger>
-            <SelectValueText placeholder="Geographic Boundary" />
-          </SelectTrigger>
-          <SelectContent>
-            {geographicFilters.items.map((geoSelection) => (
-              <SelectItem item={geoSelection} key={geoSelection}>
-                {geoSelection}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </SelectRoot>
-      </Stack>
-      {filterSelected &&
+    <>
+      <SelectRoot
+        collection={geographicFilters}
+        size="xs"
+        value={geoFilter}
+        onValueChange={(e) => onFilterChange(e.value)}
+        minW="150px"
+      >
+        <SelectTrigger>
+          <SelectValueText placeholder="Geographic" color="black" />
+        </SelectTrigger>
+        <SelectContent>
+          <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Filter By</Text>
+          {geographicFilters.items.map((geoSelection) => (
+            <SelectItem item={geoSelection} hiddenIndicator={true} key={geoSelection}>
+              {geoSelection}
+              <LuChevronRight />
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </SelectRoot>
+      {
+        filterSelected &&
         <Stack minW="150px">
           <SelectRoot
             collection={selectedFilterOptions}
+            size="xs"
             multiple
             value={geoValues}
             onValueChange={(e) => onFilterValueChange(e.value)}
             composite
           >
             <SelectTrigger>
-              <SelectValueText placeholder="Select one or more" />
+              <SelectValueText
+                placeholder="Select one or more"
+                color="black"
+              />
             </SelectTrigger>
             <SelectContent>
               {selectedFilterOptions.items.map((item) => (
@@ -73,7 +85,7 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
           </SelectRoot>
         </Stack>
       }
-    </HStack>
+    </>
   )
 }
 
