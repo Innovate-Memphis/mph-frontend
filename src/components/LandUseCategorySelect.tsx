@@ -3,6 +3,7 @@ import {
   Checkbox,
   HStack,
   Stack,
+  Text,
 } from "@chakra-ui/react"
 import {
   SelectContent,
@@ -22,7 +23,7 @@ interface LandUseFilterHandler {
 
 export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilterChange, onFilterValueChange }: LandUseFilterHandler) => {
   let filterSelected = landUseZonFilter.length !== 0 && LAND_USE_ZONING_FILTER_MAP.get(landUseZonFilter[0]) !== undefined;
-  let selectedFilterOptions = createListCollection({ items: []})
+  let selectedFilterOptions = createListCollection({ items: [] })
   if (filterSelected) {
     // @ts-ignore
     selectedFilterOptions = createListCollection({
@@ -38,7 +39,6 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
           size="xs"
           value={landUseZonFilter}
           onValueChange={(e) => onFilterChange(e.value)}
-          
         >
           <SelectTrigger>
             <SelectValueText
@@ -47,6 +47,7 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
             />
           </SelectTrigger>
           <SelectContent>
+            <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Category</Text>
             {lucZonFilters.items.map((filterSelection) => (
               <SelectItem item={filterSelection} key={filterSelection}>
                 {filterSelection}
@@ -72,7 +73,7 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
             </SelectTrigger>
             <SelectContent>
               {selectedFilterOptions.items.map((item) => (
-                <SelectItem item={{label:item, value:item}} key={item} className="checkbox-filter">
+                <SelectItem item={{ label: item, value: item }} key={item} className="checkbox-filter">
                   <Checkbox.Root
                     checked={luzValues.includes(item)}>
                     <Checkbox.HiddenInput />
@@ -90,5 +91,5 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
 }
 
 const lucZonFilters = createListCollection({
-  items: [ ...LAND_USE_ZONING_FILTER_MAP.keys() ]
+  items: [...LAND_USE_ZONING_FILTER_MAP.keys()]
 });
