@@ -39,6 +39,7 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
         value={geoFilter}
         onValueChange={(e) => onFilterChange(e.value)}
         minW="150px"
+        closeOnSelect={false}
       >
         <SelectTrigger>
           <SelectValueText placeholder="Geographic" color="black" />
