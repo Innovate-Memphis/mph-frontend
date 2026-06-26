@@ -40,6 +40,7 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
           size="xs"
           value={landUseZonFilter}
           onValueChange={(e) => onFilterChange(e.value)}
+          closeOnSelect={false}
         >
           <SelectTrigger>
             <SelectValueText
