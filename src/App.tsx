@@ -314,6 +314,12 @@ export default function Page() {
     setCurrentGeoFilteredValues(value);
   }
 
+  async function handleLuZFilterChange(value: string) {
+    // @ts-ignore
+    setcurrentLandUseZoningFilter(value);
+    setcurrentLandUseZoningValues([]);
+  }
+
   async function handleLandUseZoningFilterClick(value: Array<string>) {
     // @ts-ignore
     setcurrentLandUseZoningValues(value);
@@ -482,13 +488,13 @@ export default function Page() {
                     <GeographicFiltersSelect
                       geoFilter={currentGeographicFilter}
                       geoValues={currentGeoFilteredValues}
-                      onFilterChange={setCurrentGeographicFilter}
+                      onFilterChange={handleGeoFilterChange}
                       onFilterValueChange={handleGeoFilterValueClick}
                     />
                     <LandUseCategorySelect
                       landUseZonFilter={currentLandUseZoningFilter}
                       luzValues={currentLandUseZoningValues}
-                      onFilterChange={setcurrentLandUseZoningFilter}
+                      onFilterChange={handleLuZFilterChange}
                       onFilterValueChange={handleLandUseZoningFilterClick} />
                   </Flex>
                 </Flex>
