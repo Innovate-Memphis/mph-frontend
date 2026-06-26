@@ -1,6 +1,7 @@
 import type { Filters } from "@feltmaps/js-sdk";
 
 const PROD_ID = "p9CPdaItsRQm9COaGzgt17WB";
+// Use for DEV
 // const DEV_ID = "2pjfh9ClOTymZRWajPdjFoA";
 export const FELT_MAP_ID = PROD_ID;
 
