@@ -471,26 +471,26 @@ export default function Page() {
                     currentFilters={currentFilters}
                     onFilterClick={handleFilterClick} />
                   <Flex gap="1">
-                      <DateRangeSlider
-                        value={currentFilterBuildDate}
-                        onDateSliderChange={setCurrentFilterBuildDate}
-                        onDateInputChange={handleYearBuiltInputChange}
-                      />
-                      <LivingUnitsCategorySelect
-                        value={currentFilterLivingUnitsCategory}
-                        onSelectChange={setCurrentFilterLivingUnitsCategory} />
-                      <GeographicFiltersSelect
-                        geoFilter={currentGeographicFilter}
-                        geoValues={currentGeoFilteredValues}
-                        onFilterChange={setCurrentGeographicFilter}
-                        onFilterValueChange={handleGeoFilterValueClick}
-                      />
-                      <LandUseCategorySelect
-                        landUseZonFilter={currentLandUseZoningFilter}
-                        luzValues={currentLandUseZoningValues}
-                        onFilterChange={setcurrentLandUseZoningFilter}
-                        onFilterValueChange={handleLandUseZoningFilterClick} />
-                    </Flex>
+                    <DateRangeSlider
+                      value={currentFilterBuildDate}
+                      onDateSliderChange={setCurrentFilterBuildDate}
+                      onDateInputChange={handleYearBuiltInputChange}
+                    />
+                    <LivingUnitsCategorySelect
+                      value={currentFilterLivingUnitsCategory}
+                      onSelectChange={setCurrentFilterLivingUnitsCategory} />
+                    <GeographicFiltersSelect
+                      geoFilter={currentGeographicFilter}
+                      geoValues={currentGeoFilteredValues}
+                      onFilterChange={setCurrentGeographicFilter}
+                      onFilterValueChange={handleGeoFilterValueClick}
+                    />
+                    <LandUseCategorySelect
+                      landUseZonFilter={currentLandUseZoningFilter}
+                      luzValues={currentLandUseZoningValues}
+                      onFilterChange={setcurrentLandUseZoningFilter}
+                      onFilterValueChange={handleLandUseZoningFilterClick} />
+                  </Flex>
                 </Flex>
               </Stack>}
           </Stack>
