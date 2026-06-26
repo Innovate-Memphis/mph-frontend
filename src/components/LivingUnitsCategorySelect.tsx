@@ -30,7 +30,7 @@ export const LivingUnitsCategorySelect = ({ value, onSelectChange }: LivingUnits
         onOpenChange={(e) => setOpen(e.open)}
       >
         <SelectTrigger>
-          <SelectValueText placeholder="Living Units" />
+          <SelectValueText placeholder="Living Units" color="black" />
           {open ? <LuChevronUp /> : <LuChevronDown />}
         </SelectTrigger>
         <SelectContent>
