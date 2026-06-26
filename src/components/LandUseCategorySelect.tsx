@@ -35,12 +35,16 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
       <Stack minW="150px">
         <SelectRoot
           collection={lucZonFilters}
-          size="sm"
+          size="xs"
           value={landUseZonFilter}
           onValueChange={(e) => onFilterChange(e.value)}
+          
         >
           <SelectTrigger>
-            <SelectValueText placeholder="Land Use / Zoning" />
+            <SelectValueText
+              placeholder="Land Use / Zoning"
+              color="black"
+            />
           </SelectTrigger>
           <SelectContent>
             {lucZonFilters.items.map((filterSelection) => (
@@ -55,12 +59,16 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
         <Stack minW="150px">
           <SelectRoot
             collection={selectedFilterOptions}
+            size="xs"
             multiple
             value={luzValues}
             onValueChange={(e) => onFilterValueChange(e.value)}
           >
             <SelectTrigger>
-              <SelectValueText placeholder="Select one or more" />
+              <SelectValueText
+                placeholder="Select one or more"
+                color="black"
+              />
             </SelectTrigger>
             <SelectContent>
               {selectedFilterOptions.items.map((item) => (
