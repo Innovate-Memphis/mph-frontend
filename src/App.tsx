@@ -474,15 +474,15 @@ export default function Page() {
                         onDateSliderChange={setCurrentFilterBuildDate}
                         onDateInputChange={handleYearBuiltInputChange}
                       />
+                      <LivingUnitsCategorySelect
+                        value={currentFilterLivingUnitsCategory}
+                        onSelectChange={setCurrentFilterLivingUnitsCategory} />
                       <GeographicFiltersSelect
                         geoFilter={currentGeographicFilter}
                         geoValues={currentGeoFilteredValues}
                         onFilterChange={setCurrentGeographicFilter}
                         onFilterValueChange={handleGeoFilterValueClick}
                       />
-                      <LivingUnitsCategorySelect
-                        value={currentFilterLivingUnitsCategory}
-                        onSelectChange={setCurrentFilterLivingUnitsCategory} />
                       <LandUseCategorySelect
                         landUseZonFilter={currentLandUseZoningFilter}
                         luzValues={currentLandUseZoningValues}
