@@ -56,7 +56,7 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
         </SelectRoot>
       </Stack>
       {filterSelected &&
-        <Stack minW="150px">
+        <Stack minW="250px">
           <SelectRoot
             collection={selectedFilterOptions}
             size="xs"
