@@ -3,7 +3,9 @@ import {
   Checkbox,
   HStack,
   Stack,
+  Text,
 } from "@chakra-ui/react"
+import { LuChevronRight } from "react-icons/lu";
 import {
   SelectContent,
   SelectItem,
@@ -22,7 +24,7 @@ interface LandUseFilterHandler {
 
 export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilterChange, onFilterValueChange }: LandUseFilterHandler) => {
   let filterSelected = landUseZonFilter.length !== 0 && LAND_USE_ZONING_FILTER_MAP.get(landUseZonFilter[0]) !== undefined;
-  let selectedFilterOptions = createListCollection({ items: []})
+  let selectedFilterOptions = createListCollection({ items: [] })
   if (filterSelected) {
     // @ts-ignore
     selectedFilterOptions = createListCollection({
@@ -35,36 +37,45 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
       <Stack minW="150px">
         <SelectRoot
           collection={lucZonFilters}
-          size="sm"
+          size="xs"
           value={landUseZonFilter}
           onValueChange={(e) => onFilterChange(e.value)}
         >
           <SelectTrigger>
-            <SelectValueText placeholder="Land Use / Zoning" />
+            <SelectValueText
+              placeholder="Land Use / Zoning"
+              color="black"
+            />
           </SelectTrigger>
           <SelectContent>
+            <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Category</Text>
             {lucZonFilters.items.map((filterSelection) => (
-              <SelectItem item={filterSelection} key={filterSelection}>
+              <SelectItem item={filterSelection} hiddenIndicator={true} key={filterSelection}>
                 {filterSelection}
+                <LuChevronRight />
               </SelectItem>
             ))}
           </SelectContent>
         </SelectRoot>
       </Stack>
       {filterSelected &&
-        <Stack minW="150px">
+        <Stack minW="250px">
           <SelectRoot
             collection={selectedFilterOptions}
+            size="xs"
             multiple
             value={luzValues}
             onValueChange={(e) => onFilterValueChange(e.value)}
           >
             <SelectTrigger>
-              <SelectValueText placeholder="Select one or more" />
+              <SelectValueText
+                placeholder="Select one or more"
+                color="black"
+              />
             </SelectTrigger>
             <SelectContent>
               {selectedFilterOptions.items.map((item) => (
-                <SelectItem item={{label:item, value:item}} key={item} className="checkbox-filter">
+                <SelectItem item={{ label: item, value: item }} key={item} className="checkbox-filter">
                   <Checkbox.Root
                     checked={luzValues.includes(item)}>
                     <Checkbox.HiddenInput />
@@ -82,5 +93,5 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
 }
 
 const lucZonFilters = createListCollection({
-  items: [ ...LAND_USE_ZONING_FILTER_MAP.keys() ]
+  items: [...LAND_USE_ZONING_FILTER_MAP.keys()]
 });
