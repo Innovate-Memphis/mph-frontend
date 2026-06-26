@@ -1,6 +1,8 @@
 import {
   createListCollection,
   Checkbox,
+  Popover,
+  Portal,
   Stack,
   Text,
 } from "@chakra-ui/react"
@@ -13,6 +15,7 @@ import {
   SelectValueText,
 } from "./ui/select";
 import { GEOGRAPHIC_FILTER_MAP } from "../constants";
+import { useState } from "react";
 
 interface GeographicFilterHandler {
   geoFilter: Array<string>;
@@ -22,6 +25,11 @@ interface GeographicFilterHandler {
 }
 
 export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterChange, onFilterValueChange }: GeographicFilterHandler) => {
+  function handleFilterSelection(value) {
+    onFilterChange(value);
+    setOpen(true);
+  }
+  const [open, setOpen] = useState(false)
   let filterSelected = geoFilter.length !== 0 && GEOGRAPHIC_FILTER_MAP.get(geoFilter[0]) !== undefined;
   let selectedFilterOptions = createListCollection({ items: [] })
   if (filterSelected) {
@@ -37,7 +45,7 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
         collection={geographicFilters}
         size="xs"
         value={geoFilter}
-        onValueChange={(e) => onFilterChange(e.value)}
+        onValueChange={(e) => handleFilterSelection(e.value)}
         minW="150px"
         closeOnSelect={false}
       >
@@ -56,35 +64,44 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
       </SelectRoot>
       {
         filterSelected &&
-        <Stack minW="150px">
-          <SelectRoot
-            collection={selectedFilterOptions}
-            size="xs"
-            multiple
-            value={geoValues}
-            onValueChange={(e) => onFilterValueChange(e.value)}
-            composite
-          >
-            <SelectTrigger>
-              <SelectValueText
-                placeholder="Select one or more"
-                color="black"
-              />
-            </SelectTrigger>
-            <SelectContent>
-              {selectedFilterOptions.items.map((item) => (
-                <SelectItem item={item} key={item} className="checkbox-filter">
-                  <Checkbox.Root
-                    checked={geoValues.includes(item)}>
-                    <Checkbox.HiddenInput />
-                    <Checkbox.Control />
-                    <Checkbox.Label>{item}</Checkbox.Label>
-                  </Checkbox.Root>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </SelectRoot>
-        </Stack>
+        <Popover.Root positioning={{ offset: { crossAxis: 200, mainAxis: 0 } }} open={open} onOpenChange={(e) => setOpen(e.open)}>
+          <Popover.Trigger />
+          <Portal>
+            <Popover.Positioner>
+              <Popover.Content>
+                <Popover.Body>
+                    <SelectRoot
+                      collection={selectedFilterOptions}
+                      size="xs"
+                      multiple
+                      value={geoValues}
+                      onValueChange={(e) => onFilterValueChange(e.value)}
+                      composite
+                    >
+                      <SelectTrigger>
+                        <SelectValueText
+                          placeholder="Select one or more"
+                          color="black"
+                        />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {selectedFilterOptions.items.map((item) => (
+                          <SelectItem item={item} key={item} className="checkbox-filter">
+                            <Checkbox.Root
+                              checked={geoValues.includes(item)}>
+                              <Checkbox.HiddenInput />
+                              <Checkbox.Control />
+                              <Checkbox.Label>{item}</Checkbox.Label>
+                            </Checkbox.Root>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </SelectRoot>
+                </Popover.Body>
+              </Popover.Content>
+            </Popover.Positioner>
+          </Portal>
+        </Popover.Root>
       }
     </>
   )
