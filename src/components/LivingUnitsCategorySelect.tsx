@@ -6,7 +6,6 @@ import {
   SelectTrigger,
   SelectValueText,
 } from "./ui/select";
-import { LuChevronDown, LuChevronUp } from "react-icons/lu";
 import { LIVING_UNITS_CATEGORIES } from "./../constants";
 import { useState } from "react"
 
@@ -31,7 +30,6 @@ export const LivingUnitsCategorySelect = ({ value, onSelectChange }: LivingUnits
     >
       <SelectTrigger>
         <SelectValueText placeholder="Living Units" color="black" />
-        {open ? <LuChevronUp /> : <LuChevronDown />}
       </SelectTrigger>
       <SelectContent>
         {LIVING_UNITS_CATEGORIES.map((category) => (
