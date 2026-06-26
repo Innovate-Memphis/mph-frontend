@@ -319,6 +319,20 @@ export default function Page() {
     setcurrentLandUseZoningValues(value);
   }
 
+  async function handleYearBuiltInputChange(index: number, value: string) {
+    if (value.length !== 4) {
+      return;
+    }
+    const newValues = currentFilterBuildDate.map((val, i) => {
+      if (i === index) {
+        return parseInt(value, 10);
+      } else {
+        return val;
+      }
+    });
+    return setCurrentFilterBuildDate(newValues);
+  }
+
   async function handleFilterClick(filter?: string) {
     if (!filter) {
       setCurrentFilters([]);
@@ -459,7 +473,9 @@ export default function Page() {
                   <Flex gap="1">
                       <DateRangeSlider
                         value={currentFilterBuildDate}
-                        onDateSliderChange={setCurrentFilterBuildDate} />
+                        onDateSliderChange={setCurrentFilterBuildDate}
+                        onDateInputChange={handleYearBuiltInputChange}
+                      />
                       <GeographicFiltersSelect
                         geoFilter={currentGeographicFilter}
                         geoValues={currentGeoFilteredValues}
