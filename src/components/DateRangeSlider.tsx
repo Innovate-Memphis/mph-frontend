@@ -12,7 +12,7 @@ interface DateRangerFilterHandler {
 export const DateRangeSlider = ({ value, onDateSliderChange, onDateInputChange }: DateRangerFilterHandler) => {
     const [open, setOpen] = useState(false)
     return (
-        <Popover.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
+        <Popover.Root open={open} onOpenChange={(e) => setOpen(e.open)} >
             <Popover.Trigger asChild>
                 <Button size="xs" variant="outline">
                     <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Built</Text>
@@ -23,7 +23,7 @@ export const DateRangeSlider = ({ value, onDateSliderChange, onDateInputChange }
             <Portal>
                 <Popover.Positioner>
                     <Popover.Content width="auto">
-                        <Popover.Body>
+                        <Popover.Body padding="3">
                             <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Built Date</Text>
                             <HStack justify="space-between">
                                 <NumberInput.Root
