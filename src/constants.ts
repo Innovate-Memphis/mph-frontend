@@ -113,7 +113,7 @@ export const MIN_YEAR = 1883
 export const CURRENT_YEAR = new Date().getFullYear();
 export const DEFAULT_BUILT_YEAR_FILTERS = [MIN_YEAR, CURRENT_YEAR];
 
-const EXPLORE_FILTER: Filters = ["state", "eq", "TN"]
+const EXPLORE_FILTER: Filters = ["state", "eq", "TN"];
 
 const RECENT_SALE_FILTER: Filters = ["sales_1yr", "gt", 0];
 const RECENT_EVICTION_FILTER: Filters = ["evictions_6mo", "gt", 0];
