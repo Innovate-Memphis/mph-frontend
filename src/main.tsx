@@ -16,8 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ChakraProvider value={feltTheme}>
         <ThemeProvider attribute="class" disableTransitionOnChange>
           <Auth0Provider
-            domain={import.meta.env.PROD ? import.meta.env.VITE_AUTH0_DOMAIN : import.meta.env.DEV_VITE_AUTH0_DOMAIN}
-            clientId={import.meta.env.PROD ? import.meta.env.VITE_AUTH0_CLIENT_ID : import.meta.env.DEV_VITE_AUTH0_CLIENT_ID}
+            domain={import.meta.env.PROD ? import.meta.env.VITE_AUTH0_DOMAIN : import.meta.env.VITE_DEV_AUTH0_DOMAIN}
+            clientId={import.meta.env.PROD ? import.meta.env.VITE_AUTH0_CLIENT_ID : import.meta.env.VITE_DEV_AUTH0_CLIENT_ID}
             authorizationParams={{ redirect_uri: window.location.href }}
             useCookiesForTransactions={true}
           >

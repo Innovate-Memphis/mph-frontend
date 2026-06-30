@@ -6,8 +6,8 @@ on:
 
 #Allow repo secrets
 env:
-  DEV_VITE_AUTH0_DOMAIN: ${{ secrets.DEV_VITE_AUTH0_DOMAIN }}
-  DEV_VITE_AUTH0_CLIENT_ID: ${{ secrets.DEV_VITE_AUTH0_CLIENT_ID }}
+  VITE_DEV_AUTH0_DOMAIN: ${{ secrets.VITE_DEV_AUTH0_DOMAIN }}
+  VITE_DEV_AUTH0_CLIENT_ID: ${{ secrets.VITE_DEV_AUTH0_CLIENT_ID }}
 
 jobs:
  deploy:
