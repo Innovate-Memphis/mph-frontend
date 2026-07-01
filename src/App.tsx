@@ -435,7 +435,7 @@ export default function Page() {
           paddingLeft="10px"
         >
           <Stack
-            separator={<StackSeparator style={{ marginTop: "0" }} />}>
+            marginY="1">
             <AlertMessage />
             <Flex justify="space-between" paddingRight="10px">
               <HStack>
@@ -452,9 +452,8 @@ export default function Page() {
                     <Button
                       marginRight="5"
                       onClick={() => handleFilterClick()}
-                      variant="outline"
+                      variant="surface"
                       size="xs"
-                      colorPalette="red"
                     >
                       <LuRotateCcw />
                       RESET FILTERS

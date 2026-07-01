@@ -11,9 +11,9 @@ export const FilterSwitch = ({ showFilters, onButtonClick }: FilterHandler) => {
         <Button
             id="filter"
             onClick={() => onButtonClick(!showFilters)}
-            variant={showFilters ? "surface" : "outline"}
+            variant={showFilters ? "solid" : "outline"}
             size="xs"
-            colorPalette="green"
+            fontWeight={showFilters ? "bold" : "normal"}
         >
             <LuFilter />
             FILTER PARCELS
