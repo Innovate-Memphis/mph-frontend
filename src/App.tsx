@@ -1,10 +1,7 @@
 import {
   Box,
-  Button,
   Center,
   Flex,
-  Grid,
-  GridItem,
   HStack,
   Link,
   StackSeparator,
@@ -14,19 +11,13 @@ import {
   Theme,
   VStack,
 } from "@chakra-ui/react";
-import { Filters } from "@feltmaps/js-sdk";
 import Joyride, { ACTIONS, EVENTS, CallBackProps } from 'react-joyride';
 import { useAuth0 } from '@auth0/auth0-react';
 import LogRocket from 'logrocket';
 
 import { ThemeSelect } from "./components/ThemeSelect";
-import { FilterSelection } from "./components/FilterSelection";
 import { FilterSwitch } from "./components/FilterSwitch";
 import { AggregationsSwitch } from "./components/AggregationsSwitch";
-import { DateRangeSlider } from "./components/DateRangeSlider";
-import { LivingUnitsCategorySelect } from "./components/LivingUnitsCategorySelect";
-import { LandUseCategorySelect } from "./components/LandUseCategorySelect";
-import { GeographicFiltersSelect } from "./components/GeographicFiltersSelect";
 import { HelpMenu } from "./components/HelpMenu";
 import { MPHLogo } from "./components/MPHLogo";
 
@@ -38,31 +29,24 @@ import LoginButton from "./components/LoginButton";
 import SignupButton from "./components/SignupButton";
 // @ts-ignore
 import RequestAccessButton from "./components/RequestAccessButton";
+import { FilterPane } from "./components/FilterPane";
 
 import { useFeltEmbed } from "./feltUtils";
 import {
-  DEFAULT_BUILT_YEAR_FILTERS,
   EXPLORE,
   FAQ_LINK,
   FAQ_LINK_TEXT,
   FELT_MAP_ID,
   FILTERED_PARCEL_LAYER_ID,
-  FILTERS_TO_FELT_FILTER,
-  GEOGRAPHIC_FELT_FILTER_MAP,
   GROUP_LAYERS_TO_HIDE,
-  LAND_USE_CATEGORY_FILTER,
-  LIVING_UNITS_CATEGORY_FILTER,
   LAYERS_TO_HIDE,
   LOGIN_FAILURE_MESSAGE,
-  MIN_YEAR_BUILT_FILTER,
-  MAX_YEAR_BUILT_FILTER,
   THEME_TO_GROUP_LAYER_MAP,
   THEME_TO_PARCEL_LAYER_MAP,
   THEMES,
   THEMES_WITHOUT_AGGREGATIONS,
   TOUR_STEPS,
 } from "./constants";
-import { filterUtils } from "./utils";
 import { useState, useEffect } from "react";
 
 export default function Page() {
@@ -130,12 +114,6 @@ export default function Page() {
   const [showFilters, setShowFilters] = useState(true);
   const [showAggregations, setShowAggregations] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(EXPLORE);
-  const [currentFilters, setCurrentFilters] = useState([]);
-  const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
-  const [currentFilterLivingUnitsCategory, setCurrentFilterLivingUnitsCategory] = useState([]);
-  const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
-  const [currentGeographicFilter, setCurrentGeographicFilter] = useState([]);
-  const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState([]);
   const [dataYear, setDataYear] = useState<null | number>(null);
   const [run, setRun] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
@@ -215,65 +193,6 @@ export default function Page() {
     updateLayerVisibility().catch(console.error);
   }, [felt, currentTheme, showAggregations]);
 
-  useEffect(() => {
-    const updateLayerFilter = async () => {
-      if (felt) {
-
-        const allLayerFilters = new Map(FILTERS_TO_FELT_FILTER);
-        const allFeltFormattedFilters: Filters[] = currentFilters.map((f) => allLayerFilters.get(f) || null);
-
-        if (currentFilterBuildDate[0] !== DEFAULT_BUILT_YEAR_FILTERS[0]) {
-          let minYearBuiltFilter = MIN_YEAR_BUILT_FILTER;
-          // @ts-ignore
-          minYearBuiltFilter[2] = currentFilterBuildDate[0]
-          allFeltFormattedFilters.push(minYearBuiltFilter)
-        }
-
-        if (currentFilterBuildDate[1] !== DEFAULT_BUILT_YEAR_FILTERS[1]) {
-          let maxYearBuiltFilter = MAX_YEAR_BUILT_FILTER;
-          // @ts-ignore
-          maxYearBuiltFilter[2] = currentFilterBuildDate[1]
-          allFeltFormattedFilters.push(maxYearBuiltFilter)
-        }
-
-        if (currentFilterLivingUnitsCategory.length) {
-          let livingUnitsCategoryFilter = LIVING_UNITS_CATEGORY_FILTER;
-          // @ts-ignore
-          livingUnitsCategoryFilter[2] = currentFilterLivingUnitsCategory
-          allFeltFormattedFilters.push(livingUnitsCategoryFilter)
-        }
-
-        if (currentFilterLandUseCategory.length) {
-          let landUseCategoryFilter = LAND_USE_CATEGORY_FILTER;
-          // @ts-ignore
-          landUseCategoryFilter[2] = currentFilterLandUseCategory
-          allFeltFormattedFilters.push(landUseCategoryFilter)
-        }
-
-        if (currentGeoFilteredValues.length) {
-          let currentGeoFilter = GEOGRAPHIC_FELT_FILTER_MAP.get(currentGeographicFilter[0])
-          if (currentGeoFilter) {
-            // @ts-ignore
-            currentGeoFilter[2] = currentGeoFilteredValues
-            allFeltFormattedFilters.push(currentGeoFilter);
-          }
-        }
-
-        const newFilters = filterUtils.andMany(allFeltFormattedFilters);
-
-        let layerToUpdate = THEME_TO_PARCEL_LAYER_MAP.get(currentTheme);
-
-        if (layerToUpdate) {
-          await felt.setLayerFilters({
-            layerId: layerToUpdate,
-            filters: newFilters
-          });
-        }
-      }
-    }
-
-    updateLayerFilter().catch(console.error);
-  }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues, currentFilterLivingUnitsCategory])
 
   useEffect(() => {
     if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
@@ -291,34 +210,6 @@ export default function Page() {
 
   async function handleThemeClick(theme: string) {
     setCurrentTheme(theme);
-  }
-
-  async function handleGeoFilterChange(value: string) {
-    // @ts-ignore
-    setCurrentGeographicFilter(value);
-    setCurrentGeoFilteredValues([]);
-  }
-
-  async function handleGeoFilterValueClick(value: Array<string>) {
-    // @ts-ignore
-    setCurrentGeoFilteredValues(value);
-  }
-
-  async function handleFilterClick(filter?: string) {
-    if (!filter) {
-      setCurrentFilters([]);
-      setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
-      setCurrentFilterLivingUnitsCategory([]);
-      setCurrentFilterLandUseCategory([]);
-      setCurrentGeographicFilter([]);
-      setCurrentGeoFilteredValues([]);
-      // @ts-ignore
-    } else if (!currentFilters.includes(filter)) {
-      // @ts-ignore
-      setCurrentFilters([...currentFilters, filter]);
-    } else {
-      setCurrentFilters(currentFilters.filter(x => x !== filter));
-    }
   }
 
   function handleResetTour() {
@@ -404,46 +295,7 @@ export default function Page() {
                 <HelpMenu onResetTour={handleResetTour} />
               </HStack>
             </Flex>
-            {showFilters &&
-              <Stack>
-                <Flex justify="space-between" paddingBottom="2">
-                  <Flex align="baseline" gap="4">
-                    <FilterSelection
-                      currentFilters={currentFilters}
-                      onFilterClick={handleFilterClick} />
-                    <Grid
-                      templateRows="repeat(2, 1fr)"
-                      templateColumns="repeat(2, 1fr)"
-                      gap={4}
-                    >
-                      <GridItem colSpan={1}>
-                        <DateRangeSlider
-                          value={currentFilterBuildDate}
-                          onDateSliderChange={setCurrentFilterBuildDate} />
-                      </GridItem>
-                      <GridItem colSpan={1}>
-                        <LivingUnitsCategorySelect
-                          value={currentFilterLivingUnitsCategory}
-                          onSelectChange={setCurrentFilterLivingUnitsCategory} />
-                      </GridItem>
-                      <GridItem colSpan={1}>
-                        <LandUseCategorySelect
-                          value={currentFilterLandUseCategory}
-                          onSelectChange={setCurrentFilterLandUseCategory} />
-                      </GridItem>
-                      <GridItem colSpan={1}>
-                        <GeographicFiltersSelect
-                          geoFilter={currentGeographicFilter}
-                          geoValues={currentGeoFilteredValues}
-                          onFilterChange={handleGeoFilterChange}
-                          onFilterValueChange={handleGeoFilterValueClick}
-                        />
-                      </GridItem>
-                    </Grid>
-                  </Flex>
-                  <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
-                </Flex>
-              </Stack>}
+            {showFilters && <FilterPane felt={felt} currentTheme={currentTheme} />}
           </Stack>
         </Stack>
         <Box
