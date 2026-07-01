@@ -450,7 +450,6 @@ export default function Page() {
                   <>
                     <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />
                     <Button
-                      marginRight="5"
                       onClick={() => handleFilterClick()}
                       variant="surface"
                       size="xs"
