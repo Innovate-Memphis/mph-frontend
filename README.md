@@ -49,3 +49,9 @@ The Github actions code is located in `.github/workflows` for both prod and dev.
 
 The `main` branch deploys to `https://mph.datamidsouth.org`.
 The `dev` branch deploys to `https://mph.datamidsouth.org/dev`.
+
+Preferred workflow for testing changes in Dev:
+1. Create a new branch off `main` to develop new features: `git checkout main`, `git branch my-feature`, `git checkout my-feature`
+2. Build/test changes locally in the feature branch until it's ready to deploy.
+3. Delete the existing `dev` branch and create a new one as a copy of the feature branch. `git branch -d dev`, `git checkout my-feature`, `git branch dev`, `git checkout dev`
+4. Push the new `dev` branch to github, using force to overwrite history `git push origin dev --force`
