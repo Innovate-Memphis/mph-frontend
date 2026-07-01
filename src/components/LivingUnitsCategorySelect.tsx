@@ -1,4 +1,4 @@
-import { createListCollection, Stack } from "@chakra-ui/react"
+import { createListCollection, Button, Checkbox, Popover, Portal, Stack } from "@chakra-ui/react"
 import {
   SelectContent,
   SelectItem,
@@ -7,6 +7,7 @@ import {
   SelectValueText,
 } from "./ui/select";
 import { LIVING_UNITS_CATEGORIES } from "./../constants";
+import { useState } from "react"
 
 interface LivingUnitsCategoryFilterHandler {
   value: Array<string>;
@@ -14,27 +15,35 @@ interface LivingUnitsCategoryFilterHandler {
 }
 
 export const LivingUnitsCategorySelect = ({ value, onSelectChange }: LivingUnitsCategoryFilterHandler) => {
+  const [open, setOpen] = useState(false)
   return (
-    <Stack width="200px">
-      <SelectRoot
-        collection={categories}
-        multiple
-        size="sm"
-        value={value}
-        onValueChange={(e) => onSelectChange(e.value)}
-      >
-        <SelectTrigger>
-          <SelectValueText placeholder="Living Units" />
-        </SelectTrigger>
-        <SelectContent>
-          {LIVING_UNITS_CATEGORIES.map((category) => (
-            <SelectItem item={category} key={category}>
-              {category}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </SelectRoot>
-    </Stack>
+    <SelectRoot
+      collection={categories}
+      multiple
+      size="xs"
+      value={value}
+      onValueChange={(e) => onSelectChange(e.value)}
+      composite
+      open={open}
+      onOpenChange={(e) => setOpen(e.open)}
+      minW="150px"
+    >
+      <SelectTrigger>
+        <SelectValueText placeholder="Living Units" color="black" />
+      </SelectTrigger>
+      <SelectContent>
+        {LIVING_UNITS_CATEGORIES.map((category) => (
+          <SelectItem item={category} key={category} className="checkbox-filter">
+            <Checkbox.Root
+              checked={value.includes(category)}>
+              <Checkbox.HiddenInput />
+              <Checkbox.Control />
+              <Checkbox.Label>{category}</Checkbox.Label>
+            </Checkbox.Root>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </SelectRoot>
   )
 }
 
