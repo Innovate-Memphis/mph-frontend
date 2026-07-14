@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import {
+    Badge,
     Button,
     Flex,
+    For,
     Grid,
     GridItem,
-    Text,
+    HStack,
     Stack,
 } from "@chakra-ui/react";
+import { LuX } from "react-icons/lu"
 import { Filters } from "@feltmaps/js-sdk";
+import {
+  FeltController,
+} from "@feltmaps/js-sdk";
 
 import { FilterSelection } from "./FilterSelection";
 import { DateRangeSlider } from "./DateRangeSlider";
@@ -27,15 +33,18 @@ import {
 } from "../constants";
 import { filterUtils } from "../utils";
 
+interface FilterPaneProps {
+  felt: FeltController | null;
+  currentTheme: string;
+}
 
-
-export const FilterPane = ({ felt, currentTheme }) => {
+export const FilterPane = ({ felt, currentTheme }: FilterPaneProps) => {
     const [currentFilters, setCurrentFilters] = useState([]);
     const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
     const [currentFilterLivingUnitsCategory, setCurrentFilterLivingUnitsCategory] = useState([]);
     const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
-    const [currentGeographicFilter, setCurrentGeographicFilter] = useState([]);
-    const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState([]);
+    const [currentGeographicFilter, setCurrentGeographicFilter] = useState<string[]>([]);
+    const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState<string[]>([]);
 
 
     useEffect(() => {
@@ -126,6 +135,12 @@ export const FilterPane = ({ felt, currentTheme }) => {
         setCurrentGeoFilteredValues(value);
     }
 
+    async function removeFilter(value: string) {
+        if (currentGeoFilteredValues.includes(value)) {
+            setCurrentGeoFilteredValues(currentGeoFilteredValues.filter(v => v != value))
+        }
+    }
+
     return (
         <Stack>
             <Flex justify="space-between" paddingBottom="2">
@@ -165,5 +180,12 @@ export const FilterPane = ({ felt, currentTheme }) => {
                 </Flex>
                 <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
             </Flex>
+            <HStack textStyle="sm" mb="6">
+                <HStack>
+                    <For each={[...currentGeoFilteredValues]}>
+                        {(v) => <Badge key={v}> {v}  <LuX style={{ "cursor": "pointer" }} onClick={() => removeFilter(v)} /></Badge>}
+                    </For>
+                </HStack>
+            </HStack>
         </Stack>)
 }

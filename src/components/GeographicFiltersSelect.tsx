@@ -7,6 +7,7 @@ import {
   SelectValueText,
 } from "./ui/select";
 import { GEOGRAPHIC_FILTER_MAP } from "../constants";
+import { SearchableCombobox } from "./SearchableCombobox";
 
 interface GeographicFilterHandler {
   geoFilter: Array<string>;
@@ -17,13 +18,10 @@ interface GeographicFilterHandler {
 
 export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterChange, onFilterValueChange }: GeographicFilterHandler) => {
   let filterSelected = geoFilter.length !== 0 && GEOGRAPHIC_FILTER_MAP.get(geoFilter[0]) !== undefined;
-  let selectedFilterOptions = createListCollection({ items: [] })
+  let selectedFilterOptions: string[] = [];
   if (filterSelected) {
     // @ts-ignore
-    selectedFilterOptions = createListCollection({
-      // @ts-ignore
-      items: GEOGRAPHIC_FILTER_MAP.get(geoFilter[0])?.values()
-    });
+    selectedFilterOptions = GEOGRAPHIC_FILTER_MAP.get(geoFilter[0])?.values();
   }
   return (
     <HStack>
@@ -48,29 +46,11 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
       </Stack>
       {filterSelected &&
         <Stack width="200px">
-          <SelectRoot
-            collection={selectedFilterOptions}
-            multiple
+          <SearchableCombobox
+            initialItems={selectedFilterOptions}
             value={geoValues}
-            onValueChange={(e) => onFilterValueChange(e.value)}
-            composite
-          >
-            <SelectTrigger>
-              <SelectValueText placeholder="Select one or more" />
-            </SelectTrigger>
-            <SelectContent>
-              {selectedFilterOptions.items.map((item) => (
-                <SelectItem item={item} key={item} className="geo-filter">
-                  <Checkbox.Root
-                    checked={geoValues.includes(item)}>
-                    <Checkbox.HiddenInput />
-                    <Checkbox.Control />
-                    <Checkbox.Label>{item}</Checkbox.Label>
-                  </Checkbox.Root>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </SelectRoot>
+            setValue={onFilterValueChange}
+          />
         </Stack>
       }
     </HStack>
