@@ -14,6 +14,7 @@ import {
   SelectValueText,
 } from "./ui/select";
 import { LAND_USE_ZONING_FILTER_MAP } from "../constants";
+import { SearchableCombobox } from "./helpers/SearchableCombobox";
 
 interface LandUseFilterHandler {
   landUseZonFilter: Array<string>;
@@ -24,13 +25,10 @@ interface LandUseFilterHandler {
 
 export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilterChange, onFilterValueChange }: LandUseFilterHandler) => {
   let filterSelected = landUseZonFilter.length !== 0 && LAND_USE_ZONING_FILTER_MAP.get(landUseZonFilter[0]) !== undefined;
-  let selectedFilterOptions = createListCollection({ items: [] })
+  let selectedFilterOptions: string[] = [];
   if (filterSelected) {
     // @ts-ignore
-    selectedFilterOptions = createListCollection({
-      // @ts-ignore
-      items: LAND_USE_ZONING_FILTER_MAP.get(landUseZonFilter[0])?.values()
-    });
+    selectedFilterOptions = LAND_USE_ZONING_FILTER_MAP.get(landUseZonFilter[0]);
   }
   return (
     <HStack>
@@ -61,32 +59,11 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
       </Stack>
       {filterSelected &&
         <Stack minW="250px">
-          <SelectRoot
-            collection={selectedFilterOptions}
-            size="xs"
-            multiple
+          <SearchableCombobox
+            initialItems={selectedFilterOptions}
             value={luzValues}
-            onValueChange={(e) => onFilterValueChange(e.value)}
-          >
-            <SelectTrigger>
-              <SelectValueText
-                placeholder="Select one or more"
-                color="black"
-              />
-            </SelectTrigger>
-            <SelectContent>
-              {selectedFilterOptions.items.map((item) => (
-                <SelectItem item={{ label: item, value: item }} key={item} className="checkbox-filter">
-                  <Checkbox.Root
-                    checked={luzValues.includes(item)}>
-                    <Checkbox.HiddenInput />
-                    <Checkbox.Control />
-                    <Checkbox.Label>{item}</Checkbox.Label>
-                  </Checkbox.Root>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </SelectRoot>
+            setValue={onFilterValueChange}
+          />
         </Stack>
       }
     </HStack>

@@ -13,6 +13,7 @@ import { DateRangeSlider } from "./DateRangeSlider";
 import { LivingUnitsCategorySelect } from "./LivingUnitsCategorySelect";
 import { LandUseCategorySelect } from "./LandUseCategorySelect";
 import { GeographicFiltersSelect } from "./GeographicFiltersSelect";
+import { SelectedItems } from "./helpers/SelectedItems";
 
 import {
     DEFAULT_BUILT_YEAR_FILTERS,
@@ -142,6 +143,34 @@ export const FilterPane = ({ felt, currentTheme }: FilterPaneProps) => {
         return setCurrentFilterBuildDate(newValues);
     }
 
+    async function removeFilter(value: (string | number)) {
+        if (currentFilters.includes(value)) {
+            setCurrentFilters(currentFilters.filter(v => v != value))
+        }
+        if (currentGeoFilteredValues.includes(value)) {
+            setCurrentGeoFilteredValues(currentGeoFilteredValues.filter(v => v != value))
+        }
+        if (currentLandUseZoningValues.includes(value)) {
+            setcurrentLandUseZoningValues(currentLandUseZoningValues.filter(v => v != value))
+        }
+        if (currentFilterLivingUnitsCategory.includes(value)) {
+            setCurrentFilterLivingUnitsCategory(currentFilterLivingUnitsCategory.filter(v => v != value))
+        }
+
+        if (currentFilterBuildDate.includes(value)) {
+            const index = currentFilterBuildDate.indexOf(value);
+
+            const newValues = currentFilterBuildDate.map((val, i) => {
+                if (i === index) {
+                    return DEFAULT_BUILT_YEAR_FILTERS[index]
+                } else {
+                    return val;
+                }
+            });
+            setCurrentFilterBuildDate(newValues);
+        }
+    }
+
     async function handleFilterClick(filter?: string) {
         if (!filter) {
             setCurrentFilters([]);
@@ -180,7 +209,7 @@ export const FilterPane = ({ felt, currentTheme }: FilterPaneProps) => {
 
     return (
         <Stack>
-            <Flex align="baseline" gap="4" wrap="wrap" paddingBottom="2">
+            <Flex align="baseline" gap="4" wrap="wrap">
                 <FilterSelection
                     currentFilters={currentFilters}
                     onFilterClick={handleFilterClick} />
@@ -206,6 +235,9 @@ export const FilterPane = ({ felt, currentTheme }: FilterPaneProps) => {
                         onFilterValueChange={handleLandUseZoningFilterClick} />
                 </Flex>
             </Flex>
+            <SelectedItems
+                handleOnXClick={removeFilter}
+                items={[...currentFilterBuildDate, ...currentFilters, ...currentGeoFilteredValues, ...currentFilterLivingUnitsCategory, ...currentLandUseZoningValues]} />
         </Stack>
     )
 
