@@ -592,4 +592,4 @@ export const HELP_MENU_LINKS = [
   },
 ];
 
-export const ALERT_MESSAGE = "Notice: Eviction filing data is temporarily unavailable in the Property Hub as of May 22, 2026, due to an updated policy in the Shelby County Clerk's Office that we’re trying to resolve.  Questions? Contact: datamidsouth@innovatememphis.com";
+export const ALERT_MESSAGE = "Notice: We have not received eviction data updates in the Property Hub since May 22, 2026, due to an updated policy in the Shelby County Clerk's Office that we’re trying to resolve.  Questions? Contact: datamidsouth@innovatememphis.com";
