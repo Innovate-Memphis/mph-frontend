@@ -18,6 +18,9 @@ export const SelectedItems = ({ handleOnXClick, items }: SelectedItemsProps) =>
         {items.map((item) => {
 
             const defaultYearBuiltVal = DEFAULT_BUILT_YEAR_FILTERS.includes(item);
+            if (defaultYearBuiltVal) {
+                return
+            }
 
             return (
                 <Badge
@@ -26,12 +29,11 @@ export const SelectedItems = ({ handleOnXClick, items }: SelectedItemsProps) =>
                     borderRadius="full"
                 >
                     <Text textTransform="capitalize">{item}</Text>
-                    { !defaultYearBuiltVal &&
+                    
                         <LuX
                             style={{ "cursor": "pointer" }}
                             onClick={() => handleOnXClick(item)}
                         />
-                    }
                 </Badge>
             )
         })}
