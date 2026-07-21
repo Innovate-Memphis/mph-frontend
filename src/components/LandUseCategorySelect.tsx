@@ -3,7 +3,7 @@ import {
   HStack,
   Stack,
 } from "@chakra-ui/react"
-import { LuChevronRight } from "react-icons/lu";
+import { LuChevronRight, LuCheck } from "react-icons/lu";
 import {
   SelectContent,
   SelectItem,
@@ -48,7 +48,7 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
             {lucZonFilters.items.map((filterSelection) => (
               <SelectItem item={filterSelection} key={filterSelection} className="checkbox-filter">
                 {filterSelection}
-                <LuChevronRight />
+                {(landUseZonFilter.length > 0 && landUseZonFilter[0] === filterSelection) ? <LuCheck /> : <LuChevronRight />}
               </SelectItem>
             ))}
           </SelectContent>

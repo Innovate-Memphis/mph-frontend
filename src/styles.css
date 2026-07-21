@@ -1,4 +1,4 @@
-.checkbox-filter div[data-state="checked"] svg path {
+.checkbox-filter div[data-state="checked"] {
     display: none;
 }
 

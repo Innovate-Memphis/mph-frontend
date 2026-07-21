@@ -4,7 +4,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { LuChevronRight } from "react-icons/lu";
+import { LuChevronRight, LuCheck } from "react-icons/lu";
 import {
   SelectContent,
   SelectItem,
@@ -47,7 +47,7 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
             {geographicFilters.items.map((geoSelection) => (
               <SelectItem item={geoSelection} key={geoSelection} className="checkbox-filter">
                 {geoSelection}
-                <LuChevronRight />
+                {(geoFilter.length > 0 && geoFilter[0] === geoSelection) ? <LuCheck /> : <LuChevronRight />}
               </SelectItem>
             ))}
           </SelectContent>
