@@ -107,10 +107,18 @@ export const FilterPane = ({ felt, currentTheme }: FilterPaneProps) => {
         updateLayerFilter().catch(console.error);
     }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentLandUseZoningValues, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
 
+
+    useEffect(() => {
+        setCurrentGeoFilteredValues([]);
+    }, [currentGeographicFilter]);
+
+    useEffect(() => {
+        setcurrentLandUseZoningValues([]);
+    }, [currentLandUseZoningFilter]);
+
     async function handleGeoFilterChange(value: string) {
         // @ts-ignore
         setCurrentGeographicFilter(value);
-        setCurrentGeoFilteredValues([]);
     }
 
     async function handleGeoFilterValueClick(value: Array<string>) {
@@ -121,7 +129,6 @@ export const FilterPane = ({ felt, currentTheme }: FilterPaneProps) => {
     async function handleLuZFilterChange(value: string) {
         // @ts-ignore
         setcurrentLandUseZoningFilter(value);
-        setcurrentLandUseZoningValues([]);
     }
 
     async function handleLandUseZoningFilterClick(value: Array<string>) {

@@ -1,6 +1,7 @@
 import {
   createListCollection,
   HStack,
+  Show,
   Stack,
 } from "@chakra-ui/react"
 import { LuChevronRight, LuCheck } from "react-icons/lu";
@@ -54,15 +55,16 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
           </SelectContent>
         </SelectRoot>
       </Stack>
-      {filterSelected &&
-        <Stack minW="250px">
+      <Show when={filterSelected}>
+        {/* key forces a component refresh */}
+        <Stack minW="250px" key={landUseZonFilter[0] || "a"}>
           <SearchableCombobox
             initialItems={selectedFilterOptions}
             value={luzValues}
             setValue={onFilterValueChange}
           />
         </Stack>
-      }
+      </Show>
     </HStack>
   )
 }

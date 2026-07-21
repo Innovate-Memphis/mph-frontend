@@ -1,6 +1,7 @@
 import {
   createListCollection,
   HStack,
+  Show,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -54,14 +55,16 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
         </SelectRoot>
       </Stack>
       {
-        filterSelected &&
-        <Stack minW="250px">
-          <SearchableCombobox
-            initialItems={selectedFilterOptions}
-            value={geoValues}
-            setValue={onFilterValueChange}
-          />
-        </Stack>
+        <Show when={filterSelected}>
+          {/* key forces a component refresh */}
+          <Stack minW="250px" key={geoFilter[0] || "a"}>
+            <SearchableCombobox
+              initialItems={selectedFilterOptions}
+              value={geoValues}
+              setValue={onFilterValueChange}
+            />
+          </Stack>
+        </Show>
       }
     </HStack>
   )
