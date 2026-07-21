@@ -56,9 +56,10 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
       </Stack>
       {
         <Show when={filterSelected}>
-          {/* key forces a component refresh */}
-          <Stack minW="250px" key={geoFilter[0] || "a"}>
+          <Stack minW="250px">
+            {/* key forces a component refresh */}
             <SearchableCombobox
+              key={geoFilter[0] || "a"}
               initialItems={selectedFilterOptions}
               value={geoValues}
               setValue={onFilterValueChange}

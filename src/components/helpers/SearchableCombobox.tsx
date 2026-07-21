@@ -5,7 +5,8 @@ import {
   Portal,
   useFilter,
   useListCollection,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
+import { useState } from "react";
 
 interface SearchableComboboxProps {
   value: string[];
@@ -14,6 +15,8 @@ interface SearchableComboboxProps {
 }
 
 export const SearchableCombobox = ({ value, setValue, initialItems }: SearchableComboboxProps) => {
+  const [open, setOpen] = useState(true);
+
   const { contains } = useFilter({ sensitivity: "base" });
 
   const { collection, filter } = useListCollection({
@@ -30,6 +33,9 @@ export const SearchableCombobox = ({ value, setValue, initialItems }: Searchable
       size="xs"
       minWidth="150px"
       multiple
+      openOnClick
+      open={open}
+      onOpenChange={(e) => setOpen(e.open)}
     >
       <Combobox.Control>
         <Combobox.Input placeholder="Type to search" color="black" />
