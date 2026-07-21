@@ -23,7 +23,7 @@ export const DateRangeSlider = ({ value, onDateSliderChange, onDateInputChange }
             <Portal>
                 <Popover.Positioner>
                     <Popover.Content width="auto">
-                        <Popover.Body padding="3">
+                        <Popover.Body>
                             <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Built Date</Text>
                             <HStack justify="space-between">
                                 <NumberInput.Root

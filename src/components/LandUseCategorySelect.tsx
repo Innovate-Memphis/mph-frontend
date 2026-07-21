@@ -1,9 +1,7 @@
 import {
   createListCollection,
-  Checkbox,
   HStack,
   Stack,
-  Text,
 } from "@chakra-ui/react"
 import { LuChevronRight } from "react-icons/lu";
 import {
@@ -47,9 +45,8 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
             />
           </SelectTrigger>
           <SelectContent>
-            <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Category</Text>
             {lucZonFilters.items.map((filterSelection) => (
-              <SelectItem item={filterSelection} hiddenIndicator={true} key={filterSelection}>
+              <SelectItem item={filterSelection} key={filterSelection} className="checkbox-filter">
                 {filterSelection}
                 <LuChevronRight />
               </SelectItem>

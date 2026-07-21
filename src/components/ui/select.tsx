@@ -65,11 +65,11 @@ export const SelectItem = React.forwardRef<
   HTMLDivElement,
   ChakraSelect.ItemProps
 >(function SelectItem(props, ref) {
-  const { item, hiddenIndicator, children, ...rest } = props
+  const { item, children, ...rest } = props
   return (
     <ChakraSelect.Item key={item.value} item={item} {...rest} ref={ref}>
       {children}
-      {!hiddenIndicator && <ChakraSelect.ItemIndicator />}
+      <ChakraSelect.ItemIndicator />
     </ChakraSelect.Item>
   )
 })

@@ -32,7 +32,7 @@ export const SearchableCombobox = ({ value, setValue, initialItems }: Searchable
       multiple
     >
       <Combobox.Control>
-        <Combobox.Input placeholder="Type to search" />
+        <Combobox.Input placeholder="Type to search" color="black" />
         <Combobox.IndicatorGroup>
           <Combobox.ClearTrigger />
           <Combobox.Trigger />
@@ -44,8 +44,7 @@ export const SearchableCombobox = ({ value, setValue, initialItems }: Searchable
             {collection.items.map((item) => (
               <Combobox.Item item={item} key={item}>
                 <Box marginY="1" key={item}>
-                  <Checkbox.Root
-                  >
+                  <Checkbox.Root checked={value.includes(item)}>
                     <Checkbox.HiddenInput />
                     <Checkbox.Control />
                     <Checkbox.Label>{item}</Checkbox.Label>
