@@ -95,13 +95,6 @@ export const MFH_HOMES = { filter: "MFH_HOMES", buttonTitle: "Multi-Family", hov
 export const SFH_MFH_HOMES = { filter: "SFH_MFH_HOMES" }
 
 export const FILTERS = [
-  [SFH_HOMES,MFH_HOMES,CONTAINS_IMAGE],
-  [OWNER_OCCUPIED,INVESTOR_OWNED,NON_LOCAL_OWNER],
-  [RECENT_EVICTION,RECENT_VACANCY,LONG_TERM_VACANCY],
-  [RECENT_BUILDING_PERMIT,RECENT_DEMO_PERMIT,RECENT_SALE],
-];
-
-export const NEW_FILTERS = [
   { "subtitle": "Type", "filters": [SFH_HOMES, MFH_HOMES]},
   { "subtitle": "Ownership", "filters": [OWNER_OCCUPIED,INVESTOR_OWNED,NON_LOCAL_OWNER]},
   { "subtitle": "Status", "filters": [RECENT_VACANCY,LONG_TERM_VACANCY,CONTAINS_IMAGE]},

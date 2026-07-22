@@ -1,6 +1,6 @@
 import { Box, Button, For, Flex, Text } from "@chakra-ui/react";
 import { Tooltip } from "./ui/tooltip";
-import { NEW_FILTERS, SFH_HOMES, MFH_HOMES, SFH_MFH_HOMES } from "../constants";
+import { FILTERS, SFH_HOMES, MFH_HOMES, SFH_MFH_HOMES } from "../constants";
 
 interface FilterHandler {
     currentFilters: Array<string>;
@@ -10,7 +10,7 @@ interface FilterHandler {
 export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler) => {
     return (
         <Flex gap="1">
-            <For each={NEW_FILTERS}>
+            <For each={FILTERS}>
                 {({ subtitle, filters }, index) => (
                     <Flex direction="row" gap="1" alignItems="center">
                         <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">{subtitle}</Text>
@@ -34,7 +34,7 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
                             }}
                         </For>
                        {
-                        (index !== NEW_FILTERS.length - 1) && <div className="vdiv" />
+                        (index !== FILTERS.length - 1) && <div className="vdiv" />
                         }
                         
                     </Flex>)
