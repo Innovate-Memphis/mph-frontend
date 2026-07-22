@@ -14,6 +14,7 @@ import { LivingUnitsCategorySelect } from "./LivingUnitsCategorySelect";
 import { LandUseCategorySelect } from "./LandUseCategorySelect";
 import { GeographicFiltersSelect } from "./GeographicFiltersSelect";
 import { SelectedItems } from "./helpers/SelectedItems";
+import { itemLabels } from "./helpers/helpers";
 
 import {
     DEFAULT_BUILT_YEAR_FILTERS,
@@ -164,17 +165,8 @@ export const FilterPane = ({ felt, currentTheme }: FilterPaneProps) => {
             setCurrentFilterLivingUnitsCategory(currentFilterLivingUnitsCategory.filter(v => v != value))
         }
 
-        if (currentFilterBuildDate.includes(value)) {
-            const index = currentFilterBuildDate.indexOf(value);
-
-            const newValues = currentFilterBuildDate.map((val, i) => {
-                if (i === index) {
-                    return DEFAULT_BUILT_YEAR_FILTERS[index]
-                } else {
-                    return val;
-                }
-            });
-            setCurrentFilterBuildDate(newValues);
+        if (currentFilterBuildDate[0] === value[0] && currentFilterBuildDate[1] === value[1]) {
+            setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
         }
     }
 
@@ -244,7 +236,16 @@ export const FilterPane = ({ felt, currentTheme }: FilterPaneProps) => {
             </Flex>
             <SelectedItems
                 handleOnXClick={removeFilter}
-                items={[...currentFilterBuildDate, ...currentFilters, ...currentGeoFilteredValues, ...currentFilterLivingUnitsCategory, ...currentLandUseZoningValues]} />
+                items={
+                    itemLabels(
+                        currentFilterBuildDate,
+                        currentFilters,
+                        currentGeographicFilter,
+                        currentGeoFilteredValues,
+                        currentFilterLivingUnitsCategory,
+                        currentLandUseZoningFilter,
+                        currentLandUseZoningValues)
+                } />
         </Stack>
     )
 

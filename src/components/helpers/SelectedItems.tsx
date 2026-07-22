@@ -17,7 +17,7 @@ export const SelectedItems = ({ handleOnXClick, items }: SelectedItemsProps) =>
     <Wrap gap="2">
         {items.map((item) => {
 
-            const defaultYearBuiltVal = DEFAULT_BUILT_YEAR_FILTERS.includes(item);
+            const defaultYearBuiltVal = DEFAULT_BUILT_YEAR_FILTERS.includes(item.filter);
             if (defaultYearBuiltVal) {
                 return
             }
@@ -28,11 +28,11 @@ export const SelectedItems = ({ handleOnXClick, items }: SelectedItemsProps) =>
                     colorPalette="green"
                     borderRadius="full"
                 >
-                    <Text textTransform="capitalize">{item}</Text>
+                    <Text textTransform="capitalize">{item.label}</Text>
                     
                         <LuX
                             style={{ "cursor": "pointer" }}
-                            onClick={() => handleOnXClick(item)}
+                            onClick={() => handleOnXClick(item.filter)}
                         />
                 </Badge>
             )
