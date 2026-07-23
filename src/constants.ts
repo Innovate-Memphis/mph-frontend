@@ -92,13 +92,21 @@ const OWNER_OCCUPIED = { filter: "OWNER_OCCUPIED", buttonTitle: "Owner Occupied"
 const NON_LOCAL_OWNER = { filter: "NONLOCAL_OWNER", buttonTitle: "Non-Local Owner", hoverDescription: "Parcels where owner address is not in the Memphis metro area" }
 export const SFH_HOMES = { filter: "SFH_HOMES", buttonTitle: "Single-Family", hoverDescription: "Parcels with single family land use code only" }
 export const MFH_HOMES = { filter: "MFH_HOMES", buttonTitle: "Multi-Family", hoverDescription: "Parcels with multi-family land use codes only" }
-export const SFH_MFH_HOMES = { filter: "SFH_MFH_HOMES" }
+export const SFH_MFH_HOMES = { filter: "SFH_MFH_HOMES", buttonTitle: "Single & Multi-Family" };
+
+export const ALL_FILTERS = [
+  SFH_HOMES, MFH_HOMES, SFH_MFH_HOMES, CONTAINS_IMAGE,
+  OWNER_OCCUPIED, INVESTOR_OWNED, NON_LOCAL_OWNER,
+  RECENT_EVICTION, RECENT_VACANCY, LONG_TERM_VACANCY,
+  RECENT_BUILDING_PERMIT, RECENT_DEMO_PERMIT, RECENT_SALE,
+];
+
 
 export const FILTERS = [
-  { "subtitle": "Type", "filters": [SFH_HOMES, MFH_HOMES]},
-  { "subtitle": "Ownership", "filters": [OWNER_OCCUPIED,INVESTOR_OWNED,NON_LOCAL_OWNER]},
-  { "subtitle": "Status", "filters": [RECENT_VACANCY,LONG_TERM_VACANCY,CONTAINS_IMAGE]},
-  { "subtitle": "Activity", "filters": [RECENT_EVICTION,RECENT_BUILDING_PERMIT,RECENT_DEMO_PERMIT,RECENT_SALE]},
+  { "subtitle": "Type", "filters": [SFH_HOMES, MFH_HOMES] },
+  { "subtitle": "Ownership", "filters": [OWNER_OCCUPIED, INVESTOR_OWNED, NON_LOCAL_OWNER] },
+  { "subtitle": "Status", "filters": [RECENT_VACANCY, LONG_TERM_VACANCY, CONTAINS_IMAGE] },
+  { "subtitle": "Activity", "filters": [RECENT_EVICTION, RECENT_BUILDING_PERMIT, RECENT_DEMO_PERMIT, RECENT_SALE] },
 ]
 
 export const MIN_YEAR = 1883
