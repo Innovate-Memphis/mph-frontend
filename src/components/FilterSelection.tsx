@@ -1,7 +1,6 @@
-import { Button, For, Flex } from "@chakra-ui/react";
+import { Box, Button, For, Flex, Text } from "@chakra-ui/react";
 import { Tooltip } from "./ui/tooltip";
-import { LuCheck } from "react-icons/lu";
-import { FILTERS, FILTER_BUTTON_WIDTH } from "../constants";
+import { FILTERS, SFH_HOMES, MFH_HOMES, SFH_MFH_HOMES } from "../constants";
 
 interface FilterHandler {
     currentFilters: Array<string>;
@@ -10,21 +9,36 @@ interface FilterHandler {
 
 export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler) => {
     return (
-        <Flex gap="4" wrap="wrap" maxW="700px">
+        <Flex gap="1">
             <For each={FILTERS}>
-                {({filter, buttonTitle, hoverDescription }, index) => (
-                    <Tooltip key={index} content={hoverDescription} openDelay={300}>
-                        <Button
-                            width={FILTER_BUTTON_WIDTH}
-                            onClick={() => onFilterClick(filter)}
-                            variant={currentFilters.includes(filter) ? "outline" : "solid"}
-                            size="xs"
-                        >
-                            {currentFilters.includes(filter) && <LuCheck />}
-                            {buttonTitle}
-                        </Button>
-                    </Tooltip>
-                )}
+                {({ subtitle, filters }, index) => (
+                    <Flex direction="row" gap="1" alignItems="center">
+                        <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">{subtitle}</Text>
+                        <For each={filters}>
+                            {({ filter, buttonTitle, hoverDescription }, index) => {
+                                let filterSelected = currentFilters.includes(filter) || (
+                                    (filter === SFH_HOMES.filter || filter === MFH_HOMES.filter) && currentFilters.includes(SFH_MFH_HOMES.filter)
+                                )
+                                return (
+                                    <Tooltip key={index} content={hoverDescription} openDelay={300}>
+                                        <Button
+                                            onClick={() => onFilterClick(filter)}
+                                            variant={filterSelected ? "solid" : "outline"}
+                                            size="xs"
+                                            borderRadius="full"
+                                            paddingY="0"
+                                        >
+                                            {buttonTitle}
+                                        </Button>
+                                    </Tooltip>)
+                            }}
+                        </For>
+                       {
+                        (index !== FILTERS.length - 1) && <div className="vdiv" />
+                        }
+                        
+                    </Flex>)
+                }
             </For>
         </Flex>
     )

@@ -1,4 +1,11 @@
-import { createListCollection, Checkbox, HStack, Show, Stack, Select } from "@chakra-ui/react"
+import {
+  createListCollection,
+  HStack,
+  Show,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { LuChevronRight, LuCheck } from "react-icons/lu";
 import {
   SelectContent,
   SelectItem,
@@ -7,6 +14,7 @@ import {
   SelectValueText,
 } from "./ui/select";
 import { GEOGRAPHIC_FILTER_MAP } from "../constants";
+import { SearchableCombobox } from "./helpers/SearchableCombobox";
 
 interface GeographicFilterHandler {
   geoFilter: Array<string>;
@@ -17,61 +25,47 @@ interface GeographicFilterHandler {
 
 export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterChange, onFilterValueChange }: GeographicFilterHandler) => {
   let filterSelected = geoFilter.length !== 0 && GEOGRAPHIC_FILTER_MAP.get(geoFilter[0]) !== undefined;
-  let selectedFilterOptions = createListCollection({ items: [] })
+  let selectedFilterOptions: string[] = [];
   if (filterSelected) {
     // @ts-ignore
-    selectedFilterOptions = createListCollection({
-      // @ts-ignore
-      items: GEOGRAPHIC_FILTER_MAP.get(geoFilter[0])?.values()
-    });
+    selectedFilterOptions = GEOGRAPHIC_FILTER_MAP.get(geoFilter[0]);
   }
   return (
     <HStack>
       <Stack width="200px">
         <SelectRoot
           collection={geographicFilters}
-          size="sm"
+          size="xs"
           value={geoFilter}
           onValueChange={(e) => onFilterChange(e.value)}
+          minW="150px"
         >
           <SelectTrigger>
-            <SelectValueText placeholder="Geographic Boundary" />
+            <SelectValueText placeholder="Geographic Boundary" color="black" />
           </SelectTrigger>
           <SelectContent>
+            <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Filter By</Text>
             {geographicFilters.items.map((geoSelection) => (
-              <SelectItem item={geoSelection} key={geoSelection}>
+              <SelectItem item={geoSelection} key={geoSelection} className="menu-checkbox-filter">
                 {geoSelection}
+                {(geoFilter.length > 0 && geoFilter[0] === geoSelection) ? <LuCheck /> : <LuChevronRight />}
               </SelectItem>
             ))}
           </SelectContent>
         </SelectRoot>
       </Stack>
-      {filterSelected &&
-        <Stack width="200px">
-          <SelectRoot
-            collection={selectedFilterOptions}
-            multiple
-            value={geoValues}
-            onValueChange={(e) => onFilterValueChange(e.value)}
-            composite
-          >
-            <SelectTrigger>
-              <SelectValueText placeholder="Select one or more" />
-            </SelectTrigger>
-            <SelectContent>
-              {selectedFilterOptions.items.map((item) => (
-                <SelectItem item={item} key={item} className="geo-filter">
-                  <Checkbox.Root
-                    checked={geoValues.includes(item)}>
-                    <Checkbox.HiddenInput />
-                    <Checkbox.Control />
-                    <Checkbox.Label>{item}</Checkbox.Label>
-                  </Checkbox.Root>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </SelectRoot>
-        </Stack>
+      {
+        <Show when={filterSelected}>
+          <Stack minW="250px">
+            {/* key forces a component refresh */}
+            <SearchableCombobox
+              key={geoFilter[0] || "a"}
+              initialItems={selectedFilterOptions}
+              value={geoValues}
+              setValue={onFilterValueChange}
+            />
+          </Stack>
+        </Show>
       }
     </HStack>
   )
