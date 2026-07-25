@@ -34,7 +34,7 @@ export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler
                             }}
                         </For>
                        {
-                        (index !== FILTERS.length - 1) && <div className="vdiv" />
+                        (index !== FILTERS.length - 1) && <div className="vdiv" key={index} />
                         }
                         
                     </Flex>)
