@@ -106,7 +106,7 @@ export const FilterPane = ({ felt, currentTheme }: FilterPaneProps) => {
         }
 
         updateLayerFilter().catch(console.error);
-    }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentLandUseZoningValues, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
+    }, [felt, currentTheme, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentLandUseZoningValues, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
 
 
     useEffect(() => {
