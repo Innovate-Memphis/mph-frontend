@@ -31,13 +31,14 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
   }
   return (
     <HStack>
-      <Stack minW="150px">
+      <Stack width="200px">
         <SelectRoot
           collection={lucZonFilters}
           size="xs"
           value={landUseZonFilter}
           onValueChange={(e) => onFilterChange(e.value)}
           closeOnSelect={false}
+          minW="150px"
         >
           <SelectTrigger>
             <SelectValueText
@@ -47,7 +48,7 @@ export const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilt
           </SelectTrigger>
           <SelectContent>
             {lucZonFilters.items.map((filterSelection) => (
-              <SelectItem item={filterSelection} key={filterSelection} className="checkbox-filter">
+              <SelectItem item={filterSelection} key={filterSelection} className="menu-checkbox-filter">
                 {filterSelection}
                 {(landUseZonFilter.length > 0 && landUseZonFilter[0] === filterSelection) ? <LuCheck /> : <LuChevronRight />}
               </SelectItem>
