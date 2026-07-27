@@ -51,37 +51,37 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
                 const allFeltFormattedFilters: Filters[] = currentFilters.map((f) => allLayerFilters.get(f) || null);
 
                 if (currentFilterBuildDate[0] !== DEFAULT_BUILT_YEAR_FILTERS[0]) {
-                    let minYearBuiltFilter = MIN_YEAR_BUILT_FILTER;
-                    // @ts-ignore
+                    const minYearBuiltFilter = MIN_YEAR_BUILT_FILTER;
+                    // @ts-expect-error
                     minYearBuiltFilter[2] = currentFilterBuildDate[0]
                     allFeltFormattedFilters.push(minYearBuiltFilter)
                 }
 
                 if (currentFilterBuildDate[1] !== DEFAULT_BUILT_YEAR_FILTERS[1]) {
-                    let maxYearBuiltFilter = MAX_YEAR_BUILT_FILTER;
-                    // @ts-ignore
+                    const maxYearBuiltFilter = MAX_YEAR_BUILT_FILTER;
+                    // @ts-expect-error
                     maxYearBuiltFilter[2] = currentFilterBuildDate[1]
                     allFeltFormattedFilters.push(maxYearBuiltFilter)
                 }
 
                 if (currentFilterLivingUnitsCategory.length) {
-                    let livingUnitsCategoryFilter = LIVING_UNITS_CATEGORY_FILTER;
-                    // @ts-ignore
+                    const livingUnitsCategoryFilter = LIVING_UNITS_CATEGORY_FILTER;
+                    // @ts-expect-error
                     livingUnitsCategoryFilter[2] = currentFilterLivingUnitsCategory
                     allFeltFormattedFilters.push(livingUnitsCategoryFilter)
                 }
 
                 if (currentFilterLandUseCategory.length) {
-                    let landUseCategoryFilter = LAND_USE_CATEGORY_FILTER;
-                    // @ts-ignore
+                    const landUseCategoryFilter = LAND_USE_CATEGORY_FILTER;
+                    // @ts-expect-error
                     landUseCategoryFilter[2] = currentFilterLandUseCategory
                     allFeltFormattedFilters.push(landUseCategoryFilter)
                 }
 
                 if (currentGeoFilteredValues.length) {
-                    let currentGeoFilter = GEOGRAPHIC_FELT_FILTER_MAP.get(currentGeographicFilter[0])
+                    const currentGeoFilter = GEOGRAPHIC_FELT_FILTER_MAP.get(currentGeographicFilter[0])
                     if (currentGeoFilter) {
-                        // @ts-ignore
+                        // @ts-expect-error
                         currentGeoFilter[2] = currentGeoFilteredValues
                         allFeltFormattedFilters.push(currentGeoFilter);
                     }
@@ -89,7 +89,7 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
 
                 const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
-                let layerToUpdate = THEME_TO_PARCEL_LAYER_MAP.get(currentTheme);
+                const layerToUpdate = THEME_TO_PARCEL_LAYER_MAP.get(currentTheme);
 
                 if (layerToUpdate) {
                     await felt.setLayerFilters({
@@ -101,16 +101,16 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
         }
 
         updateLayerFilter().catch(console.error);
-    }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
+    }, [felt, currentTheme, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeographicFilter, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
 
     async function handleGeoFilterChange(value: string) {
-        // @ts-ignore
+        // @ts-expect-error
         setCurrentGeographicFilter(value);
         setCurrentGeoFilteredValues([]);
     }
 
     async function handleGeoFilterValueClick(value: Array<string>) {
-        // @ts-ignore
+        // @ts-expect-error
         setCurrentGeoFilteredValues(value);
     }
 
@@ -122,9 +122,9 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
             setCurrentFilterLandUseCategory([]);
             setCurrentGeographicFilter([]);
             setCurrentGeoFilteredValues([]);
-            // @ts-ignore
+            // @ts-expect-error
         } else if (!currentFilters.includes(filter)) {
-            // @ts-ignore
+            // @ts-expect-error
             setCurrentFilters([...currentFilters, filter]);
         } else {
             setCurrentFilters(currentFilters.filter(x => x !== filter));
