@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@chakra-ui/react";
 import { LuCheck } from "react-icons/lu";
 
@@ -6,7 +7,7 @@ interface FilterHandler {
     onButtonClick(flippedValue: boolean): any;
 }
 
-export const FilterSwitch = ({ showFilters, onButtonClick }: FilterHandler) => {
+const FilterSwitch = ({ showFilters, onButtonClick }: FilterHandler) => {
     return (
         <Button
             id="filter"
@@ -19,3 +20,5 @@ export const FilterSwitch = ({ showFilters, onButtonClick }: FilterHandler) => {
         </Button>
     )
 }
+
+export default FilterSwitch;
