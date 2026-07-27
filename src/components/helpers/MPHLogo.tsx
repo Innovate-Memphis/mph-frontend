@@ -1,3 +1,4 @@
+import React from "react";
 import mphLogoUrl from "../../assets/mph_logo.png";
 
 interface LogoProps {
