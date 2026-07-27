@@ -124,22 +124,17 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
         updateLayerVisibility().catch(console.error);
     }, [felt, currentTheme, showAggregations]);
 
-    useEffect(() => {
-        if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
-            return setShowAggregations(false);
-        }
-
-        if (THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
-            return setShowFilters(true);
-        }
-
-        if (showAggregations) {
-            return setShowFilters(false);
-        }
-    }, [showAggregations, currentTheme]);
-
     async function handleThemeClick(theme: string) {
         setCurrentTheme(theme);
+        if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(theme)) {
+            setShowAggregations(false);
+        }
+        if (THEMES_WITHOUT_AGGREGATIONS.includes(theme)) {
+            return setShowFilters(true);
+        }
+        if (showAggregations) {
+            setShowFilters(false);
+        }
     }
 
     function handleResetTour() {
