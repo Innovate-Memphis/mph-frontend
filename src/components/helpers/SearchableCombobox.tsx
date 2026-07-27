@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Checkbox,
@@ -23,6 +23,20 @@ const SearchableCombobox = ({ value, setValue, initialItems }: SearchableCombobo
     initialItems: initialItems,
     filter: contains,
   })
+
+  // This is a very stupid hack
+  // Current the Land Use / Zoning dropdown opens and closes immediately
+  // when a parent filter is chosen
+  // I have tried so many things to fix it and nothing works
+  // Even tho there's no problem w/ the Geographic Boundary dropdown
+  // So this is a janky workaround
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOpen(true);
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Combobox.Root
