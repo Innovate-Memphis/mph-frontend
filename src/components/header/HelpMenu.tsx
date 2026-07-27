@@ -19,8 +19,8 @@ const HelpMenu = ({ onResetTour }: any) =>
         <Portal>
             <Menu.Positioner>
                 <Menu.Content>
-                    {HELP_MENU_LINKS.map((link) => (
-                        <Menu.Item key={link.href} asChild value={link.title}>
+                    {HELP_MENU_LINKS.map((link, index) => (
+                        <Menu.Item key={index} asChild value={link.title}>
                             <a href={link.href} target="_blank" rel="noreferrer">
                                 {link.title}
                             </a>

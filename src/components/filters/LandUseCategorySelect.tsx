@@ -48,8 +48,8 @@ const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilterChang
             />
           </SelectTrigger>
           <SelectContent>
-            {lucZonFilters.items.map((filterSelection) => (
-              <SelectItem item={filterSelection} key={filterSelection} className="menu-checkbox-filter">
+            {lucZonFilters.items.map((filterSelection, index) => (
+              <SelectItem item={filterSelection} key={index} className="menu-checkbox-filter">
                 {filterSelection}
                 {(landUseZonFilter.length > 0 && landUseZonFilter[0] === filterSelection) ? <LuCheck /> : <LuChevronRight />}
               </SelectItem>

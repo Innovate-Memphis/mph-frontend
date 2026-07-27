@@ -46,8 +46,8 @@ const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterChange, on
           </SelectTrigger>
           <SelectContent>
             <Text fontSize="xs" fontWeight="semibold" color="fg.subtle" textTransform="uppercase" marginRight="1">Filter By</Text>
-            {geographicFilters.items.map((geoSelection) => (
-              <SelectItem item={geoSelection} key={geoSelection} className="menu-checkbox-filter">
+            {geographicFilters.items.map((geoSelection, index) => (
+              <SelectItem item={geoSelection} key={index} className="menu-checkbox-filter">
                 {geoSelection}
                 {(geoFilter.length > 0 && geoFilter[0] === geoSelection) ? <LuCheck /> : <LuChevronRight />}
               </SelectItem>

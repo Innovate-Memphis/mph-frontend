@@ -47,9 +47,9 @@ const SearchableCombobox = ({ value, setValue, initialItems }: SearchableCombobo
       <Portal>
         <Combobox.Positioner>
           <Combobox.Content>
-            {collection.items.map((item) => (
-              <Combobox.Item item={item} key={item}>
-                <Box marginY="1" key={item}>
+            {collection.items.map((item, index) => (
+              <Combobox.Item item={item} key={index}>
+                <Box marginY="1">
                   <Checkbox.Root checked={value.includes(item)}>
                     <Checkbox.HiddenInput />
                     <Checkbox.Control />

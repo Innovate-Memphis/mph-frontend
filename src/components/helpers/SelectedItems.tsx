@@ -16,7 +16,7 @@ interface SelectedItemsProps {
 
 const SelectedItems = ({ handleOnXClick, items }: SelectedItemsProps) =>
     <Wrap gap="2">
-        {items.map((item) => {
+        {items.map((item, index) => {
 
             const defaultYearBuiltVal = DEFAULT_BUILT_YEAR_FILTERS.includes(item.filter);
             if (defaultYearBuiltVal) {
@@ -25,7 +25,7 @@ const SelectedItems = ({ handleOnXClick, items }: SelectedItemsProps) =>
 
             return (
                 <Badge
-                    key={item}
+                    key={index}
                     colorPalette="green"
                     borderRadius="full"
                 >

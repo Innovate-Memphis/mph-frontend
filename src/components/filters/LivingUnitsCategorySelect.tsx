@@ -34,8 +34,8 @@ const LivingUnitsCategorySelect = ({ value, onSelectChange }: LivingUnitsCategor
           {open ? <LuChevronUp /> : <LuChevronDown />}
         </SelectTrigger>
         <SelectContent>
-          {LIVING_UNITS_CATEGORIES.map((category) => (
-            <SelectItem item={category} key={category} className="checkbox-filter">
+          {LIVING_UNITS_CATEGORIES.map((category, index) => (
+            <SelectItem item={category} key={index} className="checkbox-filter">
               <Checkbox.Root
                 checked={value.includes(category)}>
                 <Checkbox.HiddenInput />
