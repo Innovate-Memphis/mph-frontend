@@ -3,8 +3,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 import LogRocket from 'logrocket';
 
 import { LoginFailurePage, LoginPage, MainPage, SignupPage } from "./pages";
-import { FELT_MAP_ID } from './constants';
-import { useFeltEmbed } from "./feltUtils";
 
 export default function Page() {
 
@@ -41,14 +39,5 @@ export default function Page() {
     token = user.feltToken
   }
 
-  const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
-    token,
-    uiControls: {
-      cooperativeGestures: false,
-      fullScreenButton: false,
-      showLegend: true,
-    },
-  });
-
-  return <MainPage felt={felt} mapRef={mapRef} />
+  return <MainPage token={token} />
 }

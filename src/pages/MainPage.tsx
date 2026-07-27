@@ -1,4 +1,4 @@
-import React, { RefObject, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     Flex,
@@ -8,9 +8,8 @@ import {
     Theme,
 } from "@chakra-ui/react";
 import Joyride, { ACTIONS, EVENTS, CallBackProps } from "react-joyride";
-import {
-    FeltController,
-} from "@feltmaps/js-sdk";
+import { FELT_MAP_ID } from "../constants";
+import { useFeltEmbed } from "../feltUtils";
 
 import { LoadingMap } from "../components/felt";
 import { FilterPane } from "../components/filters";
@@ -21,7 +20,7 @@ import {
     FilterSwitch,
     HelpMenu,
     ThemeSelect,
- } from "../components/header";
+} from "../components/header";
 import { MPHLogo } from "../components/helpers";
 
 import {
@@ -37,17 +36,25 @@ import {
 } from "../constants";
 
 interface MainPageProps {
-    felt: FeltController | null;
-    mapRef: RefObject<HTMLDivElement>;
+    token: string
 }
 
-const MainPage = ({ felt, mapRef }: MainPageProps) => {
+const MainPage = ({ token }: MainPageProps) => {
     const [showFilters, setShowFilters] = useState(true);
     const [showAggregations, setShowAggregations] = useState(false);
     const [currentTheme, setCurrentTheme] = useState(EXPLORE);
     const [dataYear, setDataYear] = useState<null | number>(null);
     const [run, setRun] = useState(false);
     const [stepIndex, setStepIndex] = useState(0);
+
+    const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
+        token,
+        uiControls: {
+            cooperativeGestures: false,
+            fullScreenButton: false,
+            showLegend: true,
+        },
+    });
 
     const hasRanTour = localStorage.getItem("tour");
     if (!hasRanTour) {

@@ -101,7 +101,7 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
         }
 
         updateLayerFilter().catch(console.error);
-    }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
+    }, [felt, currentTheme, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeographicFilter, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
 
     async function handleGeoFilterChange(value: string) {
         // @ts-expect-error
