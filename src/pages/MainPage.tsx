@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
     Box,
+    Button,
     Flex,
     HStack,
-    StackSeparator,
     Stack,
     Theme,
 } from "@chakra-ui/react";
+import { LuRotateCcw } from "react-icons/lu";
 import Joyride, { ACTIONS, EVENTS, CallBackProps } from "react-joyride";
 import { FELT_MAP_ID } from "../constants";
 import { useFeltEmbed } from "../feltUtils";
@@ -46,6 +47,8 @@ const MainPage = ({ token }: MainPageProps) => {
     const [dataYear, setDataYear] = useState<null | number>(null);
     const [run, setRun] = useState(false);
     const [stepIndex, setStepIndex] = useState(0);
+    // changing the key prop causes the component to re-render. This is used to reset the filters.
+    const [filterKey, setFilterKey] = useState(0);
 
     const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
         token,
@@ -203,13 +206,11 @@ const MainPage = ({ token }: MainPageProps) => {
                     flexShrink={0}
                     flexGrow={0}
                     overflow="hidden"
-                    paddingTop="10px"
                     paddingLeft="10px"
                 >
-                    <Stack
-                        separator={<StackSeparator style={{ marginTop: "0" }} />}>
+                    <Stack marginY="1">
                         <AlertMessage />
-                        <Flex justify="space-between" marginBottom="5px" paddingRight="10px">
+                        <Flex justify="space-between" paddingRight="10px">
                             <HStack>
                                 <MPHLogo width="150px" />
                                 <ThemeSelect
@@ -219,7 +220,17 @@ const MainPage = ({ token }: MainPageProps) => {
                             </HStack>
                             <HStack>
                                 {!showAggregations &&
-                                    <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />}
+                                    <>
+                                        <FilterSwitch showFilters={showFilters} onButtonClick={setShowFilters} />
+                                        <Button
+                                            onClick={() => setFilterKey(filterKey => filterKey + 1)}
+                                            variant="surface"
+                                            size="xs"
+                                        >
+                                            <LuRotateCcw />
+                                            RESET FILTERS
+                                        </Button>
+                                    </>}
                                 {!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme) &&
                                     <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
                                 {/* <LoginButton />
@@ -227,7 +238,7 @@ const MainPage = ({ token }: MainPageProps) => {
                                 <HelpMenu onResetTour={handleResetTour} />
                             </HStack>
                         </Flex>
-                        {showFilters && <FilterPane felt={felt} currentTheme={currentTheme} />}
+                        {showFilters && <FilterPane key={filterKey} felt={felt} currentTheme={currentTheme} />}
                     </Stack>
                 </Stack>
                 <Box

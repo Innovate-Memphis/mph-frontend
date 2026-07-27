@@ -1,6 +1,11 @@
 import React from "react";
-import { createListCollection, Stack } from "@chakra-ui/react";
-
+import {
+  createListCollection,
+  HStack,
+  Show,
+  Stack,
+} from "@chakra-ui/react"
+import { LuChevronRight, LuCheck } from "react-icons/lu";
 import {
   SelectContent,
   SelectItem,
@@ -8,40 +13,67 @@ import {
   SelectTrigger,
   SelectValueText,
 } from "../ui/select";
-import { LAND_USE_CATEGORIES } from "../../constants";
+import { LAND_USE_ZONING_FILTER_MAP } from "../../constants";
+import { SearchableCombobox } from "../helpers";
 
-interface LandUseCategoryFilterHandler {
-  value: Array<string>;
-  onSelectChange(categories: unknown): any;
+interface LandUseFilterHandler {
+  landUseZonFilter: Array<string>;
+  luzValues: Array<string>;
+  onFilterChange(landUseZonFilter: unknown): any;
+  onFilterValueChange(filteredValues: unknown): any;
 }
 
-const LandUseCategorySelect = ({ value, onSelectChange }: LandUseCategoryFilterHandler) => {
+const LandUseCategorySelect = ({ landUseZonFilter = [], luzValues, onFilterChange, onFilterValueChange }: LandUseFilterHandler) => {
+  const filterSelected = landUseZonFilter.length !== 0 && LAND_USE_ZONING_FILTER_MAP.get(landUseZonFilter[0]) !== undefined;
+  let selectedFilterOptions: string[] = [];
+  if (filterSelected) {
+    // @ts-ignore
+    selectedFilterOptions = LAND_USE_ZONING_FILTER_MAP.get(landUseZonFilter[0]);
+  }
   return (
-    <Stack width="200px">
-      <SelectRoot
-        collection={categories}
-        multiple
-        size="sm"
-        value={value}
-        onValueChange={(e) => onSelectChange(e.value)}
-      >
-        <SelectTrigger>
-          <SelectValueText placeholder="Land Use Category" />
-        </SelectTrigger>
-        <SelectContent>
-          {LAND_USE_CATEGORIES.map((category) => (
-            <SelectItem item={category} key={category}>
-              {category}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </SelectRoot>
-    </Stack>
+    <HStack>
+      <Stack width="200px">
+        <SelectRoot
+          collection={lucZonFilters}
+          size="xs"
+          value={landUseZonFilter}
+          onValueChange={(e) => onFilterChange(e.value)}
+          closeOnSelect={false}
+          minW="150px"
+        >
+          <SelectTrigger>
+            <SelectValueText
+              placeholder="Land Use / Zoning"
+              color="black"
+            />
+          </SelectTrigger>
+          <SelectContent>
+            {lucZonFilters.items.map((filterSelection) => (
+              <SelectItem item={filterSelection} key={filterSelection} className="menu-checkbox-filter">
+                {filterSelection}
+                {(landUseZonFilter.length > 0 && landUseZonFilter[0] === filterSelection) ? <LuCheck /> : <LuChevronRight />}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </SelectRoot>
+      </Stack>
+      <Show when={filterSelected}>
+        <Stack minW="250px">
+          {/* key forces a component refresh */}
+          <SearchableCombobox
+            key={landUseZonFilter[0] || "a"}
+            initialItems={selectedFilterOptions}
+            value={luzValues}
+            setValue={onFilterValueChange}
+          />
+        </Stack>
+      </Show>
+    </HStack>
   )
 }
 
-const categories = createListCollection({
-  items: LAND_USE_CATEGORIES
-})
+const lucZonFilters = createListCollection({
+  items: [...LAND_USE_ZONING_FILTER_MAP.keys()]
+});
 
 export default LandUseCategorySelect;

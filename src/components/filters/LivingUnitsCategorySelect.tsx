@@ -1,5 +1,5 @@
-import React from "react";
-import { createListCollection, Stack } from "@chakra-ui/react"
+import React, { useState } from "react";
+import { createListCollection, Checkbox, Stack } from "@chakra-ui/react"
 import {
   SelectContent,
   SelectItem,
@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValueText,
 } from "../ui/select";
+import { LuChevronDown, LuChevronUp } from "react-icons/lu";
 import { LIVING_UNITS_CATEGORIES } from "../../constants";
 
 interface LivingUnitsCategoryFilterHandler {
@@ -15,22 +16,32 @@ interface LivingUnitsCategoryFilterHandler {
 }
 
 const LivingUnitsCategorySelect = ({ value, onSelectChange }: LivingUnitsCategoryFilterHandler) => {
+  const [open, setOpen] = useState(false)
   return (
-    <Stack width="200px">
+    <Stack minW="150px">
       <SelectRoot
         collection={categories}
         multiple
-        size="sm"
+        size="xs"
         value={value}
         onValueChange={(e) => onSelectChange(e.value)}
+        composite
+        open={open}
+        onOpenChange={(e) => setOpen(e.open)}
       >
         <SelectTrigger>
-          <SelectValueText placeholder="Living Units" />
+          <SelectValueText placeholder="Living Units" color="black" />
+          {open ? <LuChevronUp /> : <LuChevronDown />}
         </SelectTrigger>
         <SelectContent>
           {LIVING_UNITS_CATEGORIES.map((category) => (
-            <SelectItem item={category} key={category}>
-              {category}
+            <SelectItem item={category} key={category} className="checkbox-filter">
+              <Checkbox.Root
+                checked={value.includes(category)}>
+                <Checkbox.HiddenInput />
+                <Checkbox.Control />
+                <Checkbox.Label>{category}</Checkbox.Label>
+              </Checkbox.Root>
             </SelectItem>
           ))}
         </SelectContent>
