@@ -1,5 +1,5 @@
 import React from "react";
-import { createListCollection, Checkbox, HStack, Show, Stack, Select } from "@chakra-ui/react"
+import { createListCollection, Checkbox, HStack, Stack } from "@chakra-ui/react"
 import {
   SelectContent,
   SelectItem,
@@ -17,12 +17,12 @@ interface GeographicFilterHandler {
 }
 
 const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterChange, onFilterValueChange }: GeographicFilterHandler) => {
-  let filterSelected = geoFilter.length !== 0 && GEOGRAPHIC_FILTER_MAP.get(geoFilter[0]) !== undefined;
+  const filterSelected = geoFilter.length !== 0 && GEOGRAPHIC_FILTER_MAP.get(geoFilter[0]) !== undefined;
   let selectedFilterOptions = createListCollection({ items: [] })
   if (filterSelected) {
-    // @ts-ignore
+    // @ts-expect-error
     selectedFilterOptions = createListCollection({
-      // @ts-ignore
+      // @ts-expect-error
       items: GEOGRAPHIC_FILTER_MAP.get(geoFilter[0])?.values()
     });
   }

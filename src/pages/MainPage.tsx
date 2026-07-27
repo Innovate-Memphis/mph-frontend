@@ -76,7 +76,7 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
                 const alwaysShowParcelLayer = THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)
 
                 const allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
-                const groupsToShow = new Array();
+                const groupsToShow = [];
 
                 if (showAggregations && !alwaysShowParcelLayer) {
                     const groupForTheme = allGroupLayers.get(currentTheme);
@@ -97,7 +97,7 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
                 });
 
                 const allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP);
-                const layersToShow = new Array();
+                const layersToShow = [];
 
                 if (!showAggregations || alwaysShowParcelLayer) {
                     const layerForTheme = allParcelLayers.get(currentTheme);
@@ -175,7 +175,7 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
             setCurrentTheme(EXPLORE)
         }
 
-        // @ts-ignore
+        // @ts-expect-error
         if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
             // Update state to advance the tour
             setStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
@@ -189,7 +189,7 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
                 run={run}
                 stepIndex={stepIndex}
                 /*
-                 // @ts-ignore  idk what this typescript error is about... */
+                 // @ts-expect-error  idk what this typescript error is about... */
                 steps={TOUR_STEPS}
             />
             <Stack direction="column" height="100vh" overflow="hidden" gap={0}>
