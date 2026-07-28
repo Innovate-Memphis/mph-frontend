@@ -44,7 +44,7 @@ const MainPage = ({ token }: MainPageProps) => {
     const [showAggregations, setShowAggregations] = useState(false);
     const [currentTheme, setCurrentTheme] = useState(EXPLORE);
     const [dataYear, setDataYear] = useState<null | number>(null);
-    const [run, setRun] = useState(false);
+    const [run, setRun] = useState(() => !localStorage.getItem("tour"));
     const [stepIndex, setStepIndex] = useState(0);
 
     const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
@@ -55,13 +55,6 @@ const MainPage = ({ token }: MainPageProps) => {
             showLegend: true,
         },
     });
-
-    useEffect(() => {
-        const hasRanTour = localStorage.getItem("tour");
-        if (!hasRanTour) {
-            setRun(true);
-        }
-    }, []);
 
     useEffect(() => {
         const getMaxYearData = async () => {
