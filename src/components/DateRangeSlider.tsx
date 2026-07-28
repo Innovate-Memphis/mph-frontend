@@ -1,3 +1,4 @@
+import React from "react";
 import { HStack, Slider } from "@chakra-ui/react";
 import { CURRENT_YEAR, MIN_YEAR } from "./../constants";
 

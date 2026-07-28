@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@chakra-ui/react";
 
 import { REQUEST_ACCESS_FORM_URL } from "../constants";

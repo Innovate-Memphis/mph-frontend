@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -63,7 +64,6 @@ import {
   TOUR_STEPS,
 } from "./constants";
 import { filterUtils } from "./utils";
-import { useState, useEffect } from "react";
 
 export default function Page() {
 
@@ -140,6 +140,11 @@ export default function Page() {
   const [run, setRun] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
 
+  const hasRanTour = localStorage.getItem("tour");
+    if (!hasRanTour) {
+      setRun(true);
+    }
+
   useEffect(() => {
     const getMaxYearData = async () => {
       if (felt) {
@@ -154,11 +159,6 @@ export default function Page() {
       }
     }
     getMaxYearData();
-
-    const hasRanTour = localStorage.getItem("tour");
-    if (!hasRanTour) {
-      setRun(true);
-    }
   }, [felt]);
 
   useEffect(() => {
@@ -167,7 +167,7 @@ export default function Page() {
         const alwaysShowParcelLayer = THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)
 
         const allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
-        const groupsToShow = new Array();
+        const groupsToShow = [];
 
         if (showAggregations && !alwaysShowParcelLayer) {
           const groupForTheme = allGroupLayers.get(currentTheme);
@@ -188,7 +188,7 @@ export default function Page() {
         });
 
         const allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP);
-        const layersToShow = new Array();
+        const layersToShow = [];
 
         if (!showAggregations || alwaysShowParcelLayer) {
           const layerForTheme = allParcelLayers.get(currentTheme);
@@ -223,35 +223,35 @@ export default function Page() {
         const allFeltFormattedFilters: Filters[] = currentFilters.map((f) => allLayerFilters.get(f) || null);
 
         if (currentFilterBuildDate[0] !== DEFAULT_BUILT_YEAR_FILTERS[0]) {
-          let minYearBuiltFilter = MIN_YEAR_BUILT_FILTER;
+          const minYearBuiltFilter = MIN_YEAR_BUILT_FILTER;
           // @ts-ignore
           minYearBuiltFilter[2] = currentFilterBuildDate[0]
           allFeltFormattedFilters.push(minYearBuiltFilter)
         }
 
         if (currentFilterBuildDate[1] !== DEFAULT_BUILT_YEAR_FILTERS[1]) {
-          let maxYearBuiltFilter = MAX_YEAR_BUILT_FILTER;
+          const maxYearBuiltFilter = MAX_YEAR_BUILT_FILTER;
           // @ts-ignore
           maxYearBuiltFilter[2] = currentFilterBuildDate[1]
           allFeltFormattedFilters.push(maxYearBuiltFilter)
         }
 
         if (currentFilterLivingUnitsCategory.length) {
-          let livingUnitsCategoryFilter = LIVING_UNITS_CATEGORY_FILTER;
+          const livingUnitsCategoryFilter = LIVING_UNITS_CATEGORY_FILTER;
           // @ts-ignore
           livingUnitsCategoryFilter[2] = currentFilterLivingUnitsCategory
           allFeltFormattedFilters.push(livingUnitsCategoryFilter)
         }
 
         if (currentFilterLandUseCategory.length) {
-          let landUseCategoryFilter = LAND_USE_CATEGORY_FILTER;
+          const landUseCategoryFilter = LAND_USE_CATEGORY_FILTER;
           // @ts-ignore
           landUseCategoryFilter[2] = currentFilterLandUseCategory
           allFeltFormattedFilters.push(landUseCategoryFilter)
         }
 
         if (currentGeoFilteredValues.length) {
-          let currentGeoFilter = GEOGRAPHIC_FELT_FILTER_MAP.get(currentGeographicFilter[0])
+          const currentGeoFilter = GEOGRAPHIC_FELT_FILTER_MAP.get(currentGeographicFilter[0])
           if (currentGeoFilter) {
             // @ts-ignore
             currentGeoFilter[2] = currentGeoFilteredValues
@@ -261,7 +261,7 @@ export default function Page() {
 
         const newFilters = filterUtils.andMany(allFeltFormattedFilters);
 
-        let layerToUpdate = THEME_TO_PARCEL_LAYER_MAP.get(currentTheme);
+        const layerToUpdate = THEME_TO_PARCEL_LAYER_MAP.get(currentTheme);
 
         if (layerToUpdate) {
           await felt.setLayerFilters({
@@ -273,25 +273,20 @@ export default function Page() {
     }
 
     updateLayerFilter().catch(console.error);
-  }, [felt, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeoFilteredValues, currentFilterLivingUnitsCategory])
-
-  useEffect(() => {
-    if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
-      return setShowAggregations(false);
-    }
-
-    if (THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
-      return setShowFilters(true);
-    }
-
-    if (showAggregations) {
-      return setShowFilters(false);
-    }
-  }, [showAggregations, currentTheme]);
+  }, [felt, currentTheme, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeographicFilter, currentGeoFilteredValues, currentFilterLivingUnitsCategory])
 
   async function handleThemeClick(theme: string) {
-    setCurrentTheme(theme);
-  }
+        setCurrentTheme(theme);
+        if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(theme)) {
+            setShowAggregations(false);
+        }
+        if (THEMES_WITHOUT_AGGREGATIONS.includes(theme)) {
+            return setShowFilters(true);
+        }
+        if (showAggregations) {
+            setShowFilters(false);
+        }
+    }
 
   async function handleGeoFilterChange(value: string) {
     // @ts-ignore

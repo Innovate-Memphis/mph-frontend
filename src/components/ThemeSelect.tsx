@@ -1,3 +1,4 @@
+import React from "react";
 import { For, Tabs } from "@chakra-ui/react"
 import { THEMES } from "../constants";
 

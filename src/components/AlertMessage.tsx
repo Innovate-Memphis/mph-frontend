@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { Alert, CloseButton } from "@chakra-ui/react"
 import { ALERT_MESSAGE } from "./../constants";

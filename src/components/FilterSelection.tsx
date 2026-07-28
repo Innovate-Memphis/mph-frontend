@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, For, Flex } from "@chakra-ui/react";
 import { Tooltip } from "./ui/tooltip";
 import { LuCheck } from "react-icons/lu";
