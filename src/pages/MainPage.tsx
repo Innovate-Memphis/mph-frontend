@@ -37,7 +37,7 @@ import {
 } from "../constants";
 
 interface MainPageProps {
-    token: string
+    token: string;
 }
 
 const MainPage = ({ token }: MainPageProps) => {
@@ -45,7 +45,7 @@ const MainPage = ({ token }: MainPageProps) => {
     const [showAggregations, setShowAggregations] = useState(false);
     const [currentTheme, setCurrentTheme] = useState(EXPLORE);
     const [dataYear, setDataYear] = useState<null | number>(null);
-    const [run, setRun] = useState(false);
+    const [run, setRun] = useState(() => !localStorage.getItem("tour"));
     const [stepIndex, setStepIndex] = useState(0);
     // changing the key prop causes the component to re-render. This is used to reset the filters.
     const [filterKey, setFilterKey] = useState(0);
@@ -58,11 +58,6 @@ const MainPage = ({ token }: MainPageProps) => {
             showLegend: true,
         },
     });
-
-    const hasRanTour = localStorage.getItem("tour");
-    if (!hasRanTour) {
-        setRun(true);
-    }
 
     useEffect(() => {
         const getMaxYearData = async () => {
@@ -180,7 +175,7 @@ const MainPage = ({ token }: MainPageProps) => {
             setCurrentTheme(EXPLORE)
         }
 
-        // @ts-expect-error
+        // @ts-ignore
         if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
             // Update state to advance the tour
             setStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
@@ -194,7 +189,7 @@ const MainPage = ({ token }: MainPageProps) => {
                 run={run}
                 stepIndex={stepIndex}
                 /*
-                 // @ts-expect-error  idk what this typescript error is about... */
+                 // @ts-ignore  idk what this typescript error is about... */
                 steps={TOUR_STEPS}
             />
             <Stack direction="column" height="100vh" overflow="hidden" gap={0}>

@@ -58,21 +58,21 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
 
                 if (currentFilterBuildDate[0] !== DEFAULT_BUILT_YEAR_FILTERS[0]) {
                     const minYearBuiltFilter = MIN_YEAR_BUILT_FILTER;
-                    // @ts-expect-error
+                    // @ts-ignore
                     minYearBuiltFilter[2] = currentFilterBuildDate[0]
                     allFeltFormattedFilters.push(minYearBuiltFilter)
                 }
 
                 if (currentFilterBuildDate[1] !== DEFAULT_BUILT_YEAR_FILTERS[1]) {
                     const maxYearBuiltFilter = MAX_YEAR_BUILT_FILTER;
-                    // @ts-expect-error
+                    // @ts-ignore
                     maxYearBuiltFilter[2] = currentFilterBuildDate[1]
                     allFeltFormattedFilters.push(maxYearBuiltFilter)
                 }
 
                 if (currentFilterLivingUnitsCategory.length) {
                     const livingUnitsCategoryFilter = LIVING_UNITS_CATEGORY_FILTER;
-                    // @ts-expect-error
+                    // @ts-ignore
                     livingUnitsCategoryFilter[2] = currentFilterLivingUnitsCategory
                     allFeltFormattedFilters.push(livingUnitsCategoryFilter)
                 }
@@ -89,7 +89,7 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
                 if (currentGeoFilteredValues.length) {
                     const currentGeoFilter = GEOGRAPHIC_FELT_FILTER_MAP.get(currentGeographicFilter[0])
                     if (currentGeoFilter) {
-                        // @ts-expect-error
+                        // @ts-ignore
                         currentGeoFilter[2] = currentGeoFilteredValues
                         allFeltFormattedFilters.push(currentGeoFilter);
                     }
@@ -112,13 +112,13 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
     }, [felt, currentTheme, currentFilters, currentFilterBuildDate, currentLandUseZoningFilter, currentLandUseZoningValues, currentGeographicFilter, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
 
     async function handleGeoFilterChange(value: string) {
-        // @ts-expect-error
+        // @ts-ignore
         setCurrentGeographicFilter(value);
         setCurrentGeoFilteredValues([]);
     }
 
     async function handleGeoFilterValueClick(value: Array<string>) {
-        // @ts-expect-error
+        // @ts-ignore
         setCurrentGeoFilteredValues(value);
     }
 
@@ -195,7 +195,7 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
             setCurrentFilters(newFilters);
             // @ts-expect-error
         } else if (!currentFilters.includes(filter)) {
-            // @ts-expect-error
+            // @ts-ignore
             setCurrentFilters([...currentFilters, filter]);
         } else {
             setCurrentFilters(currentFilters.filter(x => x !== filter));
