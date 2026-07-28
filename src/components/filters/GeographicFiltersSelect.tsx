@@ -5,8 +5,8 @@ import {
   SelectRoot,
   SelectTrigger,
   SelectValueText,
-} from "./ui/select";
-import { GEOGRAPHIC_FILTER_MAP } from "../constants";
+} from "../ui/select";
+import { GEOGRAPHIC_FILTER_MAP } from "../../constants";
 
 interface GeographicFilterHandler {
   geoFilter: Array<string>;
@@ -15,7 +15,7 @@ interface GeographicFilterHandler {
   onFilterValueChange(filteredValues: unknown): any;
 }
 
-export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterChange, onFilterValueChange }: GeographicFilterHandler) => {
+const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterChange, onFilterValueChange }: GeographicFilterHandler) => {
   let filterSelected = geoFilter.length !== 0 && GEOGRAPHIC_FILTER_MAP.get(geoFilter[0]) !== undefined;
   let selectedFilterOptions = createListCollection({ items: [] })
   if (filterSelected) {
@@ -80,3 +80,5 @@ export const GeographicFiltersSelect = ({ geoFilter = [], geoValues, onFilterCha
 const geographicFilters = createListCollection({
   items: [...GEOGRAPHIC_FILTER_MAP.keys()]
 });
+
+export default GeographicFiltersSelect;

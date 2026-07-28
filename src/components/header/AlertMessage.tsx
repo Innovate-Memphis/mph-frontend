@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Alert, CloseButton } from "@chakra-ui/react"
-import { ALERT_MESSAGE } from "./../constants";
+import React, { useState } from "react";
+import { Alert, CloseButton } from "@chakra-ui/react";
 
+import { ALERT_MESSAGE } from "../../constants";
 
-export const AlertMessage = () => {
+const AlertMessage = () => {
     const [closed, setClosed] = useState(false);
     if (ALERT_MESSAGE.length < 1 || closed) {
         return;
@@ -30,3 +30,4 @@ export const AlertMessage = () => {
     )
 }
 
+export default AlertMessage;
