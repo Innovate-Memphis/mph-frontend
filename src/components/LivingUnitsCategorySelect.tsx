@@ -1,21 +1,19 @@
-import React from "react";
-import { createListCollection, Stack } from "@chakra-ui/react";
-
+import { createListCollection, Stack } from "@chakra-ui/react"
 import {
   SelectContent,
   SelectItem,
   SelectRoot,
   SelectTrigger,
   SelectValueText,
-} from "../ui/select";
-import { LAND_USE_CATEGORIES } from "../../constants";
+} from "./ui/select";
+import { LIVING_UNITS_CATEGORIES } from "./../constants";
 
-interface LandUseCategoryFilterHandler {
+interface LivingUnitsCategoryFilterHandler {
   value: Array<string>;
   onSelectChange(categories: unknown): any;
 }
 
-const LandUseCategorySelect = ({ value, onSelectChange }: LandUseCategoryFilterHandler) => {
+export const LivingUnitsCategorySelect = ({ value, onSelectChange }: LivingUnitsCategoryFilterHandler) => {
   return (
     <Stack width="200px">
       <SelectRoot
@@ -26,10 +24,10 @@ const LandUseCategorySelect = ({ value, onSelectChange }: LandUseCategoryFilterH
         onValueChange={(e) => onSelectChange(e.value)}
       >
         <SelectTrigger>
-          <SelectValueText placeholder="Land Use Category" />
+          <SelectValueText placeholder="Living Units" />
         </SelectTrigger>
         <SelectContent>
-          {LAND_USE_CATEGORIES.map((category) => (
+          {LIVING_UNITS_CATEGORIES.map((category) => (
             <SelectItem item={category} key={category}>
               {category}
             </SelectItem>
@@ -41,7 +39,5 @@ const LandUseCategorySelect = ({ value, onSelectChange }: LandUseCategoryFilterH
 }
 
 const categories = createListCollection({
-  items: LAND_USE_CATEGORIES
+  items: LIVING_UNITS_CATEGORIES
 })
-
-export default LandUseCategorySelect;

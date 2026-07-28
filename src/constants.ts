@@ -593,5 +593,3 @@ export const HELP_MENU_LINKS = [
 ];
 
 export const ALERT_MESSAGE = "Notice: We have not received eviction data updates in the Property Hub since May 22, 2026, due to an updated policy in the Shelby County Clerk's Office that we’re trying to resolve.  Questions? Contact: datamidsouth@innovatememphis.com";
-
-export const DONATE_LINK = "https://secure.givelively.org/donate/mayors-institute-for-excellence-in-government-inc/memphis-property-hub";

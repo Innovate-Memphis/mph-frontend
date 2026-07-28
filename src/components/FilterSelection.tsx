@@ -1,17 +1,14 @@
-import React from "react";
-
 import { Button, For, Flex } from "@chakra-ui/react";
-import { Tooltip } from "../ui/tooltip";
+import { Tooltip } from "./ui/tooltip";
 import { LuCheck } from "react-icons/lu";
-
-import { FILTERS, FILTER_BUTTON_WIDTH } from "../../constants";
+import { FILTERS, FILTER_BUTTON_WIDTH } from "../constants";
 
 interface FilterHandler {
     currentFilters: Array<string>;
     onFilterClick(filterName?: string): any;
 }
 
-const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler) => {
+export const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler) => {
     return (
         <Flex gap="4" wrap="wrap" maxW="700px">
             <For each={FILTERS}>
@@ -32,5 +29,3 @@ const FilterSelection = ({ currentFilters, onFilterClick }: FilterHandler) => {
         </Flex>
     )
 }
-
-export default FilterSelection;
