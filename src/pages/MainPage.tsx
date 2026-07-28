@@ -142,6 +142,11 @@ const MainPage = ({ token }: MainPageProps) => {
         }
     }
 
+    async function handleAggregationsClick(showAgg: boolean) {
+        setShowAggregations(showAgg);
+        setShowFilters(!showAgg);
+    }
+
     function handleResetTour() {
         localStorage.removeItem("tour")
         setRun(true);
@@ -227,7 +232,7 @@ const MainPage = ({ token }: MainPageProps) => {
                                         </Button>
                                     </>}
                                 {!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme) &&
-                                    <AggregationsSwitch showAggregations={showAggregations} onButtonClick={setShowAggregations} />}
+                                    <AggregationsSwitch showAggregations={showAggregations} onButtonClick={handleAggregationsClick} />}
                                 {/* <LoginButton />
                   <LogoutButton /> */}
                                 <HelpMenu onResetTour={handleResetTour} />
