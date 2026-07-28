@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { RefObject, useState, useEffect } from "react";
 import {
     Box,
     Flex,
@@ -8,8 +8,9 @@ import {
     Theme,
 } from "@chakra-ui/react";
 import Joyride, { ACTIONS, EVENTS, CallBackProps } from "react-joyride";
-import { FELT_MAP_ID } from "../constants";
-import { useFeltEmbed } from "../feltUtils";
+import {
+    FeltController,
+} from "@feltmaps/js-sdk";
 
 import { LoadingMap } from "../components/felt";
 import { FilterPane } from "../components/filters";
@@ -20,7 +21,7 @@ import {
     FilterSwitch,
     HelpMenu,
     ThemeSelect,
-} from "../components/header";
+ } from "../components/header";
 import { MPHLogo } from "../components/helpers";
 
 import {
@@ -36,25 +37,17 @@ import {
 } from "../constants";
 
 interface MainPageProps {
-    token: string
+    felt: FeltController | null;
+    mapRef: RefObject<HTMLDivElement>;
 }
 
-const MainPage = ({ token }: MainPageProps) => {
+const MainPage = ({ felt, mapRef }: MainPageProps) => {
     const [showFilters, setShowFilters] = useState(true);
     const [showAggregations, setShowAggregations] = useState(false);
     const [currentTheme, setCurrentTheme] = useState(EXPLORE);
     const [dataYear, setDataYear] = useState<null | number>(null);
     const [run, setRun] = useState(false);
     const [stepIndex, setStepIndex] = useState(0);
-
-    const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
-        token,
-        uiControls: {
-            cooperativeGestures: false,
-            fullScreenButton: false,
-            showLegend: true,
-        },
-    });
 
     const hasRanTour = localStorage.getItem("tour");
     if (!hasRanTour) {
@@ -83,7 +76,7 @@ const MainPage = ({ token }: MainPageProps) => {
                 const alwaysShowParcelLayer = THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)
 
                 const allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
-                const groupsToShow = [];
+                const groupsToShow = new Array();
 
                 if (showAggregations && !alwaysShowParcelLayer) {
                     const groupForTheme = allGroupLayers.get(currentTheme);
@@ -104,7 +97,7 @@ const MainPage = ({ token }: MainPageProps) => {
                 });
 
                 const allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP);
-                const layersToShow = [];
+                const layersToShow = new Array();
 
                 if (!showAggregations || alwaysShowParcelLayer) {
                     const layerForTheme = allParcelLayers.get(currentTheme);
@@ -131,17 +124,22 @@ const MainPage = ({ token }: MainPageProps) => {
         updateLayerVisibility().catch(console.error);
     }, [felt, currentTheme, showAggregations]);
 
-    async function handleThemeClick(theme: string) {
-        setCurrentTheme(theme);
-        if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(theme)) {
-            setShowAggregations(false);
+    useEffect(() => {
+        if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
+            return setShowAggregations(false);
         }
-        if (THEMES_WITHOUT_AGGREGATIONS.includes(theme)) {
+
+        if (THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
             return setShowFilters(true);
         }
+
         if (showAggregations) {
-            setShowFilters(false);
+            return setShowFilters(false);
         }
+    }, [showAggregations, currentTheme]);
+
+    async function handleThemeClick(theme: string) {
+        setCurrentTheme(theme);
     }
 
     function handleResetTour() {
@@ -177,7 +175,7 @@ const MainPage = ({ token }: MainPageProps) => {
             setCurrentTheme(EXPLORE)
         }
 
-        // @ts-expect-error
+        // @ts-ignore
         if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
             // Update state to advance the tour
             setStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
@@ -191,7 +189,7 @@ const MainPage = ({ token }: MainPageProps) => {
                 run={run}
                 stepIndex={stepIndex}
                 /*
-                 // @ts-expect-error  idk what this typescript error is about... */
+                 // @ts-ignore  idk what this typescript error is about... */
                 steps={TOUR_STEPS}
             />
             <Stack direction="column" height="100vh" overflow="hidden" gap={0}>
