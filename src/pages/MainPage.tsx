@@ -54,7 +54,7 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
         if (!hasRanTour) {
             setRun(true);
         }
-    })
+    }, []);
 
     useEffect(() => {
         const getMaxYearData = async () => {
