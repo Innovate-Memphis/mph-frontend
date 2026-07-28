@@ -140,10 +140,13 @@ export default function Page() {
   const [run, setRun] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
 
-  const hasRanTour = localStorage.getItem("tour");
+  useEffect(() => {
+    const hasRanTour = localStorage.getItem("tour");
     if (!hasRanTour) {
       setRun(true);
     }
+  }, [])
+  
 
   useEffect(() => {
     const getMaxYearData = async () => {
