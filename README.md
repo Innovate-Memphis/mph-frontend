@@ -41,6 +41,10 @@ Tooltip changes should be tested in the DEV Felt map. The final changes should b
 
 The login provider is Auth0. The login to this platform is in the team's password management system. There is one Auth0 Action setup to check that an email address is authorized to create an account prior to signing up. There is a DEV and PROD Auth0 account, but PROD is used for both production, dev, and local setup. The ENV secrets for Auth0 are stored securely in Github. Those may need to be set locally as well. If so, please document those steps here.
 
+#### Premium Users
+
+Some users pay for premium access for additional support and features. One of those features is the ability to downtown data from MPH. In order to do this, an additional token must be provided to Felt so that the map allows download access. This is done in the Auth0 action. The user must be set up in Sharepoint with plan_type of "Premium", and that triggers a token request in the Auth0 action, that is passed to the user object upon login. That token is used to pass back to Felt when the map loads.
+
 ## Deployment
 
 This app is deployed as a static site to Github Pages. Whenever code is pushed to the `main` or `dev` branches, a Github action builds the app and deploys it.
@@ -56,3 +60,12 @@ Preferred workflow for testing changes in Dev:
 2. Build/test changes locally in the feature branch until it's ready to deploy.
 3. Delete the existing `dev` branch and create a new one as a copy of the feature branch. `git branch -d dev`, `git checkout my-feature`, `git branch dev`, `git checkout dev`
 4. Push the new `dev` branch to github, using force to overwrite history `git push origin dev --force`
+
+## Testing
+
+If testing big changes, be sure to test in an Incognito browser both locally and in DEV, before PROD deployment. Some examples of big changes are:
+- Any changes to authentication flow
+- Any changes to loading of Felt map
+- Anything that references localStorage / cookies
+- New/updated React hooks
+- Big refactors or feature releases
