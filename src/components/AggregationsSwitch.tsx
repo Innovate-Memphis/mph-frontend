@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@chakra-ui/react";
 
 interface AggregationHandler {
@@ -6,7 +5,7 @@ interface AggregationHandler {
     onButtonClick(flippedValue: boolean): any;
 }
 
-const AggregationsSwitch = ({ showAggregations, onButtonClick }: AggregationHandler) => {
+export const AggregationsSwitch = ({ showAggregations, onButtonClick }: AggregationHandler) => {
     const text = showAggregations ? "VIEW PARCELS" : "VIEW TRENDS";
     const displayClass = showAggregations ? "view-parcels" : "view-trends";
     return (
@@ -20,5 +19,3 @@ const AggregationsSwitch = ({ showAggregations, onButtonClick }: AggregationHand
         </Button>
     )
 }
-
-export default AggregationsSwitch;

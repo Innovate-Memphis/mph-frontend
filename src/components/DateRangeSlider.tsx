@@ -1,14 +1,12 @@
-import React from "react";
 import { HStack, Slider } from "@chakra-ui/react";
-
-import { CURRENT_YEAR, MIN_YEAR } from "../../constants";
+import { CURRENT_YEAR, MIN_YEAR } from "./../constants";
 
 interface DateRangerFilterHandler {
     value: Array<number>;
     onDateSliderChange(dateRange: Array<number>): any;
 }
 
-const DateRangeSlider = ({ value, onDateSliderChange }: DateRangerFilterHandler) => {
+export const DateRangeSlider = ({ value, onDateSliderChange }: DateRangerFilterHandler) => {
     return (
         <Slider.Root
             min={MIN_YEAR}
@@ -33,5 +31,3 @@ const DateRangeSlider = ({ value, onDateSliderChange }: DateRangerFilterHandler)
         </Slider.Root >
     )
 };
-
-export default DateRangeSlider;
