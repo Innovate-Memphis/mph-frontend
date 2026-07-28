@@ -23,7 +23,7 @@ export function useFeltEmbed(mapId: string, embedOptions: FeltEmbedOptions) {
     }
 
     loadFelt();
-  }, [embedOptions, mapId]);
+  }, []);
 
   return {
     felt,
@@ -49,7 +49,7 @@ export function useLiveLayerGroup(
       options: { id: initialGroup.id },
       handler: ({ layerGroup }) => setGroup(layerGroup),
     });
-  }, [felt, initialGroup.id]);
+  }, [initialGroup.id]);
 
   return currentGroup;
 }
@@ -62,7 +62,7 @@ export function useLiveLayer(felt: FeltController, initialLayer: Layer) {
       options: { id: initialLayer.id },
       handler: ({ layer }) => setLayer(layer),
     });
-  }, [felt, initialLayer.id]);
+  }, [initialLayer.id]);
 
   return currentLayer;
 }
