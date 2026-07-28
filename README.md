@@ -55,3 +55,12 @@ Preferred workflow for testing changes in Dev:
 2. Build/test changes locally in the feature branch until it's ready to deploy.
 3. Delete the existing `dev` branch and create a new one as a copy of the feature branch. `git branch -d dev`, `git checkout my-feature`, `git branch dev`, `git checkout dev`
 4. Push the new `dev` branch to github, using force to overwrite history `git push origin dev --force`
+
+## Testing
+
+If testing big changes, be sure to test in an Incognito browser both locally and in DEV, before PROD deployment. Some examples of big changes are:
+- Any changes to authentication flow
+- Any changes to loading of Felt map
+- Anything that references localStorage / cookies
+- New/updated React hooks
+- Big refactors or feature releases
