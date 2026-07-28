@@ -1,4 +1,4 @@
-import React, { RefObject, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     Flex,
@@ -8,9 +8,8 @@ import {
     Theme,
 } from "@chakra-ui/react";
 import Joyride, { ACTIONS, EVENTS, CallBackProps } from "react-joyride";
-import {
-    FeltController,
-} from "@feltmaps/js-sdk";
+import { FELT_MAP_ID } from "../constants";
+import { useFeltEmbed } from "../feltUtils";
 
 import { LoadingMap } from "../components/felt";
 import { FilterPane } from "../components/filters";
@@ -37,11 +36,10 @@ import {
 } from "../constants";
 
 interface MainPageProps {
-    felt: FeltController | null;
-    mapRef: RefObject<HTMLDivElement>;
+    token: string;
 }
 
-const MainPage = ({ felt, mapRef }: MainPageProps) => {
+const MainPage = ({ token }: MainPageProps) => {
     const [showFilters, setShowFilters] = useState(true);
     const [showAggregations, setShowAggregations] = useState(false);
     const [currentTheme, setCurrentTheme] = useState(EXPLORE);
@@ -49,12 +47,21 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
     const [run, setRun] = useState(false);
     const [stepIndex, setStepIndex] = useState(0);
 
+    const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
+        token,
+        uiControls: {
+            cooperativeGestures: false,
+            fullScreenButton: false,
+            showLegend: true,
+        },
+    });
+
     useEffect(() => {
         const hasRanTour = localStorage.getItem("tour");
         if (!hasRanTour) {
             setRun(true);
         }
-    })
+    }, []);
 
     useEffect(() => {
         const getMaxYearData = async () => {
@@ -78,7 +85,7 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
                 const alwaysShowParcelLayer = THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)
 
                 const allGroupLayers = new Map(THEME_TO_GROUP_LAYER_MAP);
-                const groupsToShow = new Array();
+                const groupsToShow = [];
 
                 if (showAggregations && !alwaysShowParcelLayer) {
                     const groupForTheme = allGroupLayers.get(currentTheme);
@@ -99,7 +106,7 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
                 });
 
                 const allParcelLayers = new Map(THEME_TO_PARCEL_LAYER_MAP);
-                const layersToShow = new Array();
+                const layersToShow = [];
 
                 if (!showAggregations || alwaysShowParcelLayer) {
                     const layerForTheme = allParcelLayers.get(currentTheme);
@@ -126,22 +133,17 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
         updateLayerVisibility().catch(console.error);
     }, [felt, currentTheme, showAggregations]);
 
-    useEffect(() => {
-        if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
-            return setShowAggregations(false);
-        }
-
-        if (THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme)) {
-            return setShowFilters(true);
-        }
-
-        if (showAggregations) {
-            return setShowFilters(false);
-        }
-    }, [showAggregations, currentTheme]);
-
     async function handleThemeClick(theme: string) {
         setCurrentTheme(theme);
+        if (showAggregations && THEMES_WITHOUT_AGGREGATIONS.includes(theme)) {
+            setShowAggregations(false);
+        }
+        if (THEMES_WITHOUT_AGGREGATIONS.includes(theme)) {
+            return setShowFilters(true);
+        }
+        if (showAggregations) {
+            setShowFilters(false);
+        }
     }
 
     function handleResetTour() {
