@@ -46,6 +46,7 @@ The login provider is Auth0. The login to this platform is in the team's passwor
 This app is deployed as a static site to Github Pages. Whenever code is pushed to the `main` or `dev` branches, a Github action builds the app and deploys it.
 
 The Github actions code is located in `.github/workflows` for both prod and dev.
+Whenever prod is deployed, dev is wiped out. This should probably be fixed at some point.
 
 The `main` branch deploys to `https://mph.datamidsouth.org`.
 The `dev` branch deploys to `https://mph.datamidsouth.org/dev`.
