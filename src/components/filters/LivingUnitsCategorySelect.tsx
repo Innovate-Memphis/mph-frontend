@@ -5,15 +5,15 @@ import {
   SelectRoot,
   SelectTrigger,
   SelectValueText,
-} from "./ui/select";
-import { LAND_USE_CATEGORIES } from "./../constants";
+} from "../ui/select";
+import { LIVING_UNITS_CATEGORIES } from "../../constants";
 
-interface LandUseCategoryFilterHandler {
+interface LivingUnitsCategoryFilterHandler {
   value: Array<string>;
   onSelectChange(categories: unknown): any;
 }
 
-export const LandUseCategorySelect = ({ value, onSelectChange }: LandUseCategoryFilterHandler) => {
+const LivingUnitsCategorySelect = ({ value, onSelectChange }: LivingUnitsCategoryFilterHandler) => {
   return (
     <Stack width="200px">
       <SelectRoot
@@ -24,10 +24,10 @@ export const LandUseCategorySelect = ({ value, onSelectChange }: LandUseCategory
         onValueChange={(e) => onSelectChange(e.value)}
       >
         <SelectTrigger>
-          <SelectValueText placeholder="Land Use Category" />
+          <SelectValueText placeholder="Living Units" />
         </SelectTrigger>
         <SelectContent>
-          {LAND_USE_CATEGORIES.map((category) => (
+          {LIVING_UNITS_CATEGORIES.map((category) => (
             <SelectItem item={category} key={category}>
               {category}
             </SelectItem>
@@ -39,5 +39,7 @@ export const LandUseCategorySelect = ({ value, onSelectChange }: LandUseCategory
 }
 
 const categories = createListCollection({
-  items: LAND_USE_CATEGORIES
-})
+  items: LIVING_UNITS_CATEGORIES
+});
+
+export default LivingUnitsCategorySelect;
