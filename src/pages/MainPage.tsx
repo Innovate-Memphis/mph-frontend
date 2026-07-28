@@ -21,7 +21,7 @@ import {
     FilterSwitch,
     HelpMenu,
     ThemeSelect,
- } from "../components/header";
+} from "../components/header";
 import { MPHLogo } from "../components/helpers";
 
 import {
@@ -49,10 +49,12 @@ const MainPage = ({ felt, mapRef }: MainPageProps) => {
     const [run, setRun] = useState(false);
     const [stepIndex, setStepIndex] = useState(0);
 
-    const hasRanTour = localStorage.getItem("tour");
-    if (!hasRanTour) {
-        setRun(true);
-    }
+    useEffect(() => {
+        const hasRanTour = localStorage.getItem("tour");
+        if (!hasRanTour) {
+            setRun(true);
+        }
+    })
 
     useEffect(() => {
         const getMaxYearData = async () => {
