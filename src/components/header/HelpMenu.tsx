@@ -9,7 +9,7 @@ import { HELP_MENU_LINKS } from "../../constants";
 const HelpMenu = ({ onResetTour }: any) =>
     <Menu.Root id="help-menu" positioning={({ placement: 'bottom' })}>
         <Menu.Trigger asChild>
-            <IconButton area-label="Open Support">
+            <IconButton area-label="Open Support" variant="solid" size="xs" colorPalette="black">
                 <Tooltip content="Support Menu" openDelay={300}>
                     <LuCircleHelp />
                 </Tooltip>
@@ -19,8 +19,8 @@ const HelpMenu = ({ onResetTour }: any) =>
         <Portal>
             <Menu.Positioner>
                 <Menu.Content>
-                    {HELP_MENU_LINKS.map((link) => (
-                        <Menu.Item key={link.href} asChild value={link.title}>
+                    {HELP_MENU_LINKS.map((link, index) => (
+                        <Menu.Item key={index} asChild value={link.title}>
                             <a href={link.href} target="_blank" rel="noreferrer">
                                 {link.title}
                             </a>

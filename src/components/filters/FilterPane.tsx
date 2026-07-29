@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-    Button,
     Flex,
-    Grid,
-    GridItem,
     Stack,
 } from "@chakra-ui/react";
 import {
@@ -19,13 +16,21 @@ import {
     LivingUnitsCategorySelect,
 } from "./";
 import {
+    itemLabels,
+    SelectedItems
+} from "../helpers";
+
+import {
     DEFAULT_BUILT_YEAR_FILTERS,
     FILTERS_TO_FELT_FILTER,
-    LAND_USE_CATEGORY_FILTER,
-    LIVING_UNITS_CATEGORY_FILTER,
     GEOGRAPHIC_FELT_FILTER_MAP,
+    LIVING_UNITS_CATEGORY_FILTER,
+    LUC_ZONING_FELT_FILTER_MAP,
     MIN_YEAR_BUILT_FILTER,
+    MFH_HOMES,
     MAX_YEAR_BUILT_FILTER,
+    SFH_HOMES,
+    SFH_MFH_HOMES,
     THEME_TO_PARCEL_LAYER_MAP,
 } from "../../constants";
 import { filterUtils } from "../../utils";
@@ -39,7 +44,8 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
     const [currentFilters, setCurrentFilters] = useState([]);
     const [currentFilterBuildDate, setCurrentFilterBuildDate] = useState(DEFAULT_BUILT_YEAR_FILTERS);
     const [currentFilterLivingUnitsCategory, setCurrentFilterLivingUnitsCategory] = useState([]);
-    const [currentFilterLandUseCategory, setCurrentFilterLandUseCategory] = useState([]);
+    const [currentLandUseZoningFilter, setCurrentLandUseZoningFilter] = useState([]);
+    const [currentLandUseZoningValues, setCurrentLandUseZoningValues] = useState([]);
     const [currentGeographicFilter, setCurrentGeographicFilter] = useState([]);
     const [currentGeoFilteredValues, setCurrentGeoFilteredValues] = useState([]);
 
@@ -71,11 +77,13 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
                     allFeltFormattedFilters.push(livingUnitsCategoryFilter)
                 }
 
-                if (currentFilterLandUseCategory.length) {
-                    const landUseCategoryFilter = LAND_USE_CATEGORY_FILTER;
-                    // @ts-ignore
-                    landUseCategoryFilter[2] = currentFilterLandUseCategory
-                    allFeltFormattedFilters.push(landUseCategoryFilter)
+                if (currentLandUseZoningValues.length) {
+                    const landUseZoningFilter = LUC_ZONING_FELT_FILTER_MAP.get(currentLandUseZoningFilter[0]);
+                    if (landUseZoningFilter) {
+                        // @ts-expect-error
+                        landUseZoningFilter[2] = currentLandUseZoningValues
+                        allFeltFormattedFilters.push(landUseZoningFilter);
+                    }
                 }
 
                 if (currentGeoFilteredValues.length) {
@@ -101,7 +109,7 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
         }
 
         updateLayerFilter().catch(console.error);
-    }, [felt, currentTheme, currentFilters, currentFilterBuildDate, currentFilterLandUseCategory, currentGeographicFilter, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
+    }, [felt, currentTheme, currentFilters, currentFilterBuildDate, currentLandUseZoningFilter, currentLandUseZoningValues, currentGeographicFilter, currentGeoFilteredValues, currentFilterLivingUnitsCategory]);
 
     async function handleGeoFilterChange(value: string) {
         // @ts-ignore
@@ -114,15 +122,78 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
         setCurrentGeoFilteredValues(value);
     }
 
+    async function handleLuZFilterChange(value: string) {
+        // @ts-expect-error
+        setCurrentLandUseZoningFilter(value);
+        setCurrentLandUseZoningValues([]);
+    }
+
+    async function handleLandUseZoningFilterClick(value: Array<string>) {
+        // @ts-expect-error
+        setCurrentLandUseZoningValues(value);
+    }
+
+    async function handleYearBuiltInputChange(index: number, value: string) {
+        if (value.length !== 4) {
+            return;
+        }
+        const newValues = currentFilterBuildDate.map((val, i) => {
+            if (i === index) {
+                return parseInt(value, 10);
+            } else {
+                return val;
+            }
+        });
+        return setCurrentFilterBuildDate(newValues);
+    }
+
+    async function removeFilter(value: (string | number)) {
+        if (currentFilters.includes(value)) {
+            setCurrentFilters(currentFilters.filter(v => v != value))
+        }
+        if (currentGeoFilteredValues.includes(value)) {
+            setCurrentGeoFilteredValues(currentGeoFilteredValues.filter(v => v != value))
+        }
+        if (currentLandUseZoningValues.includes(value)) {
+            setCurrentLandUseZoningValues(currentLandUseZoningValues.filter(v => v != value))
+        }
+        if (currentFilterLivingUnitsCategory.includes(value)) {
+            setCurrentFilterLivingUnitsCategory(currentFilterLivingUnitsCategory.filter(v => v != value))
+        }
+
+        if (currentFilterBuildDate[0] === value[0] && currentFilterBuildDate[1] === value[1]) {
+            setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
+        }
+    }
+
     async function handleFilterClick(filter?: string) {
         if (!filter) {
             setCurrentFilters([]);
             setCurrentFilterBuildDate(DEFAULT_BUILT_YEAR_FILTERS);
             setCurrentFilterLivingUnitsCategory([]);
-            setCurrentFilterLandUseCategory([]);
+            setCurrentLandUseZoningFilter([]);
+            setCurrentLandUseZoningValues([])
             setCurrentGeographicFilter([]);
             setCurrentGeoFilteredValues([]);
-            // @ts-ignore
+            // @ts-expect-error
+        } else if ((filter === MFH_HOMES.filter && currentFilters.includes(SFH_HOMES.filter)) || (filter === SFH_HOMES.filter && currentFilters.includes(MFH_HOMES.filter))) {
+            const newFilters: Array<any> = currentFilters.filter(item => item !== SFH_HOMES.filter && item !== MFH_HOMES.filter);
+            newFilters.push(SFH_MFH_HOMES.filter);
+            // @ts-expect-error
+            setCurrentFilters(newFilters);
+            // @ts-expect-error
+        } else if (filter === MFH_HOMES.filter && currentFilters.includes(SFH_MFH_HOMES.filter)) {
+            const newFilters: Array<any> = currentFilters.filter(item => item !== SFH_MFH_HOMES.filter);
+            newFilters.push(SFH_HOMES.filter);
+            // @ts-expect-error
+            setCurrentFilters(newFilters);
+            // @ts-expect-error
+        } else if (filter === SFH_HOMES.filter && currentFilters.includes(SFH_MFH_HOMES.filter)) {
+            const newFilters: Array<any> = currentFilters.filter(item => item !== SFH_MFH_HOMES.filter);
+            newFilters.push(MFH_HOMES.filter);
+            // @ts-expect-error
+            setCurrentFilters(newFilters);
+            // @ts-expect-error
         } else if (!currentFilters.includes(filter)) {
             // @ts-ignore
             setCurrentFilters([...currentFilters, filter]);
@@ -131,45 +202,49 @@ const FilterPane = ({ currentTheme, felt }: FilterPaneProps) => {
         }
     }
 
-    return (< Stack >
-        <Flex justify="space-between" paddingBottom="2">
-            <Flex align="baseline" gap="4">
+    return (
+        <Stack>
+            <Flex align="baseline" gap="4" wrap="wrap">
                 <FilterSelection
                     currentFilters={currentFilters}
                     onFilterClick={handleFilterClick} />
-                <Grid
-                    templateRows="repeat(2, 1fr)"
-                    templateColumns="repeat(2, 1fr)"
-                    gap={4}
-                >
-                    <GridItem colSpan={1}>
-                        <DateRangeSlider
-                            value={currentFilterBuildDate}
-                            onDateSliderChange={setCurrentFilterBuildDate} />
-                    </GridItem>
-                    <GridItem colSpan={1}>
-                        <LivingUnitsCategorySelect
-                            value={currentFilterLivingUnitsCategory}
-                            onSelectChange={setCurrentFilterLivingUnitsCategory} />
-                    </GridItem>
-                    <GridItem colSpan={1}>
-                        <LandUseCategorySelect
-                            value={currentFilterLandUseCategory}
-                            onSelectChange={setCurrentFilterLandUseCategory} />
-                    </GridItem>
-                    <GridItem colSpan={1}>
-                        <GeographicFiltersSelect
-                            geoFilter={currentGeographicFilter}
-                            geoValues={currentGeoFilteredValues}
-                            onFilterChange={handleGeoFilterChange}
-                            onFilterValueChange={handleGeoFilterValueClick}
-                        />
-                    </GridItem>
-                </Grid>
+                <Flex gap="1">
+                    <DateRangeSlider
+                        value={currentFilterBuildDate}
+                        onDateSliderChange={setCurrentFilterBuildDate}
+                        onDateInputChange={handleYearBuiltInputChange}
+                    />
+                    <LivingUnitsCategorySelect
+                        value={currentFilterLivingUnitsCategory}
+                        onSelectChange={setCurrentFilterLivingUnitsCategory} />
+                    <GeographicFiltersSelect
+                        geoFilter={currentGeographicFilter}
+                        geoValues={currentGeoFilteredValues}
+                        onFilterChange={handleGeoFilterChange}
+                        onFilterValueChange={handleGeoFilterValueClick}
+                    />
+                    <LandUseCategorySelect
+                        landUseZonFilter={currentLandUseZoningFilter}
+                        luzValues={currentLandUseZoningValues}
+                        onFilterChange={handleLuZFilterChange}
+                        onFilterValueChange={handleLandUseZoningFilterClick} />
+                </Flex>
             </Flex>
-            <Button marginRight="5" onClick={() => handleFilterClick()} variant="subtle">Reset Filters</Button>
-        </Flex>
-    </Stack >)
-};
+            <SelectedItems
+                handleOnXClick={removeFilter}
+                items={
+                    itemLabels(
+                        currentFilterBuildDate,
+                        currentFilters,
+                        currentGeographicFilter,
+                        currentGeoFilteredValues,
+                        currentFilterLivingUnitsCategory,
+                        currentLandUseZoningFilter,
+                        currentLandUseZoningValues)
+                } />
+        </Stack>
+    )
+
+}
 
 export default FilterPane;
