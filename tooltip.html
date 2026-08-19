@@ -225,7 +225,11 @@
                     <tr>
                         <td>Units / Acre</td>
                         <td>
+                            {% if living_units.value == nil %}
+                            -
+                            {% else %}
                             {{living_units.value | divided_by: acres.value | round: 2 | default: "-"}}
+                            {% endif %}
                         </td>
                     </tr>
                 </tbody>
@@ -415,7 +419,7 @@
                         <td>{% if eviction_filing_date.value == nil %}
                             -
                             {% else %}
-                                {{eviction_filing_date.value | date: "%m/%d/%Y" | default: "-"}}
+                            {{eviction_filing_date.value | date: "%m/%d/%Y" | default: "-"}}
                             {% endif %}
                         </td>
                     </tr>
@@ -446,7 +450,7 @@
                         <td>{% if vacant_since.value == nil %}
                             -
                             {% else %}
-                                {{vacant_since.value | date: "%m/%d/%Y" | default: "-"}}
+                            {{vacant_since.value | date: "%m/%d/%Y" | default: "-"}}
                             {% endif %}
                         </td>
                     </tr>
