@@ -38,9 +38,10 @@ import {
 
 interface MainPageProps {
     token: string;
+    email: string | undefined;
 }
 
-const MainPage = ({ token }: MainPageProps) => {
+const MainPage = ({ token, email }: MainPageProps) => {
     const [showFilters, setShowFilters] = useState(true);
     const [showAggregations, setShowAggregations] = useState(false);
     const [currentTheme, setCurrentTheme] = useState(EXPLORE);
@@ -255,7 +256,7 @@ const MainPage = ({ token }: MainPageProps) => {
                 >
                     {!felt && <LoadingMap />}
                 </Box>
-                <Footer dataYear={dataYear} />
+                <Footer dataYear={dataYear} email={email} />
             </Stack >
         </Theme >
     );
