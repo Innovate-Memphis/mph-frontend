@@ -1,8 +1,8 @@
 import type { Filters } from "@feltmaps/js-sdk";
 
-const PROD_ID = "p9CPdaItsRQm9COaGzgt17WB";
-// const DEV_ID = "2pjfh9ClOTymZRWajPdjFoA";
-export const FELT_MAP_ID = PROD_ID;
+// const PROD_ID = "p9CPdaItsRQm9COaGzgt17WB";
+const DEV_ID = "2pjfh9ClOTymZRWajPdjFoA";
+export const FELT_MAP_ID = DEV_ID;
 
 export const EXPLORE = "Explore"
 const EVICTIONS = "Evictions"
@@ -31,9 +31,9 @@ export const LAYERS_TO_HIDE = [
 export const GROUP_LAYERS_TO_HIDE = [
 ]; // use this to temporarily hide WIP layer groups
 
-// const DEV_PARCEL_LAYER_ID = "Ac9CB6AAORgyMWPewxlg8SA"
-const PROD_PARCEL_LAYER_ID = "IEZBPod9BQlCqT6G9BZSlciA"
-export const FILTERED_PARCEL_LAYER_ID = PROD_PARCEL_LAYER_ID;
+const DEV_PARCEL_LAYER_ID = "Ac9CB6AAORgyMWPewxlg8SA"
+//const PROD_PARCEL_LAYER_ID = "IEZBPod9BQlCqT6G9BZSlciA"
+export const FILTERED_PARCEL_LAYER_ID = DEV_PARCEL_LAYER_ID;
 
 export const THEMES = [
   {
