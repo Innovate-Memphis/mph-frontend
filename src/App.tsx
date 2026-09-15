@@ -31,7 +31,6 @@ export default function Page() {
   }
 
   if (user?.email) {
-    localStorage.setItem("email", user.email);
     LogRocket.identify(user.email);
   }
 
@@ -40,5 +39,5 @@ export default function Page() {
     token = user.feltToken
   }
 
-  return <MainPage token={token} />
+  return <MainPage token={token} email={user?.email} />
 }
