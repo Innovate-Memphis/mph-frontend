@@ -31,6 +31,7 @@ export default function Page() {
   }
 
   if (user?.email) {
+    localStorage.setItem("email", user.email);
     LogRocket.identify(user.email);
   }
 
