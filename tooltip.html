@@ -79,8 +79,81 @@
             font-size: 10px;
             margin-bottom: 10px;
         }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin2 {
+            0% {
+                stroke-dasharray: 1, 800;
+                stroke-dashoffset: 0;
+            }
+
+            50% {
+                stroke-dasharray: 400, 400;
+                stroke-dashoffset: -200px;
+            }
+
+            100% {
+                stroke-dasharray: 800, 1;
+                stroke-dashoffset: -800px;
+            }
+        }
+
+        .spin2 {
+            transform-origin: center;
+            animation: spin2 1.5s ease-in-out infinite,
+                spin 2s linear infinite;
+            animation-direction: alternate;
+        }
     </style>
     <script>
+        let loadingDiv;
+        function showSpinner() {
+            loadingDiv.style.display = 'block';
+        }
+
+        function hideSpinner() {
+            loadingDiv.style.display = 'none';
+        }
+
+        function showError() {
+            const errorDiv = document.getElementById("report-error");
+            if (errorDiv) errorDiv.style.display = 'block';
+        }
+
+        function hideError() {
+            const errorDiv = document.getElementById("report-error");
+            if (errorDiv) errorDiv.style.display = 'none';
+        }
+
+        function sendMessageToParent(body) {
+            const payload = {
+                type: 'REPORT_VACANCY',
+                value: body
+            };
+            // Uncomment whichever you are testing.
+            // window.top.postMessage(payload, 'http://localhost:5173/dev/');
+            window.top.postMessage(payload, 'https://mph.datamidsouth.org/dev');
+            return
+        }
+
+        function reportVacant(parid, vacancyStatus) {
+            showSpinner();
+            hideError();
+
+            const body = {
+                "parid_key": parid,
+                "reported_status": vacancyStatus,
+                "reported_datetime": new Date().toISOString()
+            };
+
+            sendMessageToParent(body);
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.currency-format').forEach(function (element) {
                 const text = element.textContent;
@@ -90,6 +163,30 @@
                     const formatted = parseInt(number).toLocaleString();
                     element.textContent = '$' + formatted;
                 }
+            });
+
+            loadingDiv = document.getElementById("loading");
+
+            const buttons = document.querySelectorAll('.report-vacant');
+            buttons.forEach(button => button.addEventListener('click', showSpinner));
+
+            window.addEventListener('message', (event) => {
+                console.log("message data is: ")
+                console.log(event.data)
+
+                        // .then(response => {
+        //             hideSpinner();
+        //             if (!response.ok) throw new Error('Network response failed.');
+        //             return response.json();
+        //         })
+        //         .then(data => {
+        //             console.log('Success:', data);
+        //         })
+        //         .catch(error => {
+        //             hideSpinner();
+        //             console.error('Error:', error);
+        //             showError();
+        //         });
             });
         });
     </script>
@@ -122,6 +219,7 @@
                 <thead>
                     <tr>
                         {% assign parid = _attributes | find: "name", "parid" %}
+                        {% assign parid_key = _attributes | find: "name", "parid_key" %}
                         <td>Parcel ID: {{parid.value}}</td>
                     </tr>
                 </thead>
@@ -436,8 +534,33 @@
                 <tbody>
                     <tr>
                         {% assign occupancy_status = _attributes | find: "name", "occupancy_status" %}
+                        {% if occupancy_status.value == 'Vacant' %}
+                        {% assign report_button = "Occupied" %}
+                        {% else %}
+                        {% assign report_button = "Vacant" %}
+                        {% endif %}
                         <td>Occupancy Status</td>
-                        <td>{{occupancy_status.value | default: "-"}}</td>
+                        <td style="width: 180px; display: flex; align-items: center; justify-content: space-between;">
+                            {% if occupancy_status.value == nil %}
+                            <button class="report-vacant"
+                                onclick="reportVacant('{{ parid_key.value }}','Occupied')">Report
+                                Occupied</button>
+                            {% else %}
+                            <span>{{occupancy_status.value | default: "-"}}</span>
+                            {% endif %}
+                            <button class="report-vacant"
+                                onclick="reportVacant('{{ parid_key.value }}','{{ report_button }}')">Report {{
+                                report_button }}</button>
+                        </td>
+                        <div id="loading" style="display: none">
+                            <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="spin2" cx="400" cy="400" fill="none" r="200" stroke-width="50"
+                                    stroke="#048188" stroke-dasharray="700 1400" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div id="report-error" style="display: none; color: #c0392b; font-size: 11px; margin-top: 6px;">
+                            We weren't able to report this status. Please email datamidsouth@innovatememphis.com
+                        </div>
                     </tr>
                     <tr>
                         {% assign months_vacant = _attributes | find: "name", "months_vacant" %}
