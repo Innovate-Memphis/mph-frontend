@@ -60,26 +60,32 @@ const MainPage = ({ token, email }: MainPageProps) => {
         },
     });
 
-    window.addEventListener('message', (event) => {
-        console.log('Data received from iframe:', event.data.value);
-        
-        if (event.data.type === 'REPORT_VACANCY') {
-            const payloadEvent = { ...event.data.value, reported_by: document.getElementById("user-email")?.textContent || "Unknown User" }
+    useEffect(() => {
+        const handleMessage = (event) => {
 
-            fetch('https://mphreportvacancy-bffcfpcaerdda5hu.eastus2-01.azurewebsites.net/api/report_vacant', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payloadEvent)
-            });
-            // .then(response => {
-            //     const responsePayload = { ...response, type: 'REPORT_VACANCY_RESPONSE' };
-            //     return event.source.postMessage(responsePayload, event.origin)
-            
-            // });
-        }
-    });
+            console.log('Data received from iframe:', event.data.value);
+            if (event.data.type === 'REPORT_VACANCY') {
+                const payloadEvent = { ...event.data.value, reported_by: document.getElementById("user-email")?.textContent || "Unknown User" }
+
+                fetch('https://mphreportvacancy-bffcfpcaerdda5hu.eastus2-01.azurewebsites.net/api/report_vacant', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payloadEvent)
+                });
+            }
+        };
+
+        window.addEventListener('message', handleMessage);
+
+        return () => window.removeEventListener('message', handleMessage);
+    }, []);
+
+    // .then(response => {
+    //     const responsePayload = { ...response, type: 'REPORT_VACANCY_RESPONSE' };
+    //     return event.source.postMessage(responsePayload, event.origin)
+    // });
 
 
     useEffect(() => {
