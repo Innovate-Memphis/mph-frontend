@@ -62,30 +62,28 @@ const MainPage = ({ token, email }: MainPageProps) => {
 
     useEffect(() => {
         const handleMessage = (event) => {
-
             console.log('Data received from iframe:', event.data.value);
-            if (event.data.type === 'REPORT_VACANCY') {
-                const payloadEvent = { ...event.data.value, reported_by: document.getElementById("user-email")?.textContent || "Unknown User" }
+            if (!event.data || event.data.type !== 'REPORT_VACANCY') return;
+            const popup = event.source;
 
-                fetch('https://mphreportvacancy-bffcfpcaerdda5hu.eastus2-01.azurewebsites.net/api/report_vacant', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payloadEvent)
-                });
-            }
-        };
+            const payloadEvent = {
+                ...event.data.value,
+                reported_by: document.getElementById("user-email")?.textContent || "Unknown User"
+            };
+
+            fetch('https://mphreportvacancy-bffcfpcaerdda5hu.eastus2-01.azurewebsites.net/api/report_vacant', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payloadEvent)
+            })
+            .then((resp) => popup.postMessage({ type: 'REPORT_VACANCY_ACK', ok: resp.ok }, '*'))
+            .catch(() => popup.postMessage({ type: 'REPORT_VACANCY_ACK', ok: false }, '*'));
+        }
 
         window.addEventListener('message', handleMessage);
 
         return () => window.removeEventListener('message', handleMessage);
     }, []);
-
-    // .then(response => {
-    //     const responsePayload = { ...response, type: 'REPORT_VACANCY_RESPONSE' };
-    //     return event.source.postMessage(responsePayload, event.origin)
-    // });
 
 
     useEffect(() => {

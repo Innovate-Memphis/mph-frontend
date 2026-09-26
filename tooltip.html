@@ -111,6 +111,9 @@
         }
     </style>
     <script>
+        // Uncomment whichever you are testing.
+        const APP_ORIGIN = 'http://localhost:5173';
+        // const APP_ORIGIN = 'https://mph.datamidsouth.org';
         let loadingDiv;
         function showSpinner() {
             loadingDiv.style.display = 'block';
@@ -130,14 +133,19 @@
             if (errorDiv) errorDiv.style.display = 'none';
         }
 
+        function showSuccess() {
+            const successDiv = document.getElementById("report-success");
+            if (successDiv) successDiv.style.display = 'block';
+            const reportButtons = document.getElementById("report-buttons");
+            if (reportButtons) reportButtons.innerText = "✅";
+        }
+
         function sendMessageToParent(body) {
             const payload = {
                 type: 'REPORT_VACANCY',
                 value: body
             };
-            // Uncomment whichever you are testing.
-            // window.top.postMessage(payload, 'http://localhost:5173/dev/');
-            window.top.postMessage(payload, 'https://mph.datamidsouth.org/dev');
+            window.top.postMessage(payload, `${APP_ORIGIN}/dev/`);
             return
         }
 
@@ -171,23 +179,17 @@
             buttons.forEach(button => button.addEventListener('click', showSpinner));
 
             window.addEventListener('message', (event) => {
-                console.log("message data is: ")
-                console.log(event.data)
-
-                        // .then(response => {
-        //             hideSpinner();
-        //             if (!response.ok) throw new Error('Network response failed.');
-        //             return response.json();
-        //         })
-        //         .then(data => {
-        //             console.log('Success:', data);
-        //         })
-        //         .catch(error => {
-        //             hideSpinner();
-        //             console.error('Error:', error);
-        //             showError();
-        //         });
+                if (event.origin !== APP_ORIGIN) return;
+                if (event.data?.type === 'REPORT_VACANCY_ACK') {
+                    hideSpinner();
+                    if (!event.data.ok) {
+                        console.error('Error:', error);
+                        showError();
+                    }
+                    showSuccess();
+                }
             });
+
         });
     </script>
 </head>
@@ -540,7 +542,7 @@
                         {% assign report_button = "Vacant" %}
                         {% endif %}
                         <td>Occupancy Status</td>
-                        <td style="width: 180px; display: flex; align-items: center; justify-content: space-between;">
+                        <td id="report-buttons" style="width: 180px; display: flex; align-items: center; justify-content: space-between;">
                             {% if occupancy_status.value == nil %}
                             <button class="report-vacant"
                                 onclick="reportVacant('{{ parid_key.value }}','Occupied')">Report
@@ -560,6 +562,9 @@
                         </div>
                         <div id="report-error" style="display: none; color: #c0392b; font-size: 11px; margin-top: 6px;">
                             We weren't able to report this status. Please email datamidsouth@innovatememphis.com
+                        </div>
+                        <div id="report-success" style="display: none; font-size: 11px; margin-top: 6px;">
+                            Thanks! We will review your report soon and update our database accordingly.
                         </div>
                     </tr>
                     <tr>
