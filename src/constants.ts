@@ -834,6 +834,7 @@ export const TOUR_STEPS = [
 export const LOGIN_FAILURE_MESSAGE = "Trouble logging in? Please visit our ";
 export const FAQ_LINK_TEXT = "FAQ page.";
 export const FAQ_LINK = "https://help.datamidsouth.org/memphis-property-hub/support-and-administration/troubleshooting-and-faqs";
+export const PREMIUM_PLAN_LINK = "https://help.datamidsouth.org/memphis-property-hub/premium-features/premium-membership";
 
 export const REQUEST_ACCESS_FORM_URL = "https://forms.office.com/Pages/ResponsePage.aspx?id=v_RNHxm4P0qoQco0jnU1XFhfogR1DkFKj5fBqT0dT8pUQldDVE1JNDdFSUxBQjJTMFBaUkpUMFRIWS4u";
 

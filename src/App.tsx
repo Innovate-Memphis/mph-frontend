@@ -39,5 +39,5 @@ export default function Page() {
     token = user.feltToken
   }
 
-  return <MainPage token={token} />
+  return <MainPage token={token} email={user?.email} />
 }
