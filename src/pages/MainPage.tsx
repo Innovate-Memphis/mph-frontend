@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
     Box,
     Button,
@@ -21,6 +21,7 @@ import {
     FilterSwitch,
     HelpMenu,
     ThemeSelect,
+    UserMenu,
 } from "../components/header";
 import { MPHLogo } from "../components/helpers";
 
@@ -38,9 +39,10 @@ import {
 
 interface MainPageProps {
     token: string;
+    email: string | undefined;
 }
 
-const MainPage = ({ token }: MainPageProps) => {
+const MainPage = ({ token, email }: MainPageProps) => {
     const [showFilters, setShowFilters] = useState(true);
     const [showAggregations, setShowAggregations] = useState(false);
     const [currentTheme, setCurrentTheme] = useState(EXPLORE);
@@ -49,6 +51,10 @@ const MainPage = ({ token }: MainPageProps) => {
     const [stepIndex, setStepIndex] = useState(0);
     // changing the key prop causes the component to re-render. This is used to reset the filters.
     const [filterKey, setFilterKey] = useState(0);
+
+    const userEmail = useMemo(() => {
+        return email || "Unknown user";
+    }, [email]);
 
     const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
         token,
@@ -233,8 +239,7 @@ const MainPage = ({ token }: MainPageProps) => {
                                     </>}
                                 {!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme) &&
                                     <AggregationsSwitch showAggregations={showAggregations} onButtonClick={handleAggregationsClick} />}
-                                {/* <LoginButton />
-                  <LogoutButton /> */}
+                                <UserMenu email={userEmail} premium={!!token} />
                                 <HelpMenu onResetTour={handleResetTour} />
                             </HStack>
                         </Flex>
