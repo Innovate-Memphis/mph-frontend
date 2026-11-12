@@ -3,6 +3,7 @@ import AlertMessage from "./AlertMessage";
 import FilterSwitch from "./FilterSwitch";
 import HelpMenu from "./HelpMenu";
 import ThemeSelect from "./ThemeSelect";
+import UserMenu from "./UserMenu";
 
 export {
     AggregationsSwitch,
@@ -10,4 +11,5 @@ export {
     FilterSwitch,
     HelpMenu,
     ThemeSelect,
+    UserMenu,
 };

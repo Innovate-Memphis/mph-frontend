@@ -21,6 +21,7 @@ import {
     FilterSwitch,
     HelpMenu,
     ThemeSelect,
+    UserMenu,
 } from "../components/header";
 import { MPHLogo } from "../components/helpers";
 
@@ -51,6 +52,8 @@ const MainPage = ({ token, email }: MainPageProps) => {
     // changing the key prop causes the component to re-render. This is used to reset the filters.
     const [filterKey, setFilterKey] = useState(0);
 
+    const userEmail = email || "Unknown user";
+
     const { felt, mapRef } = useFeltEmbed(FELT_MAP_ID, {
         token,
         uiControls: {
@@ -76,8 +79,8 @@ const MainPage = ({ token, email }: MainPageProps) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payloadEvent)
             })
-            .then((resp) => popup.postMessage({ type: 'REPORT_VACANCY_ACK', ok: resp.ok }, '*'))
-            .catch(() => popup.postMessage({ type: 'REPORT_VACANCY_ACK', ok: false }, '*'));
+                .then((resp) => popup.postMessage({ type: 'REPORT_VACANCY_ACK', ok: resp.ok }, '*'))
+                .catch(() => popup.postMessage({ type: 'REPORT_VACANCY_ACK', ok: false }, '*'));
         }
 
         window.addEventListener('message', handleMessage);
@@ -216,6 +219,7 @@ const MainPage = ({ token, email }: MainPageProps) => {
 
     return (
         <Theme appearance="light">
+            <span id="user-email" hidden>{userEmail}</span>
             <Joyride
                 callback={handleJoyrideCallback}
                 run={run}
@@ -260,8 +264,7 @@ const MainPage = ({ token, email }: MainPageProps) => {
                                     </>}
                                 {!THEMES_WITHOUT_AGGREGATIONS.includes(currentTheme) &&
                                     <AggregationsSwitch showAggregations={showAggregations} onButtonClick={handleAggregationsClick} />}
-                                {/* <LoginButton />
-                  <LogoutButton /> */}
+                                <UserMenu email={userEmail} premium={!!token} />
                                 <HelpMenu onResetTour={handleResetTour} />
                             </HStack>
                         </Flex>
@@ -282,7 +285,7 @@ const MainPage = ({ token, email }: MainPageProps) => {
                 >
                     {!felt && <LoadingMap />}
                 </Box>
-                <Footer dataYear={dataYear} email={email} />
+                <Footer dataYear={dataYear} />
             </Stack >
         </Theme >
     );

@@ -10,13 +10,12 @@ import { DONATE_LINK } from "../../constants";
 
 interface FooterProps {
     dataYear: number | null;
-    email: string | undefined;
 }
 
-const Footer = ({ dataYear, email }: FooterProps) =>
+const Footer = ({ dataYear}: FooterProps) =>
     <Box padding="2">
         <HStack justify="space-between">
-            {dataYear && <Text textStyle="sm">Logged in as <span id="user-email">{email || "Unknown user"}</span>. Currently viewing data for {dataYear}</Text>}
+            {dataYear && <Text>Currently viewing data for {dataYear}</Text>}
             <Text textStyle="sm">Like what you see? <Link colorPalette="green" variant="underline" href={DONATE_LINK} target="_blank">Help sustain our work!</Link></Text>
         </HStack>
     </Box>
